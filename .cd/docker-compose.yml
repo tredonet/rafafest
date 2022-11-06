@@ -1,7 +1,7 @@
 version: "2"
 services:
   rafafest:
-    build: ../frontend
+    build: ../apps/frontend
     container_name: rafafest_frontend
     networks:
       - proxy
