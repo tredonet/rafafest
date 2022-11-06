@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "cd ./apps/frontend && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "workspaces": [
     "apps/frontend",
     "apps/backend"
-  ]
+  ],
+  "dependencies": {
+    "@vueuse/core": "^9.4.0"
+  }
 }
