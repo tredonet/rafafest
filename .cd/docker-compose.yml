@@ -1,0 +1,24 @@
+version: "2"
+services:
+  rafafest:
+    build: ../frontend
+    container_name: rafafest_frontend
+    networks:
+      - proxy
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rafafest.entrypoints=http"
+      - "traefik.http.routers.rafafest.rule=Host(`rafafest.com`)"
+      - "traefik.http.middlewares.rafafest-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.rafafest.middlewares=rafafest-https-redirect"
+      - "traefik.http.routers.rafafest-secure.entrypoints=https"
+      - "traefik.http.routers.rafafest-secure.rule=Host(`rafafest.com`)"
+      - "traefik.http.routers.rafafest-secure.tls=true"
+      - "traefik.http.routers.rafafest-secure.service=rafafest"
+      - "traefik.http.services.rafafest.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true
