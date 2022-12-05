@@ -3,6 +3,7 @@ import { Logger } from "./Logger";
 
 export function ErrorHandler(logger: Logger){
     return async (error: Error, req: Request, res: Response, next: NextFunction) =>{
+        console.log(error);
         return res.status(500).send("internal_server_error");
     }
 }
