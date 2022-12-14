@@ -22,7 +22,9 @@ const itemClass = computed(() => {
 });
 </script>
 <template>
-  <router-link :class="itemClass" :to="path">{{ props.to }}</router-link>
+  <router-link :class="itemClass" :to="props.disabled ? '' : path">{{
+    props.to
+  }}</router-link>
 </template>
 <style>
 .nav-item {
@@ -40,7 +42,7 @@ const itemClass = computed(() => {
   color: var(--color-heading-inverted);
 }
 
-.nav-item:hover:not(.selected) {
+.nav-item:hover:not(.selected):not(.disabled) {
   color: var(--color-background-inverted);
   border-color: var(--color-background-inverted);
   cursor: pointer;

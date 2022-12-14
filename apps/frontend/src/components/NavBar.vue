@@ -5,9 +5,9 @@ import NavBarItem from "./NavBarItem.vue";
   <nav>
     <NavBarItem to="Home" />
     <NavBarItem to="Rafafest" />
-    <NavBarItem to="VLC Tips" />
-    <NavBarItem to="Timetable" />
-    <NavBarItem to="Good to Know" />
+    <NavBarItem to="VLC Tips" disabled />
+    <NavBarItem to="Timetable" disabled />
+    <NavBarItem to="Good to Know" disabled />
     <NavBarItem to="My invite" />
   </nav>
 </template>
