@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePreferredColorScheme } from "@vueuse/core";
-import { NavBar } from "./components";
+import { NavBar } from "@/components";
+import { RouterView } from "vue-router";
 
 const preferredColor = usePreferredColorScheme();
 </script>
@@ -27,6 +28,8 @@ const preferredColor = usePreferredColorScheme();
 }
 
 .content {
+  margin: 0 auto;
+  width: 60vw;
   height: 90vh;
   overflow-y: scroll;
 }

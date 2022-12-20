@@ -27,6 +27,9 @@ export class Guest {
     attendenceDates?: string[]
 
     @Column()
+    attending: "yes" | "no" | "maybe" | undefined
+
+    @Column()
     activities?: string[]
 
     @Column()

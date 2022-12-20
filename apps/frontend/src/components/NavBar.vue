@@ -2,7 +2,7 @@
 import NavBarItem from "./NavBarItem.vue";
 </script>
 <template>
-  <nav>
+  <nav class="custom-nav">
     <NavBarItem to="Home" />
     <NavBarItem to="Rafafest" />
     <NavBarItem to="VLC Tips" disabled />
@@ -12,7 +12,7 @@ import NavBarItem from "./NavBarItem.vue";
   </nav>
 </template>
 <style>
-nav {
+.custom-nav {
   font-family: "Patrick", Helvetica, Arial;
   font-size: x-large;
   margin: 1vw 0;
