@@ -8,7 +8,7 @@
     </div>
     <div class="row justify-center" style="margin: 0% 30px 0">
       <div class="col-9">
-        <p style="font-size: large">
+        <p class="text">
           Yep. I am turning 30 years old - at least according to my birth
           certificate it my parents drawer (at least that’s where it should be).
           <br /><br />
@@ -34,20 +34,6 @@
         </p>
       </div>
     </div>
-    <router-link class="signup-button" to="/my-invite">Sign me up!</router-link>
+    <router-link class="custom-button" to="/my-invite">Sign me up!</router-link>
   </div>
 </template>
-<style>
-.signup-button {
-  float: right;
-  color: green;
-  background-color: transparent;
-  border: 3px solid green;
-  border-radius: 10px;
-  width: 20%;
-  padding: 10px 0;
-  text-align: center;
-  text-decoration: none;
-  font-size: larger;
-}
-</style>

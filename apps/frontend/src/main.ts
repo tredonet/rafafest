@@ -14,5 +14,16 @@ app.use(createPinia());
 app.use(router);
 app.use(Quasar, {
   plugins: {},
+  config: {
+    brand: {
+      primary: "#3AA655",
+      secondary: "#FED85D",
+      tertiary: "#ED0A3F",
+      dark: "#333",
+      mute: "#7D7D7D",
+      soft: "#EEE",
+      white: "#FFF",
+    },
+  },
 });
 app.mount("#app");

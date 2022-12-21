@@ -34,7 +34,7 @@ const itemClass = computed(() => {
   text-align: center;
   text-decoration: none;
   border: 5px solid var(--color-background-mute-inverted);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .selected {
