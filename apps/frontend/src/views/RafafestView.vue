@@ -1,13 +1,17 @@
+<script lang="ts" setup>
+import spriteStanding from "@/assets/img/rafa-standing.svg";
+import spriteSitting from "@/assets/img/rafa-sitting-2.svg";
+</script>
 <template>
   <div class="q-pa-md doc-container">
     <div class="row justify-center">
       <div class="col-7 title">RAFAFEST - Rapha turns 30</div>
     </div>
     <div class="row justify-center">
-      <div class="col-7 subtitle">15th of April, 2023</div>
+      <div class="col-5 subtitle">15th of April, 2023</div>
     </div>
     <div class="row justify-center" style="margin: 0% 30px 0">
-      <div class="col-9">
+      <div class="col-5">
         <p class="text">
           Yep. I am turning 30 years old - at least according to my birth
           certificate it my parents drawer (at least that’s where it should be).
@@ -34,6 +38,29 @@
         </p>
       </div>
     </div>
-    <router-link class="custom-button" to="/my-invite">Sign me up!</router-link>
+    <div class="row justify-end">
+      <router-link
+        class="col-2 custom-button"
+        to="/my-invite"
+        style="margin-right: 10vw"
+      >
+        <img class="sprite-sitting" :src="spriteSitting" />
+        Sign me up!
+      </router-link>
+    </div>
   </div>
+  <img class="sprite-standing" :src="spriteStanding" />
 </template>
+<style>
+.sprite-standing {
+  bottom: 0vw;
+  left: 10vw;
+  position: absolute;
+  width: 20vw;
+}
+.sprite-sitting {
+  position: absolute;
+  top: -10vw;
+  left: 10vw;
+}
+</style>

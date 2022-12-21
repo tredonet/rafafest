@@ -29,7 +29,6 @@ const preferredColor = usePreferredColorScheme();
 
 .content {
   margin: 0 auto;
-  width: 60vw;
   height: 90vh;
   overflow-y: scroll;
 }

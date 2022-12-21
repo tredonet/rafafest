@@ -1,21 +1,22 @@
 <script lang="ts" setup>
-import heartbreak from "../assets/icons/heart-break.svg";
-import heartbeat from "../assets/icons/heartbeat.svg";
-import heart from "../assets/icons/heart.svg";
+import spritePeople from "@/assets/img/people.svg";
+import heartbreak from "@/assets/icons/heart-break.svg";
+import heartbeat from "@/assets/icons/heartbeat.svg";
+import heart from "@/assets/icons/heart.svg";
 </script>
 <template>
   <div class="row justify-center">
-    <div class="col-6 title">Let's get you signed up</div>
+    <div class="col-4 title">Let's get you signed up</div>
   </div>
   <div class="row justify-center">
-    <div class="col-6 notes">
+    <div class="col-4 notes">
       Lorem ipsum dolor sit amet consectetur. Scelerisque pharetra elementum
       amet nulla. In suspendisse pulvinar maecenas non risus dolor commodo
       scelerisque. Duis venenatis id nunc rutrum viverra magna.
     </div>
   </div>
   <div class="row justify-center">
-    <q-form class="col-6 q-gutter-sm">
+    <q-form class="col-4 q-gutter-sm">
       <div class="row q-gutter-sm">
         <q-input
           class="col"
@@ -65,9 +66,15 @@ import heart from "../assets/icons/heart.svg";
       </div>
     </q-form>
   </div>
+  <img class="sprite" :src="spritePeople" />
 </template>
 <style>
 .icon {
   margin-left: 20px;
+}
+.sprite {
+  position: absolute;
+  right: 5vw;
+  bottom: 0;
 }
 </style>
