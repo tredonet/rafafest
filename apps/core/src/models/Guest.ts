@@ -1,4 +1,4 @@
-import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm"
+import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm";
 
 //Where did Raphael really got to know the guest
 type Cirlce = "wolfach" | "childhood" | "hometown" | "university" | "vlc" | "bolt" | "gigtor" | "hungary"

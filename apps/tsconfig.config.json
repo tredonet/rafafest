@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "target": "es5",
+        "module": "commonjs",
+        "strict": true,
+        "lib": ["es6", "dom"],
+        "strictPropertyInitialization": false
+    }
+}

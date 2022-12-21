@@ -1,6 +1,7 @@
 {
   "name": "rafafest",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,8 +21,7 @@
   },
   "homepage": "https://github.com/tredonet/rafafest#readme",
   "workspaces": [
-    "apps/frontend",
-    "apps/backend"
+    "apps/*"
   ],
   "dependencies": {
     "@vueuse/core": "^9.4.0"
