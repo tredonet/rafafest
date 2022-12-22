@@ -4,7 +4,7 @@
         "incremental": true,
         "declaration": true,
         "declarationMap": true,
-        "sourceMap": true,
+        "inlineSourceMap": true,
 
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -14,8 +14,7 @@
         "resolveJsonModule": true,
         "target": "es5",
         "module": "commonjs",
-        "strict": true,
-        "lib": ["es6", "dom"],
+        "lib": ["es5", "es6"],
         "strictPropertyInitialization": false
     }
 }

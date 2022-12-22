@@ -6,8 +6,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "cd ./apps/frontend && npm run dev",
-    "backend": "cd ./apps/backend && npm run start"
+    "frontend": " npm run dev -w apps/frontend",
+    "backend": "npm run start -w apps/backend",
+    "build:backend": "tsc -b -v apps/tsconfig.build.json",
+    "build:frontend": "npm run build -w apps/frontend",
+    "build": "npm run build:backend && npm run build:frontend",
+    "clean": "npm run clean -ws"
   },
   "repository": {
     "type": "git",

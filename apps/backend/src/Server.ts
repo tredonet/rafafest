@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import history from "connect-history-api-fallback";
 import { GuestController } from "controllers";
 import { Database } from "Database";
 import { Guest } from "@rafafest/core";
@@ -37,6 +38,8 @@ export class Server {
 		this.guestController.registerRoutes(this.server);
 		this.authController.registerRoutes(this.server);
 		this.server.use(ErrorHandler(this.logger));
+		this.server.use(history());
+		this.server.use(express.static("public"));
 		this.server.listen(8000);
 	}
 }

@@ -1,5 +1,8 @@
 # Logs
 data
+apps/backend/public
+**/dist
+**/bin
 logs
 *.log
 npm-debug.log*
