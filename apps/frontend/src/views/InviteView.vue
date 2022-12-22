@@ -3,6 +3,38 @@ import spritePeople from "@/assets/img/people.svg";
 import heartbreak from "@/assets/icons/heart-break.svg";
 import heartbeat from "@/assets/icons/heartbeat.svg";
 import heart from "@/assets/icons/heart.svg";
+import { useGuestStore } from "@/stores";
+import { storeToRefs } from "pinia";
+import { QForm, QInput, QBtn } from "quasar";
+import { onBeforeMount, ref } from "vue";
+import { useRouter } from "vue-router";
+import api from "@/api";
+
+const router = useRouter();
+const guestStore = useGuestStore();
+const { guest } = storeToRefs(guestStore);
+
+onBeforeMount(() => {
+  if (!guest?.value) return router.push("/error");
+});
+
+const rsvp = ref(guest?.value?.attending || "yes");
+const onSetRSVP = (option: "yes" | "no" | "maybe") => {
+  rsvp.value = option;
+};
+
+const onSubmit = async () => {
+  try {
+    if (!guest?.value) throw new Error("No invite info found");
+    const { code, name, surname, email } = guest.value;
+    const attending = rsvp.value;
+    await api.guest.rsvp({ code, name, surname, email, attending });
+    guestStore.fetch(guest.value.code);
+    alert("Thank you!");
+  } catch {
+    alert("RSVP failed");
+  }
+};
 </script>
 <template>
   <div class="row justify-center">
@@ -15,32 +47,37 @@ import heart from "@/assets/icons/heart.svg";
       scelerisque. Duis venenatis id nunc rutrum viverra magna.
     </div>
   </div>
-  <div class="row justify-center">
-    <q-form class="col-4 q-gutter-sm">
+  <div class="row justify-center" v-if="guest">
+    <q-form class="col-4 q-gutter-sm" @submit="onSubmit">
       <div class="row q-gutter-sm">
         <q-input
+          id="name"
           class="col"
           rounded
           outlined
+          :disable="Boolean(guest.name)"
           label="First name"
-          v-model="undefined"
+          v-model="guest.name"
         />
         <q-input
+          id="surname"
           class="col"
           rounded
           outlined
+          :disable="Boolean(guest.surname)"
           label="Last name"
-          v-model="undefined"
+          v-model="guest.surname"
         />
       </div>
       <div class="row q-gutter-sm">
         <div class="col">
           <q-input
+            id="email"
             rounded
             outlined
             label="Email Address"
             type="email"
-            v-model="undefined"
+            v-model="guest.email"
           />
         </div>
       </div>
@@ -51,18 +88,36 @@ import heart from "@/assets/icons/heart.svg";
         </div>
       </div>
       <div class="row q-gutter-sm">
-        <q-btn class="col" unelevated color="primary" rounded>
+        <q-btn
+          class="col"
+          unelevated
+          :color="rsvp === 'yes' ? 'primary' : 'dark'"
+          rounded
+          :onclick="() => onSetRSVP('yes')"
+        >
           100% - Yes <img class="icon" :src="heart" />
         </q-btn>
-        <q-btn class="col" unelevated color="dark" rounded>
+        <q-btn
+          class="col"
+          unelevated
+          :color="rsvp === 'maybe' ? 'primary' : 'dark'"
+          rounded
+          :onclick="() => onSetRSVP('maybe')"
+        >
           Not sure yet <img class="icon" :src="heartbeat" />
         </q-btn>
-        <q-btn class="col" unelevated color="dark" rounded>
+        <q-btn
+          class="col"
+          unelevated
+          :color="rsvp === 'no' ? 'primary' : 'dark'"
+          rounded
+          :onclick="() => onSetRSVP('no')"
+        >
           I can't <img class="icon" :src="heartbreak" />
         </q-btn>
       </div>
       <div class="row q-gutter-sm">
-        <q-btn class="col custom-button" label="Confirm" />
+        <q-btn class="col custom-button" label="Confirm" type="submit" />
       </div>
     </q-form>
   </div>

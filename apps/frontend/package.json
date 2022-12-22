@@ -8,11 +8,14 @@
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "clean": "rm -rf dist && rm -rf node_modules"
   },
   "dependencies": {
     "@quasar/extras": "^1.15.5",
+		"@rafafest/core": "^1.0.0",
     "@vueuse/core": "^9.4.0",
+    "axios": "^1.2.1",
     "pinia": "^2.0.23",
     "quasar": "^2.10.1",
     "vue": "^3.2.41",

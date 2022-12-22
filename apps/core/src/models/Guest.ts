@@ -18,7 +18,7 @@ export class Guest {
     surname: string
 
     @Column()
-    email: number
+    email: string
 
     @Column()
     code: string

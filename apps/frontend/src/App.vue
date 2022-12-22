@@ -2,13 +2,17 @@
 import { usePreferredColorScheme } from "@vueuse/core";
 import { NavBar } from "@/components";
 import { RouterView } from "vue-router";
+import { useGuestStore } from "@/stores";
+import { storeToRefs } from "pinia";
 
 const preferredColor = usePreferredColorScheme();
+const guestStore = useGuestStore();
+const { guest } = storeToRefs(guestStore);
 </script>
 
 <template>
   <div class="wrapper">
-    <NavBar class="navbar" />
+    <NavBar class="navbar" v-if="guest" />
     <div class="content">
       <RouterView class="content" />
     </div>

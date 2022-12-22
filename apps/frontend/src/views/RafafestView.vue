@@ -1,6 +1,17 @@
 <script lang="ts" setup>
 import spriteStanding from "@/assets/img/rafa-standing.svg";
 import spriteSitting from "@/assets/img/rafa-sitting-2.svg";
+import { useGuestStore } from "@/stores";
+import { storeToRefs } from "pinia";
+import { onBeforeMount } from "vue";
+import { useRouter, RouterLink } from "vue-router";
+
+onBeforeMount(() => {
+  const router = useRouter();
+  const guestStore = useGuestStore();
+  const { guest } = storeToRefs(guestStore);
+  if (!guest?.value) return router.push("/error");
+});
 </script>
 <template>
   <div class="q-pa-md doc-container">

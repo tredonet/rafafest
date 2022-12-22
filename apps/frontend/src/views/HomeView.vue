@@ -2,6 +2,17 @@
 import SpeechBubbleVue from "@/components/SpeechBubble.vue";
 import doodle from "@/assets/img/doodle.png";
 import sprite from "@/assets/img/rafa-sitting.svg";
+import { onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
+import { useGuestStore } from "@/stores";
+import { storeToRefs } from "pinia";
+
+onBeforeMount(() => {
+  const router = useRouter();
+  const guestStore = useGuestStore();
+  const { guest } = storeToRefs(guestStore);
+  if (!guest?.value) return router.push("/error");
+});
 </script>
 <template>
   <div class="q-pa-md doc-container">
