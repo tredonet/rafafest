@@ -5,7 +5,7 @@ import heartbeat from "@/assets/icons/heartbeat.svg";
 import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
-import { QForm, QInput, QBtn } from "quasar";
+import { QForm, QInput, QBtn, useQuasar } from "quasar";
 import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 import api from "@/api";
@@ -13,6 +13,7 @@ import api from "@/api";
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
+const $q = useQuasar();
 
 onBeforeMount(() => {
   if (!guest?.value) return router.push("/error");
@@ -80,6 +81,11 @@ const onSubmit = async () => {
             outlined
             label="Email Address"
             type="email"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) || 'You know, to keep you updated',
+            ]"
             v-model="guest.email"
           />
         </div>

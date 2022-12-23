@@ -50,7 +50,7 @@
   --section-gap: 160px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
@@ -74,7 +74,7 @@
     --color-heading-inverted: var(--vt-c-text-light-1);
     --color-text-inverted: var(--vt-c-text-light-1);
   }
-}
+} */
 
 *,
 *::before,

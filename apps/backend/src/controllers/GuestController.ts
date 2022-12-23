@@ -29,7 +29,7 @@ export class GuestController extends AbstractController<Guest> {
 
 	async rsvp(req: Request): Promise<ResponseBody<null>> {
 		const { code, name, surname, email, attending } = req.body;
-		if (!code || !name || !surname || !email || !attending)
+		if (!code || !name || !email || !attending)
 			throw new Error("fields_missing");
 		const guest = await this.service.findOne({ code });
 		if (!guest || guest.name !== name) throw new Error("not_found");

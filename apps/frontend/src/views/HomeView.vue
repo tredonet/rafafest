@@ -94,7 +94,7 @@ onBeforeMount(() => {
     display: none;
   }
   .lets-go {
-    margin: 25vh 0;
+    margin: 15vh 0;
   }
 }
 </style>

@@ -92,6 +92,7 @@ onBeforeMount(() => {
   }
   .textbox {
     max-width: 100vw;
+    max-height: 45vh;
   }
 }
 </style>
