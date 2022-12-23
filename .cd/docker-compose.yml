@@ -8,6 +8,8 @@ services:
       MONGO_CONNECTION_STRING: CHANGE_ME
     networks:
       - proxy
+    depends_on:
+      - mongo
     restart: always
     labels:
       - "traefik.enable=true"
@@ -22,15 +24,18 @@ services:
       - "traefik.http.services.rafafest.loadbalancer.server.port=8000"
       - "traefik.docker.network=proxy"
   mongo:
-      image: mongo
+      image: mongo:4.0
+      container_name: rafafest_db
       ports:
           - 27017:27017
       environment:
           MONGO_INITDB_ROOT_USERNAME: CHANGE_ME
           MONGO_INITDB_ROOT_PASSWORD: CHANGE_ME
           MONGO_INITDB_DATABASE: rafafest
+      networks:
+        - proxy
       volumes:
-          - ./data/db:/data/db
+          - ../data/db:/data/db
 
 networks:
   proxy:

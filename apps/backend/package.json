@@ -29,5 +29,15 @@
 		"start": "NODE_PATH=./src nodemon src/index.ts",
 		"typeorm": "typeorm-ts-node-commonjs",
 		"clean": "rm -rf dist/ bin/ tsconfig.tsbuildinfo"
-	}
+	},
+	"pkg": {
+        "scripts": "index.js",
+        "assets": [
+            "public/**/*"
+        ],
+        "targets": [
+            "node16-linux"
+        ],
+        "outputPath": "bin"
+    }
 }

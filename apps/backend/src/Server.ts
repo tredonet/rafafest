@@ -7,6 +7,7 @@ import { GuestService } from "./services";
 import { HTTPLogger, Logger, ErrorHandler } from "./utils";
 import { User } from "./models";
 import { UserService, AuthService } from "./services";
+import { resolve } from "node:path";
 
 export class Server {
 	private server: Express;
@@ -36,7 +37,7 @@ export class Server {
 		this.authController.registerRoutes(this.server);
 		this.server.use(ErrorHandler(this.logger));
 		this.server.use(history());
-		this.server.use(express.static("public"));
+		this.server.use(express.static(resolve(__dirname, "../public")));
 		this.server.listen(8000);
 	}
 }

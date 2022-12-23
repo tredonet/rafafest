@@ -6,9 +6,9 @@ RUN npm run build
 RUN cd apps/frontend && npm run build-only
 RUN cp -r apps/frontend/dist apps/backend/public
 RUN npm i -g pkg
-RUN pkg -t node16-linux -o bin/rafafest apps/backend
+RUN cd apps/backend && pkg .
 
 FROM ubuntu:22.04
 WORKDIR /app
-COPY --from=base /workdir/bin/rafafest /app
+COPY --from=base /workdir/apps/backend/bin/backend /app/rafafest
 ENTRYPOINT ["/app/rafafest"]
