@@ -5,15 +5,18 @@ import { DataSource, EntitySchema, MixedList, MongoEntityManager, MongoRepositor
 export class Database {
     private database: DataSource;
     public readonly manager: MongoEntityManager;
-    constructor(entities: MixedList<string | Function | EntitySchema<any>>) {
+    constructor(entities: MixedList<string | Function | EntitySchema<any>>, connectionString: string) {
+        const uri = new URL(connectionString);
         this.database = new DataSource({
             type: "mongodb",
-            database: "test",
+            host: uri.host,
+            username: uri.username,
+            password: uri.password,
             synchronize: true,
             logging: false,
             entities: entities,
             migrations: [],
-            subscribers: [],
+            subscribers: []
         });
         this.manager = this.database.mongoManager;
     }

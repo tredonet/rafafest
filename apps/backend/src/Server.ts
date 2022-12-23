@@ -15,14 +15,14 @@ export class Server {
 	private guestController: GuestController;
 	private authController: AuthController;
 
-	constructor({ jwtSecret }) {
+	constructor({ jwtSecret, mongoConnectionString }) {
 		this.server = express();
 		this.logger = new Logger();
 
 		this.server.use(HTTPLogger(this.logger));
 		this.server.use(express.json());
 
-		this.database = new Database([Guest, User]);
+		this.database = new Database([Guest, User], mongoConnectionString);
 		const guestService = new GuestService(this.database);
 		const userService = new UserService(this.database);
 		const authService = new AuthService(userService, jwtSecret);

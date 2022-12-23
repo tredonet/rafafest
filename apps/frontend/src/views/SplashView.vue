@@ -1,3 +1,3 @@
 <template>
-  <div>doeiii</div>
+  <div>Error</div>
 </template>

@@ -1,8 +1,11 @@
 version: "2"
 services:
   rafafest:
-    build: ../apps/frontend
-    container_name: rafafest_frontend
+    build: ../
+    container_name: rafafest
+    environment:
+      JWT_SECRET: CHANGE_ME
+      MONGO_CONNECTION_STRING: CHANGE_ME
     networks:
       - proxy
     restart: always
@@ -16,8 +19,18 @@ services:
       - "traefik.http.routers.rafafest-secure.rule=Host(`rafafest.com`)"
       - "traefik.http.routers.rafafest-secure.tls=true"
       - "traefik.http.routers.rafafest-secure.service=rafafest"
-      - "traefik.http.services.rafafest.loadbalancer.server.port=80"
+      - "traefik.http.services.rafafest.loadbalancer.server.port=8000"
       - "traefik.docker.network=proxy"
+  mongo:
+      image: mongo
+      ports:
+          - 27017:27017
+      environment:
+          MONGO_INITDB_ROOT_USERNAME: CHANGE_ME
+          MONGO_INITDB_ROOT_PASSWORD: CHANGE_ME
+          MONGO_INITDB_DATABASE: rafafest
+      volumes:
+          - ./data/db:/data/db
 
 networks:
   proxy:
