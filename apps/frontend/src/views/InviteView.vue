@@ -38,17 +38,20 @@ const onSubmit = async () => {
 </script>
 <template>
   <div class="row justify-center">
-    <div class="col-4 title">Let's get you signed up</div>
+    <div class="content title blur-background">Let's get you signed up</div>
   </div>
   <div class="row justify-center">
-    <div class="col-4 notes">
+    <div class="content-narrow notes blur-background">
       Lorem ipsum dolor sit amet consectetur. Scelerisque pharetra elementum
       amet nulla. In suspendisse pulvinar maecenas non risus dolor commodo
       scelerisque. Duis venenatis id nunc rutrum viverra magna.
     </div>
   </div>
   <div class="row justify-center" v-if="guest">
-    <q-form class="col-4 q-gutter-sm" @submit="onSubmit">
+    <q-form
+      class="content-narrow q-gutter-sm blur-background"
+      @submit="onSubmit"
+    >
       <div class="row q-gutter-sm">
         <q-input
           id="name"
@@ -82,14 +85,13 @@ const onSubmit = async () => {
         </div>
       </div>
       <div class="row q-gutter-sm">
-        <div class="col notes">
+        <div class="col notes blur-background">
           Most importantly: are you able to be in Valencia on and around the
           15th of April, 2023?
         </div>
       </div>
-      <div class="row q-gutter-sm">
+      <div class="row justify-evenly q-gutter-sm">
         <q-btn
-          class="col"
           unelevated
           :color="rsvp === 'yes' ? 'primary' : 'dark'"
           rounded
@@ -98,7 +100,6 @@ const onSubmit = async () => {
           100% - Yes <img class="icon" :src="heart" />
         </q-btn>
         <q-btn
-          class="col"
           unelevated
           :color="rsvp === 'maybe' ? 'primary' : 'dark'"
           rounded
@@ -107,7 +108,6 @@ const onSubmit = async () => {
           Not sure yet <img class="icon" :src="heartbeat" />
         </q-btn>
         <q-btn
-          class="col"
           unelevated
           :color="rsvp === 'no' ? 'primary' : 'dark'"
           rounded
@@ -128,8 +128,16 @@ const onSubmit = async () => {
   margin-left: 20px;
 }
 .sprite {
+  width: 25vw;
+  z-index: -1;
   position: absolute;
   right: 5vw;
-  bottom: 0;
+  bottom: 5vh;
+}
+@media (max-width: 680px) {
+  .sprite {
+    width: 70vw;
+    right: 15vw;
+  }
 }
 </style>

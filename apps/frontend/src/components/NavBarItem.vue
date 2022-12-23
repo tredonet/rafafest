@@ -30,11 +30,13 @@ const itemClass = computed(() => {
 .nav-item {
   display: block;
   color: var(--color-background-mute-inverted);
-  width: 13vw;
+  padding: 5px 0;
+  width: 100%;
   text-align: center;
   text-decoration: none;
   border: 5px solid var(--color-background-mute-inverted);
-  border-radius: 10px;
+  border-radius: 15px;
+  white-space: nowrap;
 }
 
 .selected {

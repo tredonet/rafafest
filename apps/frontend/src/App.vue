@@ -13,27 +13,24 @@ const { guest } = storeToRefs(guestStore);
 <template>
   <div class="wrapper">
     <NavBar class="navbar" v-if="guest" />
-    <div class="content">
-      <RouterView class="content" />
+    <div class="page">
+      <RouterView />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrapper {
+  z-index: 10;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: hidden;
   background-color: var(--color-background-soft);
 }
 
-.navbar {
-  height: 5vh;
-}
-
-.content {
+.page {
   margin: 0 auto;
-  height: 90vh;
+  height: calc(100vh - 58px);
   overflow-y: scroll;
 }
 </style>

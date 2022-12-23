@@ -16,14 +16,14 @@ onBeforeMount(() => {
 <template>
   <div class="q-pa-md doc-container">
     <div class="row justify-center">
-      <div class="col-7 title">RAFAFEST - Rapha turns 30</div>
+      <div class="title">RAFAFEST - Rapha turns 30</div>
     </div>
     <div class="row justify-center">
-      <div class="col-5 subtitle">15th of April, 2023</div>
+      <div class="subtitle">15th of April, 2023</div>
     </div>
-    <div class="row justify-center" style="margin: 0% 30px 0">
-      <div class="col-5">
-        <p class="text">
+    <div class="row justify-center">
+      <div class="blur-background">
+        <p class="text textbox">
           Yep. I am turning 30 years old - at least according to my birth
           certificate it my parents drawer (at least that’s where it should be).
           <br /><br />
@@ -49,29 +49,49 @@ onBeforeMount(() => {
         </p>
       </div>
     </div>
-    <div class="row justify-end">
-      <router-link
-        class="col-2 custom-button"
-        to="/my-invite"
-        style="margin-right: 10vw"
-      >
-        <img class="sprite-sitting" :src="spriteSitting" />
-        Sign me up!
-      </router-link>
+    <div class="row justify-center">
+      <div class="sign-me-up">
+        <router-link class="custom-button" to="/my-invite">
+          <img class="sprite-sitting" :src="spriteSitting" />
+          Sign me up!
+        </router-link>
+      </div>
     </div>
   </div>
   <img class="sprite-standing" :src="spriteStanding" />
 </template>
 <style>
+.sign-me-up {
+  margin-left: 50vw;
+}
 .sprite-standing {
-  bottom: 0vw;
-  left: 10vw;
+  bottom: 0;
+  left: 0vw;
   position: absolute;
-  width: 20vw;
+  height: 80vh;
 }
 .sprite-sitting {
   position: absolute;
-  top: -10vw;
-  left: 10vw;
+  left: 6rem;
+  top: -190px;
+}
+.textbox {
+  max-height: 50vh;
+  max-width: 50vw;
+  overflow-y: scroll;
+}
+@media (max-width: 680px) {
+  .sign-me-up {
+    margin-left: 0 !important;
+  }
+  .sprite-sitting {
+    display: none;
+  }
+  .sprite-standing {
+    display: none;
+  }
+  .textbox {
+    max-width: 100vw;
+  }
 }
 </style>
