@@ -45,7 +45,7 @@ export class Guest {
     active: boolean
 
     @Column()
-    cirle: Cirlce
+    circle: Cirlce
 
     @Column()
     yearOfAcquaintance: number

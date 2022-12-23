@@ -16,6 +16,9 @@ export class GuestController extends AbstractController<Guest> {
 		app.route(this.endPoint + "/rsvp").post(
 			requestWrapper(this.rsvp.bind(this))
 		);
+		app.route(this.endPoint + "/invite").post(
+			requestWrapper(this.invite.bind(this))
+		);
 		this._registerRoutes(app);
 	}
 
@@ -43,5 +46,28 @@ export class GuestController extends AbstractController<Guest> {
 		});
 		if (!updatedGuest) throw new Error("error_updating");
 		return null;
+	}
+
+	async invite(req: Request): Promise<ResponseBody<Guest>> {
+		const { name, circle, yearOfAcquaintance } = req.body;
+		if (!name || !circle || !yearOfAcquaintance)
+			throw new Error("fields missing");
+		const guest = new Guest();
+		guest.name = name;
+		guest.surname = req.body.surname;
+		guest.email = req.body.email;
+		guest.code = Math.random().toString(36).substring(2);
+		guest.attendenceDates = [];
+		guest.attending = undefined;
+		guest.activities = [];
+		guest.invites = req.body.invites || 0;
+		guest.friends = [];
+		guest.dietryPreference = [];
+		guest.active = true;
+		guest.circle = circle;
+		guest.yearOfAcquaintance = yearOfAcquaintance;
+		guest.placeOfAcquaintance = 0;
+		const entity = await this.service.create(guest);
+		return { status: 201, data: entity };
 	}
 }
