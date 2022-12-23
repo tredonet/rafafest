@@ -1,15 +1,12 @@
 import express, { Express } from "express";
 import history from "connect-history-api-fallback";
-import { GuestController } from "controllers";
-import { Database } from "Database";
+import { GuestController, AuthController } from "./controllers";
+import { Database } from "./Database";
 import { Guest } from "@rafafest/core";
-import { GuestService } from "services";
-import { HTTPLogger, Logger } from "utils";
-import { ErrorHandler } from "utils";
-import { User } from "models";
-import { UserService } from "services";
-import { AuthService } from "services/Authservice";
-import { AuthController } from "controllers/AuthController";
+import { GuestService } from "./services";
+import { HTTPLogger, Logger, ErrorHandler } from "./utils";
+import { User } from "./models";
+import { UserService, AuthService } from "./services";
 
 export class Server {
 	private server: Express;

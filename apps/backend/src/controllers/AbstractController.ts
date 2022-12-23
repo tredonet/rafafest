@@ -1,7 +1,7 @@
 import { Application, Request, RequestHandler } from "express";
-import { auth as _auth } from "middlewares/AuthMiddleware";
-import { AbstractService } from "services";
-import { requestWrapper, ResponseBody } from "utils";
+import { auth as _auth } from "../middlewares";
+import { AbstractService } from "../services";
+import { requestWrapper, ResponseBody } from "../utils";
 
 export abstract class AbstractController<E, S extends AbstractService<E> = AbstractService<E>>{
 

@@ -1,8 +1,8 @@
 import { Application, Request, RequestHandler } from "express";
-import { auth as _auth } from "middlewares";
-import { AuthService } from "services/Authservice";
 import { ObjectID } from "typeorm";
-import { requestWrapper, ResponseBody } from "utils";
+import { auth as _auth } from "../middlewares";
+import { AuthService } from "../services";
+import { requestWrapper, ResponseBody } from "../utils";
 
 type ReturnUser = {
     id?: ObjectID

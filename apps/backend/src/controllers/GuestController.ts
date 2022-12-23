@@ -1,7 +1,7 @@
 import { Guest } from "@rafafest/core";
 import { Application, Request } from "express";
-import { GuestService } from "services";
-import { requestWrapper, ResponseBody } from "utils";
+import { GuestService } from "../services";
+import { requestWrapper, ResponseBody } from "../utils";
 import { AbstractController } from "./AbstractController";
 
 export class GuestController extends AbstractController<Guest> {

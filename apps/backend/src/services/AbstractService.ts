@@ -1,6 +1,6 @@
 import { MongoRepository } from "typeorm";
 import { ObjectId } from "mongodb";
-import { Database } from "Database";
+import { Database } from "../Database";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 
 export class AbstractService<E>{
