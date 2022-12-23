@@ -22,9 +22,10 @@ const itemClass = computed(() => {
 });
 </script>
 <template>
-  <router-link :class="itemClass" :to="props.disabled ? '' : path">{{
-    props.to
-  }}</router-link>
+  <router-link :class="itemClass" :to="props.disabled ? '' : path">
+    <div v-if="disabled" class="coming-soon">Coming soon!</div>
+    {{ props.to }}</router-link
+  >
 </template>
 <style>
 .nav-item {
@@ -53,5 +54,15 @@ const itemClass = computed(() => {
 .disabled {
   cursor: default !important;
   opacity: 0.4;
+}
+
+.coming-soon {
+  font-size: medium;
+  right: 0;
+  bottom: 0;
+  padding: 1px 3px;
+  background-color: var(--color-secondary);
+  position: absolute;
+  transform: rotate(-20deg);
 }
 </style>
