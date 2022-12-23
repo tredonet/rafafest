@@ -25,7 +25,7 @@ const { guest } = storeToRefs(guestStore);
   width: 100vw;
   height: 100vh;
   overflow-y: hidden;
-  background-color: var(--color-background-soft);
+  background-color: var(--vt-c-white-soft);
 }
 
 .page {

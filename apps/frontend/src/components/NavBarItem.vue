@@ -29,24 +29,24 @@ const itemClass = computed(() => {
 <style>
 .nav-item {
   display: block;
-  color: var(--color-background-mute-inverted);
+  color: var(--vt-c-black-mute);
   padding: 5px 0;
   width: 100%;
   text-align: center;
   text-decoration: none;
-  border: 5px solid var(--color-background-mute-inverted);
+  border: 5px solid var(--vt-c-black-mute);
   border-radius: 15px;
   white-space: nowrap;
 }
 
 .selected {
-  background-color: var(--color-background-mute-inverted);
+  background-color: var(--vt-c-black-mute);
   color: var(--color-heading-inverted);
 }
 
 .nav-item:hover:not(.selected):not(.disabled) {
-  color: var(--color-background-inverted);
-  border-color: var(--color-background-inverted);
+  color: var(--vt-c-black);
+  border-color: var(--vt-c-black);
   cursor: pointer;
 }
 

@@ -60,8 +60,8 @@ onBeforeMount(() => {
 }
 
 .submit-button {
-  color: var(--color-background-mute);
-  background-color: var(--color-background-mute-inverted);
+  color: var(--vt-c-white-mute);
+  background-color: var(--vt-c-black-mute);
   border-radius: 10px;
   width: 100%;
   padding: 10px 20px;
@@ -71,8 +71,8 @@ onBeforeMount(() => {
   font-size: larger;
 }
 .submit-button:hover {
-  color: var(--color-background);
-  background-color: var(--color-background-inverted);
+  color: var(--vt-c-white);
+  background-color: var(--vt-c-black);
   cursor: pointer;
 }
 

@@ -15,7 +15,7 @@
 
 .title {
   padding: 1vh 0 5vh 0;
-  color: var(--color-background-inverted);
+  color: var(--vt-c-black);
   text-align: center;
   font-size: 4rem;
   font-family: "ManropeExtra";

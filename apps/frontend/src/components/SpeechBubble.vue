@@ -6,7 +6,7 @@
   text-align: center;
   padding: 15px;
   position: relative;
-  border: 3px solid var(--color-background-mute-inverted);
+  border: 3px solid var(--vt-c-black-mute);
   border-radius: 1.2em;
 }
 
@@ -18,7 +18,7 @@
   width: 0;
   height: 0;
   border: 1.25em solid transparent;
-  border-top-color: var(--color-background-mute-inverted);
+  border-top-color: var(--vt-c-black-mute);
   border-bottom: 0;
   border-left: 0;
   margin-left: -0.625em;
