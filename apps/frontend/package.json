@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.15.5",
-		"@rafafest/core": "^1.0.0",
+    "@rafafest/core": "^1.0.0",
     "@vueuse/core": "^9.4.0",
     "axios": "^1.2.1",
     "pinia": "^2.0.23",

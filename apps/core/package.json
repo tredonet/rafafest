@@ -1,6 +1,6 @@
 {
 	"name": "@rafafest/core",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"engines": {
@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"build": "tsc",
-        "clean": "rm -rf dist/ tsconfig.tsbuildinfo"
+		"clean": "rm -rf dist/ tsconfig.tsbuildinfo"
 	},
 	"dependencies": {
 		"typeorm": "0.3.10"

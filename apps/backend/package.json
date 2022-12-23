@@ -1,13 +1,12 @@
 {
 	"name": "backend",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"main": "src/index.ts",
 	"types": "dist/index.d.ts",
 	"bin": "dist/index.js",
 	"description": "Rafafest Backend",
 	"type": "commonjs",
 	"devDependencies": {
-		"@types/bcrypt": "^5.0.0",
 		"@types/jsonwebtoken": "^8.5.9",
 		"@types/mongodb": "^4.0.7",
 		"@types/node": "^16.11.10",
@@ -31,13 +30,13 @@
 		"clean": "rm -rf dist/ bin/ tsconfig.tsbuildinfo"
 	},
 	"pkg": {
-        "scripts": "index.js",
-        "assets": [
-            "public/**/*"
-        ],
-        "targets": [
-            "node16-linux"
-        ],
-        "outputPath": "bin"
-    }
+		"scripts": "index.js",
+		"assets": [
+			"public/**/*"
+		],
+		"targets": [
+			"node16-linux"
+		],
+		"outputPath": "bin"
+	}
 }
