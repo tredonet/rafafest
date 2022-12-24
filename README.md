@@ -2,6 +2,7 @@
 
 ## v1.0.2
 - Added: Invitation endpoint
+- Added: Change password endpoint
 - Updated: Text throughout the frontend
 - Improved: Frontend responsiveness
 
