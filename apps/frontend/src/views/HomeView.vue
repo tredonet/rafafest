@@ -18,7 +18,7 @@ onBeforeMount(() => {
   <div class="row justify-center">
     <div class="content title">Hi, welcome to RAFAFEST!</div>
   </div>
-  <div class="row justify-center bubble">
+  <div class="row justify-center bubble row-margin">
     <SpeechBubbleVue class="text-large content-narrow">
       If you found your way here, this means you have shared some significant
       and important time of my life with me - no matter if short or long,<br />
@@ -42,13 +42,11 @@ onBeforeMount(() => {
 </template>
 <style>
 .lets-go {
-  margin-top: 30vh;
   margin-left: 30vw;
 }
 .doodle {
-  bottom: 50px;
-  right: 250px;
-  position: absolute;
+  margin-left: -15vw;
+  margin-bottom: -100px;
 }
 .sprite-home-page {
   bottom: 5vh;
@@ -74,25 +72,22 @@ onBeforeMount(() => {
   cursor: pointer;
 }
 
-.bubble {
-  margin: 2vh 0;
-}
 
 @media (min-width: 1280px) {
   .bubble {
-    width: 30%;
+    width: 40vw;
   }
 }
 @media (max-width: 680px) {
   .sprite-home-page {
-    bottom: 0vh;
-    width: 40vw;
+    bottom: 35vh;
+    height: 25vh;
   }
   .doodle {
     display: none;
   }
   .lets-go {
-    margin: 15vh 0;
+    margin: 25vh auto 0 auto;
   }
 }
 </style>

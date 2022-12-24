@@ -14,7 +14,7 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: 10%;
+  left: 6%;
   width: 0;
   height: 0;
   border: 1.25em solid transparent;

@@ -41,7 +41,7 @@ const onSubmit = async () => {
   <div class="row justify-center">
     <div class="content title blur-background">Let's get you signed up</div>
   </div>
-  <div class="row justify-center">
+  <div class="row justify-center row-margin">
     <div class="content-narrow notes blur-background">
       Lorem ipsum dolor sit amet consectetur. Scelerisque pharetra elementum
       amet nulla. In suspendisse pulvinar maecenas non risus dolor commodo
@@ -49,7 +49,10 @@ const onSubmit = async () => {
     </div>
   </div>
   <div class="row justify-center" v-if="guest">
-    <q-form class="content-narrow blur-background" @submit="onSubmit">
+    <q-form
+      class="content-narrow blur-background q-col-gutter-y-md"
+      @submit="onSubmit"
+    >
       <div class="row">
         <q-input
           id="name"

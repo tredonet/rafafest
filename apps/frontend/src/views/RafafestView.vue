@@ -60,6 +60,7 @@ onBeforeMount(() => {
 </template>
 <style>
 .sign-me-up {
+  margin-top: 5vh;
   margin-left: 50vw;
 }
 .sprite-standing {
@@ -74,15 +75,14 @@ onBeforeMount(() => {
   top: -190px;
 }
 .textbox {
+  margin: 1rem 0;
   max-height: 50vh;
   max-width: 50vw;
   overflow-y: scroll;
 }
 @media (max-width: 680px) {
-  .title{
-    max-width: 70vw;
-  }
   .sign-me-up {
+    margin-top: 0;
     margin-left: 0 !important;
   }
   .sprite-sitting {
