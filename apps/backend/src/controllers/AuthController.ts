@@ -25,6 +25,7 @@ export class AuthController {
 			requestWrapper(this.register.bind(this))
 		);
 		app.route(this.endpoint + "change-password").post(
+			this.auth,
 			requestWrapper(this.changePassword.bind(this))
 		);
 	}

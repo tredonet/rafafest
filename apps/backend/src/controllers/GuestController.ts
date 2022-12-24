@@ -17,6 +17,7 @@ export class GuestController extends AbstractController<Guest> {
 			requestWrapper(this.rsvp.bind(this))
 		);
 		app.route(this.endPoint + "/invite").post(
+			this.auth,
 			requestWrapper(this.invite.bind(this))
 		);
 		this._registerRoutes(app);
