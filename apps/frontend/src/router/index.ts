@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, InviteView, RafafestView, SplashView } from "@/views";
+import {
+  CryView,
+  HomeView,
+  InviteView,
+  RafafestView,
+  SplashView,
+} from "@/views";
 import { InviteChecker } from "@/features";
 
 const router = createRouter({
@@ -28,6 +34,11 @@ const router = createRouter({
       path: "/error",
       name: "error",
       component: SplashView,
+    },
+    {
+      path: "/cry",
+      name: "cry",
+      component: CryView,
     },
     {
       path: "/:code",
