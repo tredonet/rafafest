@@ -46,7 +46,7 @@ const route = useRoute();
 .navbar {
   font-family: "Patrick", Helvetica, Arial;
   font-size: x-large;
-  margin: 2vh 5vw;
+  margin: 1rem 5vw;
   display: flex;
   justify-content: center;
   gap: 1vw;

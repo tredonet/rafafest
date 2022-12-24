@@ -15,29 +15,27 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div class="q-pa-md doc-container">
-    <div class="row justify-center">
-      <div class="content title">Hi, welcome to RAFAFEST!</div>
-    </div>
-    <div class="row justify-center">
-      <SpeechBubbleVue class="bubble" style="font-size: large"
-        >If you found your way here, this means we (you and me) have likely
-        shared a shorter or longer, but most importantly significanant and
-        important time together in my life! <br />
-        It is about time we see each other again!
-      </SpeechBubbleVue>
-    </div>
-    <div class="row justify-center">
-      <div class="lets-go">
-        <img class="doodle" :src="doodle" />
-        <p>
-          This is me, Raphael. <br />
-          You'll see me throughout your invitation.
-        </p>
-        <router-link class="submit-button" to="/rafafest">
-          Let's go &#10084;
-        </router-link>
-      </div>
+  <div class="row justify-center">
+    <div class="content title">Hi, welcome to RAFAFEST!</div>
+  </div>
+  <div class="row justify-center bubble">
+    <SpeechBubbleVue class="text-large content-narrow">
+      If you found your way here, this means you have shared some significant
+      and important time of my life with me - no matter if short or long,<br />
+      so I would say: <br />
+      It’s about time we see each other again!
+    </SpeechBubbleVue>
+  </div>
+  <div class="row justify-center">
+    <div class="lets-go">
+      <img class="doodle" :src="doodle" />
+      <p>
+        Obviously, this is me, Raphael. <br />
+        You'll see me throughout your invitation.
+      </p>
+      <router-link class="submit-button" to="/rafafest">
+        Let's go &#10084;
+      </router-link>
     </div>
   </div>
   <img class="sprite-home-page" :src="sprite" />
@@ -77,7 +75,7 @@ onBeforeMount(() => {
 }
 
 .bubble {
-  margin: 0 10vw;
+  margin: 2vh 0;
 }
 
 @media (min-width: 1280px) {

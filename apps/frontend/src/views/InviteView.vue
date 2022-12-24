@@ -49,11 +49,8 @@ const onSubmit = async () => {
     </div>
   </div>
   <div class="row justify-center" v-if="guest">
-    <q-form
-      class="content-narrow q-gutter-sm blur-background"
-      @submit="onSubmit"
-    >
-      <div class="row q-gutter-sm">
+    <q-form class="content-narrow blur-background" @submit="onSubmit">
+      <div class="row">
         <q-input
           id="name"
           class="col"
@@ -73,7 +70,7 @@ const onSubmit = async () => {
           v-model="guest.surname"
         />
       </div>
-      <div class="row q-gutter-sm">
+      <div class="row">
         <div class="col">
           <q-input
             id="email"
@@ -90,7 +87,7 @@ const onSubmit = async () => {
           />
         </div>
       </div>
-      <div class="row q-gutter-sm">
+      <div class="row">
         <div class="col notes blur-background">
           Most importantly: are you able to be in Valencia on and around the
           15th of April, 2023?
@@ -122,7 +119,7 @@ const onSubmit = async () => {
           I can't <img class="icon" :src="heartbreak" />
         </q-btn>
       </div>
-      <div class="row q-gutter-sm">
+      <div class="row">
         <q-btn class="col custom-button" label="Confirm" type="submit" />
       </div>
     </q-form>
