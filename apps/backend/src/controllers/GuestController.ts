@@ -50,13 +50,13 @@ export class GuestController extends AbstractController<Guest> {
 	}
 
 	async invite(req: Request): Promise<ResponseBody<Guest>> {
-		const { name, circle, yearOfAcquaintance } = req.body;
-		if (!name || !circle || !yearOfAcquaintance)
+		const { name, circle, yearOfAcquaintance, yearsShared } = req.body;
+		if (!name || !circle || !yearOfAcquaintance || !yearsShared)
 			throw new Error("fields missing");
 		const guest = new Guest();
 		guest.name = name;
-		guest.surname = req.body.surname;
-		guest.email = req.body.email;
+		guest.surname = req.body.surname || "";
+		guest.email = req.body.email || "";
 		guest.code = Math.random().toString(36).substring(2);
 		guest.attendenceDates = [];
 		guest.attending = undefined;
@@ -67,7 +67,7 @@ export class GuestController extends AbstractController<Guest> {
 		guest.active = true;
 		guest.circle = circle;
 		guest.yearOfAcquaintance = yearOfAcquaintance;
-		guest.placeOfAcquaintance = 0;
+		guest.yearsShared = yearsShared;
 		const entity = await this.service.create(guest);
 		return { status: 201, data: entity };
 	}

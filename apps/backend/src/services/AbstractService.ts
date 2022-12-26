@@ -2,6 +2,8 @@ import { MongoRepository } from "typeorm";
 import { ObjectId } from "mongodb";
 import { Database } from "../Database";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { plainToInstance } from "class-transformer";
+import { validateOrReject } from "class-validator";
 
 export class AbstractService<E>{
     private repository: MongoRepository<E>;
@@ -10,7 +12,9 @@ export class AbstractService<E>{
     }
 
     async create(entity: E) {
-        return this.repository.save(entity);
+		const instance = plainToInstance(this.type, entity);
+		await validateOrReject(instance as unknown as object);
+        return this.repository.save(instance);
     }
 
     async findById(id: string) {
@@ -26,9 +30,12 @@ export class AbstractService<E>{
         return this.repository.findOne(query)
     }
 
-    async updateOne(id: string, entity: Partial<E>) {
-        await this.repository.update(id, entity as unknown as QueryDeepPartialEntity<E>);
-        return this.findById(id);
+    async updateOne(id: string, partialEntity: Partial<E>) {
+        const entity = await this.findById(id);
+        const instance =  {...entity, ...partialEntity};
+        await validateOrReject(instance);
+        await this.repository.update(id, instance as unknown as QueryDeepPartialEntity<E>);
+        return instance;
     }
 
     async deleteOne(id: string) {

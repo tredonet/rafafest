@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.0.3
+- Added: class-validator
+
 ## v1.0.2
 - Added: Invitation endpoint
 - Added: Change password endpoint
