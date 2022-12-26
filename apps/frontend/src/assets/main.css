@@ -38,6 +38,7 @@
 .notes {
   font-family: "Patrick";
   font-size: 1rem;
+  line-height: normal;
 }
 
 .row-margin {
@@ -138,7 +139,7 @@
   }
 
   .content-narrow {
-    width: 40vw;
+    width: 50vw;
   }
 }
 

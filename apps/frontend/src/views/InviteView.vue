@@ -46,9 +46,15 @@ const onSubmit = async () => {
   </div>
   <div class="row justify-center row-margin">
     <div class="content-narrow notes blur-background">
-      Lorem ipsum dolor sit amet consectetur. Scelerisque pharetra elementum
-      amet nulla. In suspendisse pulvinar maecenas non risus dolor commodo
-      scelerisque. Duis venenatis id nunc rutrum viverra magna.
+      You know the drill, fill in the blanks, get an annoying e-mail-newsletter
+      that you will always be too lazy to unsubscribe to again. Just kidding, I
+      only wanna read your name on my guest list and get a big fat smile on my
+      face because I’m looking forward seeing you.
+    </div>
+  </div>
+  <div class="row justify-center row-margin">
+    <div class="content-narrow notes blur-background">
+      Let's start with you!
     </div>
   </div>
   <div class="row justify-center" v-if="guest">

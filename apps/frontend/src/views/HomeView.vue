@@ -7,16 +7,18 @@ import { useRouter } from "vue-router";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
 
+const router = useRouter();
+const guestStore = useGuestStore();
+const { guest } = storeToRefs(guestStore);
 onBeforeMount(() => {
-  const router = useRouter();
-  const guestStore = useGuestStore();
-  const { guest } = storeToRefs(guestStore);
   if (!guest?.value) return router.push("/error");
 });
 </script>
 <template>
   <div class="row justify-center">
-    <div class="content title">Hi, welcome to RAFAFEST!</div>
+    <div class="content title">
+      Hi {{ guest?.name }}, you are invited to RAFAFEST!
+    </div>
   </div>
   <div class="row justify-center bubble row-margin">
     <SpeechBubble class="text-large content-narrow">
@@ -50,7 +52,7 @@ onBeforeMount(() => {
 }
 .sprite-home-page {
   bottom: 5vh;
-  left: 5vw;
+  left: 7vw;
   position: absolute;
   height: 60vh;
 }
