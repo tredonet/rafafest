@@ -1,6 +1,6 @@
 {
   "name": "rafafest",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -11,7 +11,8 @@
     "build:backend": "tsc -b -v apps/tsconfig.build.json",
     "build:frontend": "npm run build -w apps/frontend",
     "build": "npm run build:backend && npm run build:frontend",
-    "clean": "npm run clean -ws"
+    "clean": "npm run clean -ws",
+    "vbump": "npm version patch --no-git-tag-version && npm version patch -ws"
   },
   "repository": {
     "type": "git",
