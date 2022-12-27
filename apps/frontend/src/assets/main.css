@@ -101,7 +101,8 @@
     font-size: calc(4rem / 1.5);
   }
   .title-small {
-    margin: 2vh 0;
+    margin: 0;
+    margin-bottom: 1vh;
     font-size: calc(4rem / 1.5);
   }
 

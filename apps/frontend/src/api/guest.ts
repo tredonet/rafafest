@@ -3,13 +3,15 @@ import type { Guest } from "@rafafest/core";
 
 const API_URL = "/api/guest";
 
-type rsvpData = {
-  code: string;
-  name: string;
-  surname: string;
-  email: string;
-  attending: string;
-};
+export type rsvpData =
+  | Guest
+  | {
+      code: string;
+      name: string;
+      surname: string;
+      email: string;
+      attending: string;
+    };
 
 async function get(code: string): Promise<Guest> {
   const response = await axios.get<Guest>(`${API_URL}/find?code=${code}`);

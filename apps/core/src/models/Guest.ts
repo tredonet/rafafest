@@ -2,6 +2,7 @@ import {
 	IsArray,
 	IsBoolean,
 	IsNumber,
+	IsObject,
 	IsOptional,
 	IsString,
 } from "class-validator";
@@ -48,10 +49,12 @@ export class Guest {
 	@Column()
 	code: string;
 
-	@IsArray()
-	@IsString({ each: true })
+	@IsObject()
 	@Column()
-	attendenceDates: string[];
+	attendenceDates: {
+		from: string;
+		to: string;
+	};
 
 	@IsOptional()
 	@IsString()

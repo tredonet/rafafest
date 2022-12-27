@@ -32,19 +32,12 @@ export class GuestController extends AbstractController<Guest> {
 	}
 
 	async rsvp(req: Request): Promise<ResponseBody<null>> {
-		const { code, name, surname, email, attending } = req.body;
+		const { code, name, email, attending } = req.body;
 		if (!code || !name || !email || !attending)
 			throw new Error("fields_missing");
 		const guest = await this.service.findOne({ code });
 		if (!guest || guest.name !== name) throw new Error("not_found");
-		guest.surname = surname;
-		guest.email = surname;
-		guest.attending = attending;
-		const updatedGuest = await this.service.updateOne(guest.id.toString(), {
-			surname,
-			email,
-			attending,
-		});
+		const updatedGuest = await this.service.updateOne(guest.id.toString(), req.body);
 		if (!updatedGuest) throw new Error("error_updating");
 		return null;
 	}
@@ -58,7 +51,10 @@ export class GuestController extends AbstractController<Guest> {
 		guest.surname = req.body.surname || "";
 		guest.email = req.body.email || "";
 		guest.code = Math.random().toString(36).substring(2);
-		guest.attendenceDates = [];
+		guest.attendenceDates = {
+			from: "2023/04/14",
+			to: "2023/04/17"
+		};
 		guest.attending = undefined;
 		guest.activities = [];
 		guest.invites = req.body.invites || 0;

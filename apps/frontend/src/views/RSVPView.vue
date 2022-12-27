@@ -5,18 +5,14 @@ import heartbeat from "@/assets/icons/heartbeat.svg";
 import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
-import { QForm, QInput, QBtn } from "quasar";
+import { QForm, QInput, QBtn, useQuasar } from "quasar";
 import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
-import { AcceptedModal, DeclinedModal, FailedModal } from "@/features";
-import api from "@/api";
 
+const $q = useQuasar();
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
-const accepted = ref(false);
-const declined = ref(false);
-const failed = ref(false);
 
 onBeforeMount(() => {
   if (!guest?.value) return router.push("/error");
@@ -32,11 +28,14 @@ const onSubmit = async () => {
     if (!guest?.value) throw new Error("No invite info found");
     const { code, name, surname, email } = guest.value;
     const attending = rsvp.value;
-    await api.guest.rsvp({ code, name, surname, email, attending });
-    guestStore.fetch(guest.value.code);
-    rsvp.value === "no" ? (declined.value = true) : (accepted.value = true);
+    await guestStore.rsvp({ code, name, surname, email, attending });
   } catch {
-    failed.value = true;
+    $q.notify({
+      position: "center",
+      message: "RSVP Failed :(",
+      color: "red",
+      timeout: 1000,
+    });
   }
 };
 </script>
@@ -137,9 +136,6 @@ const onSubmit = async () => {
     </q-form>
   </div>
   <img class="sprite" :src="spritePeople" />
-  <AcceptedModal v-model="accepted" />
-  <DeclinedModal v-model="declined" />
-  <FailedModal v-model="failed" />
 </template>
 <style>
 .icon {

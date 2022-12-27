@@ -1,19 +1,51 @@
 <script lang="ts" setup>
 import spriteStanding from "@/assets/img/rafa-standing-2.svg";
+import heartbreak from "@/assets/icons/heart-break.svg";
+import heartbeat from "@/assets/icons/heartbeat.svg";
+import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
-import { QForm, QInput, QDialog, QDate } from "quasar";
+import { QForm, QInput, QDialog, QDate, useQuasar } from "quasar";
 import { computed, ref } from "vue";
 import { RSVPView } from ".";
+import { useRouter } from "vue-router";
 
+const $q = useQuasar();
+const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
 const plusOne = ref(false);
-const model = ref({ from: "2023/04/14", to: "2023/04/17" });
-const selection = ref(["dinner1", "dinner2", "party", "brunch"]);
-const diet = ref([]);
-const dates = computed(() => `${model.value.from} - ${model.value.to}`);
-const showModel = ref(false);
+const activities = ref(["dinner1", "dinner2", "party", "brunch"]);
+const datesString = computed(
+  () =>
+    `${guest?.value?.attendenceDates.from ?? ""} - ${
+      guest?.value?.attendenceDates.to ?? ""
+    }`
+);
+const showDatePicker = ref(false);
+const changeAvailability = (option: "yes" | "no" | "maybe") => {
+  if (guest?.value?.attending) guest.value.attending = option;
+  if (guest?.value) guestStore.rsvp(guest.value);
+  if (option === "no") router.push("/cry");
+};
+const onSubmit = () => {
+  try {
+    if (guest?.value) guestStore.rsvp(guest.value);
+    $q.notify({
+      position: "center",
+      message: "Success",
+      color: "primary",
+      timeout: 1000,
+    });
+  } catch {
+    $q.notify({
+      position: "center",
+      message: "Updating Failed :(",
+      color: "red",
+      timeout: 1000,
+    });
+  }
+};
 </script>
 <template>
   <RSVPView v-if="guest?.attending !== 'yes' && guest?.attending !== 'maybe'" />
@@ -27,7 +59,10 @@ const showModel = ref(false);
       </div>
     </div>
     <div class="row justify-center" v-if="guest">
-      <q-form class="content-narrow blur-background q-col-gutter-y-md">
+      <q-form
+        class="content-narrow blur-background q-col-gutter-y-md"
+        @submit="onSubmit"
+      >
         <div class="row label">Your details</div>
         <div class="row">
           <q-input
@@ -67,7 +102,7 @@ const showModel = ref(false);
           </div>
         </div>
         <div class="row">
-          <div class="col" @click="() => (showModel = true)">
+          <div class="col" @click="() => (showDatePicker = true)">
             <q-field
               rounded
               outlined
@@ -78,15 +113,18 @@ const showModel = ref(false);
                 <q-icon name="event" />
               </template>
               <template v-slot:control>
-                {{ dates }}
+                {{ datesString }}
               </template>
             </q-field>
-            <q-dialog v-model="showModel">
+            <q-dialog v-model="showDatePicker">
               <q-date
-                v-model="model"
+                v-model="guest.attendenceDates"
                 range
+                mask="DD/MM/YYYY"
+                navigation-max-year-month="2023/04"
+                navigation-min-year-month="2023/04"
                 minimal
-                @range-end="() => (showModel = false)"
+                @range-end="() => (showDatePicker = false)"
               />
             </q-dialog>
           </div>
@@ -95,7 +133,7 @@ const showModel = ref(false);
         <div class="row">
           <div class="col-6">
             <q-checkbox
-              v-model="selection"
+              v-model="activities"
               disable
               val="dinner1"
               label="Dinner - Friday, 14th"
@@ -103,7 +141,7 @@ const showModel = ref(false);
               color="primary"
             />
             <q-checkbox
-              v-model="selection"
+              v-model="activities"
               disable
               val="party"
               label="Party/Concert - Saturday, 15th"
@@ -113,7 +151,7 @@ const showModel = ref(false);
           </div>
           <div class="col-6">
             <q-checkbox
-              v-model="selection"
+              v-model="activities"
               disable
               val="dinner2"
               label="Dinner - Saturday, 15th"
@@ -121,7 +159,7 @@ const showModel = ref(false);
               color="primary"
             />
             <q-checkbox
-              v-model="selection"
+              v-model="activities"
               disable
               val="brunch"
               label="Birthday Brunch - Sunday, 16th"
@@ -136,14 +174,14 @@ const showModel = ref(false);
         <div class="row">
           <div class="col-4">
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="vegetarian"
               label="Vegetarian"
               color="primary"
               style="width: 100%"
             />
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="nut-free"
               label="Nut-free"
               style="width: 100%"
@@ -152,14 +190,14 @@ const showModel = ref(false);
           </div>
           <div class="col-4">
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="vegan"
               label="Vegan"
               style="width: 100%"
               color="primary"
             />
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="soy-free"
               label="Soy-free"
               style="width: 100%"
@@ -168,14 +206,14 @@ const showModel = ref(false);
           </div>
           <div class="col-4">
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="gluten-free"
               label="Gluten-free"
               style="width: 100%"
               color="primary"
             />
             <q-checkbox
-              v-model="diet"
+              v-model="guest.dietryPreference"
               val="lactose-free"
               label="Lactose-free"
               style="width: 100%"
@@ -187,6 +225,39 @@ const showModel = ref(false);
           <q-toggle v-model="plusOne" disable icon="group" />
           Bringing someome?
           <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
+        </div>
+
+        <div class="row">
+          <q-btn class="col custom-button" label="Save" type="submit" />
+        </div>
+        <div class="row label">Change your availability</div>
+        <div class="row justify-left q-gutter-sm">
+          <q-btn
+            unelevated
+            :class="guest.attending === 'yes' && 'hidden'"
+            :color="guest.attending === 'yes' ? 'primary' : 'dark'"
+            rounded
+            :onclick="() => changeAvailability('yes')"
+          >
+            100% - Yes <img class="icon" :src="heart" />
+          </q-btn>
+          <q-btn
+            unelevated
+            :class="guest.attending === 'maybe' && 'hidden'"
+            :color="guest.attending === 'maybe' ? 'primary' : 'dark'"
+            rounded
+            :onclick="() => changeAvailability('maybe')"
+          >
+            Not sure yet <img class="icon" :src="heartbeat" />
+          </q-btn>
+          <q-btn
+            unelevated
+            color="dark"
+            rounded
+            :onclick="() => changeAvailability('no')"
+          >
+            I can't <img class="icon" :src="heartbreak" />
+          </q-btn>
         </div>
       </q-form>
     </div>

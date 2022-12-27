@@ -3,6 +3,7 @@
 ## v1.0.3
 - Added: class-validator
 - Added: Extended invite view when accepted
+- Removed: Modals
 
 ## v1.0.2
 - Added: Invitation endpoint
