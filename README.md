@@ -2,11 +2,13 @@
 
 ## v1.0.3
 - Added: class-validator
+- Added: Extended invite view when accepted
 
 ## v1.0.2
 - Added: Invitation endpoint
 - Added: Change password endpoint
-- Added: Cry page
+- Added: Cry page when declined
+- Added: Modals on RSVP
 - Updated: Text throughout the frontend
 - Improved: Frontend responsiveness
 

@@ -1,161 +1,217 @@
 <script lang="ts" setup>
-import spritePeople from "@/assets/img/people.svg";
-import heartbreak from "@/assets/icons/heart-break.svg";
-import heartbeat from "@/assets/icons/heartbeat.svg";
-import heart from "@/assets/icons/heart.svg";
+import spriteStanding from "@/assets/img/rafa-standing-2.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
-import { QForm, QInput, QBtn } from "quasar";
-import { onBeforeMount, ref } from "vue";
-import { useRouter } from "vue-router";
-import { AcceptedModal, DeclinedModal, FailedModal } from "@/features";
-import api from "@/api";
+import { QForm, QInput, QDialog, QDate } from "quasar";
+import { computed, ref } from "vue";
+import { RSVPView } from ".";
 
-const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
-const accepted = ref(false);
-const declined = ref(false);
-const failed = ref(false);
-
-onBeforeMount(() => {
-  if (!guest?.value) return router.push("/error");
-});
-
-const rsvp = ref(guest?.value?.attending || "yes");
-const onSetRSVP = (option: "yes" | "no" | "maybe") => {
-  rsvp.value = option;
-};
-
-const onSubmit = async () => {
-  try {
-    if (!guest?.value) throw new Error("No invite info found");
-    const { code, name, surname, email } = guest.value;
-    const attending = rsvp.value;
-    await api.guest.rsvp({ code, name, surname, email, attending });
-    guestStore.fetch(guest.value.code);
-    rsvp.value === "no" ? (declined.value = true) : (accepted.value = true);
-  } catch {
-    failed.value = true;
-  }
-};
+const plusOne = ref(false);
+const model = ref({ from: "2023/04/14", to: "2023/04/17" });
+const selection = ref(["dinner1", "dinner2", "party", "brunch"]);
+const diet = ref([]);
+const dates = computed(() => `${model.value.from} - ${model.value.to}`);
+const showModel = ref(false);
 </script>
 <template>
-  <div class="row justify-center">
-    <div class="content title blur-background">Let's get you signed up</div>
-  </div>
-  <div class="row justify-center row-margin">
-    <div class="content-narrow notes blur-background">
-      You know the drill, fill in the blanks, get an annoying e-mail-newsletter
-      that you will always be too lazy to unsubscribe to again. Just kidding, I
-      only wanna read your name on my guest list and get a big fat smile on my
-      face because I’m looking forward seeing you.
-    </div>
-  </div>
-  <div class="row justify-center row-margin">
-    <div class="content-narrow notes blur-background">
-      Let's start with you!
-    </div>
-  </div>
-  <div class="row justify-center" v-if="guest">
-    <q-form
-      class="content-narrow blur-background q-col-gutter-y-md"
-      @submit="onSubmit"
-    >
-      <div class="row">
-        <q-input
-          id="name"
-          class="col"
-          rounded
-          outlined
-          :disable="Boolean(guest.name)"
-          label="First name"
-          v-model="guest.name"
-        />
-        <q-input
-          id="surname"
-          class="col"
-          rounded
-          outlined
-          :disable="Boolean(guest.surname)"
-          label="Last name"
-          v-model="guest.surname"
-        />
+  <RSVPView v-if="guest?.attending !== 'yes' && guest?.attending !== 'maybe'" />
+  <div
+    v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'"
+    class="invite-wrapper"
+  >
+    <div class="row justify-center">
+      <div class="title-small blur-background">
+        Awesome - looking forward to see you, {{ guest.name }}
       </div>
-      <div class="row">
-        <div class="col">
+    </div>
+    <div class="row justify-center" v-if="guest">
+      <q-form class="content-narrow blur-background q-col-gutter-y-md">
+        <div class="row label">Your details</div>
+        <div class="row">
           <q-input
-            id="email"
+            id="name"
+            class="col"
             rounded
             outlined
-            label="Email Address"
-            type="email"
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'You know, to keep you updated',
-            ]"
-            v-model="guest.email"
+            :disable="Boolean(guest.name)"
+            label="First name"
+            v-model="guest.name"
+          />
+          <q-input
+            id="surname"
+            class="col"
+            rounded
+            outlined
+            :disable="Boolean(guest.surname)"
+            label="Last name"
+            v-model="guest.surname"
           />
         </div>
-      </div>
-      <div class="row">
-        <div class="col notes blur-background">
-          Most importantly: are you able to be in Valencia on and around the
-          15th of April, 2023?
+        <div class="row">
+          <div class="col">
+            <q-input
+              id="email"
+              rounded
+              outlined
+              label="Email Address"
+              type="email"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'You know, to keep you updated',
+              ]"
+              v-model="guest.email"
+            />
+          </div>
         </div>
-      </div>
-      <div class="row justify-evenly q-gutter-sm">
-        <q-btn
-          unelevated
-          :color="rsvp === 'yes' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('yes')"
-        >
-          100% - Yes <img class="icon" :src="heart" />
-        </q-btn>
-        <q-btn
-          unelevated
-          :color="rsvp === 'maybe' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('maybe')"
-        >
-          Not sure yet <img class="icon" :src="heartbeat" />
-        </q-btn>
-        <q-btn
-          unelevated
-          :color="rsvp === 'no' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('no')"
-        >
-          I can't <img class="icon" :src="heartbreak" />
-        </q-btn>
-      </div>
-      <div class="row">
-        <q-btn class="col custom-button" label="Confirm" type="submit" />
-      </div>
-    </q-form>
+        <div class="row">
+          <div class="col" @click="() => (showModel = true)">
+            <q-field
+              rounded
+              outlined
+              label="Time in Valencia (if you already know)"
+              stack-label
+            >
+              <template v-slot:prepend>
+                <q-icon name="event" />
+              </template>
+              <template v-slot:control>
+                {{ dates }}
+              </template>
+            </q-field>
+            <q-dialog v-model="showModel">
+              <q-date
+                v-model="model"
+                range
+                minimal
+                @range-end="() => (showModel = false)"
+              />
+            </q-dialog>
+          </div>
+        </div>
+        <div class="row label">Activities</div>
+        <div class="row">
+          <div class="col-6">
+            <q-checkbox
+              v-model="selection"
+              disable
+              val="dinner1"
+              label="Dinner - Friday, 14th"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="selection"
+              disable
+              val="party"
+              label="Party/Concert - Saturday, 15th"
+              style="width: 100%"
+              color="primary"
+            />
+          </div>
+          <div class="col-6">
+            <q-checkbox
+              v-model="selection"
+              disable
+              val="dinner2"
+              label="Dinner - Saturday, 15th"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="selection"
+              disable
+              val="brunch"
+              label="Birthday Brunch - Sunday, 16th"
+              style="width: 100%"
+              color="primary"
+            />
+            <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
+          </div>
+        </div>
+
+        <div class="row label">Diets</div>
+        <div class="row">
+          <div class="col-4">
+            <q-checkbox
+              v-model="diet"
+              val="vegetarian"
+              label="Vegetarian"
+              color="primary"
+              style="width: 100%"
+            />
+            <q-checkbox
+              v-model="diet"
+              val="nut-free"
+              label="Nut-free"
+              style="width: 100%"
+              color="primary"
+            />
+          </div>
+          <div class="col-4">
+            <q-checkbox
+              v-model="diet"
+              val="vegan"
+              label="Vegan"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="diet"
+              val="soy-free"
+              label="Soy-free"
+              style="width: 100%"
+              color="primary"
+            />
+          </div>
+          <div class="col-4">
+            <q-checkbox
+              v-model="diet"
+              val="gluten-free"
+              label="Gluten-free"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="diet"
+              val="lactose-free"
+              label="Lactose-free"
+              style="width: 100%"
+              color="primary"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <q-toggle v-model="plusOne" disable icon="group" />
+          Bringing someome?
+          <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
+        </div>
+      </q-form>
+    </div>
+    <img class="sprite-standing-smiling" :src="spriteStanding" />
   </div>
-  <img class="sprite" :src="spritePeople" />
-  <AcceptedModal v-model="accepted" />
-  <DeclinedModal v-model="declined" />
-  <FailedModal v-model="failed" />
 </template>
 <style>
-.icon {
-  margin-left: 20px;
-}
-.sprite {
-  width: 25vw;
-  z-index: -1;
+.sprite-standing-smiling {
+  bottom: 60px;
+  left: 0;
   position: absolute;
-  right: 5vw;
-  bottom: 5vh;
+  height: 80vh;
+}
+.invite-wrapper {
+  height: 100vh;
+  overflow-y: scroll;
+}
+.label {
+  font-family: "Patrick";
+  font-size: 1rem;
+  line-height: 60%;
 }
 @media (max-width: 680px) {
-  .sprite {
-    width: 70vw;
-    right: 15vw;
+  .sprite-standing-smiling {
+    display: none;
   }
 }
 </style>

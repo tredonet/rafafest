@@ -65,7 +65,7 @@ onBeforeMount(() => {
 }
 .sprite-standing {
   bottom: 0;
-  left: 0vw;
+  left: 0;
   position: absolute;
   height: 80vh;
 }

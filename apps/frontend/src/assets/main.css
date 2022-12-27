@@ -19,6 +19,12 @@
   font-size: 2rem;
   font-family: "ManropeExtra";
 }
+.title-small {
+  color: var(--vt-c-black);
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "ManropeExtra";
+}
 .subtitle {
   margin-top: -2vh;
   margin-left: 30vw;
@@ -76,6 +82,9 @@
   .title {
     max-width: 70vw;
   }
+  .title-small {
+    max-width: 90vw;
+  }
 
   .content {
     margin: 0 5vw;
@@ -88,6 +97,10 @@
 
 @media (min-width: 680px) {
   .title {
+    margin: 2vh 0;
+    font-size: calc(4rem / 1.5);
+  }
+  .title-small {
     margin: 2vh 0;
     font-size: calc(4rem / 1.5);
   }
@@ -146,6 +159,9 @@
 @media (min-width: 1280px) {
   .title {
     font-size: 4rem;
+  }
+  .title-small {
+    font-size: 3rem;
   }
 
   .subtitle {
