@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.4
+- Fixed: Scroll issue
+- Fixed/Updated: Various things in the backend
+- Updated: Text on invite page
+
 ## v1.0.3
 - Added: class-validator
 - Added: Extended invite view when accepted

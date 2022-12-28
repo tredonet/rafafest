@@ -15,32 +15,34 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div class="row justify-center">
-    <div class="content title">
-      Hi {{ guest?.name }}, you are invited to RAFAFEST!
+  <div class="page">
+    <div class="row justify-center">
+      <div class="content title">
+        Hi {{ guest?.name }}, you are invited to RAFAFEST!
+      </div>
+    </div>
+    <div class="row justify-center bubble row-margin">
+      <SpeechBubble class="text-large content-narrow">
+        If you found your way here, this means you have shared some significant
+        and important time of my life with me - no matter if short or long,<br />
+        so I would say: <br />
+        It’s about time we see each other again!
+      </SpeechBubble>
+    </div>
+    <div class="row justify-center">
+      <div class="lets-go">
+        <img class="sprite-home-page" :src="sprite" />
+        <img class="doodle" :src="doodle" />
+        <p>
+          Obviously, this is me, Raphael. <br />
+          You'll see me throughout your invitation.
+        </p>
+        <router-link class="submit-button" to="/rafafest">
+          Let's go &#10084;
+        </router-link>
+      </div>
     </div>
   </div>
-  <div class="row justify-center bubble row-margin">
-    <SpeechBubble class="text-large content-narrow">
-      If you found your way here, this means you have shared some significant
-      and important time of my life with me - no matter if short or long,<br />
-      so I would say: <br />
-      It’s about time we see each other again!
-    </SpeechBubble>
-  </div>
-  <div class="row justify-center">
-    <div class="lets-go">
-      <img class="doodle" :src="doodle" />
-      <p>
-        Obviously, this is me, Raphael. <br />
-        You'll see me throughout your invitation.
-      </p>
-      <router-link class="submit-button" to="/rafafest">
-        Let's go &#10084;
-      </router-link>
-    </div>
-  </div>
-  <img class="sprite-home-page" :src="sprite" />
 </template>
 <style>
 .lets-go {
@@ -51,8 +53,8 @@ onBeforeMount(() => {
   margin-bottom: -100px;
 }
 .sprite-home-page {
-  bottom: 5vh;
-  left: 7vw;
+  top: -16vh;
+  right: 65vh;
   position: absolute;
   height: 60vh;
 }
@@ -81,7 +83,8 @@ onBeforeMount(() => {
 }
 @media (max-width: 680px) {
   .sprite-home-page {
-    bottom: 35vh;
+    top: -25vh;
+    right: 15vh;
     height: 25vh;
   }
   .doodle {

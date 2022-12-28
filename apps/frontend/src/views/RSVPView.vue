@@ -40,100 +40,102 @@ const onSubmit = async () => {
 };
 </script>
 <template>
-  <div class="row justify-center">
-    <div class="content title blur-background">Let's get you signed up</div>
-  </div>
-  <div class="row justify-center row-margin">
-    <div class="content-narrow notes blur-background">
-      You know the drill, fill in the blanks, get an annoying e-mail-newsletter
-      that you will always be too lazy to unsubscribe to again. Just kidding, I
-      only wanna read your name on my guest list and get a big fat smile on my
-      face because I’m looking forward seeing you.
+  <div class="page">
+    <div class="row justify-center">
+      <div class="content title blur-background">Let's get you signed up</div>
     </div>
-  </div>
-  <div class="row justify-center row-margin">
-    <div class="content-narrow notes blur-background">
-      Let's start with you!
-    </div>
-  </div>
-  <div class="row justify-center" v-if="guest">
-    <q-form
-      class="content-narrow blur-background q-col-gutter-y-md"
-      @submit="onSubmit"
-    >
-      <div class="row">
-        <q-input
-          id="name"
-          class="col"
-          rounded
-          outlined
-          :disable="Boolean(guest.name)"
-          label="First name"
-          v-model="guest.name"
-        />
-        <q-input
-          id="surname"
-          class="col"
-          rounded
-          outlined
-          :disable="Boolean(guest.surname)"
-          label="Last name"
-          v-model="guest.surname"
-        />
+    <div class="row justify-center row-margin">
+      <div class="content-narrow notes blur-background">
+        You know the drill, fill in the blanks, get an annoying
+        e-mail-newsletter that you will always be too lazy to unsubscribe to
+        again. Just kidding, I only wanna read your name on my guest list and
+        get a big fat smile on my face because I’m looking forward seeing you.
       </div>
-      <div class="row">
-        <div class="col">
+    </div>
+    <div class="row justify-center row-margin">
+      <div class="content-narrow notes blur-background">
+        Let's start with you!
+      </div>
+    </div>
+    <div class="row justify-center" v-if="guest">
+      <q-form
+        class="content-narrow blur-background q-col-gutter-y-md"
+        @submit="onSubmit"
+      >
+        <div class="row">
           <q-input
-            id="email"
+            id="name"
+            class="col"
             rounded
             outlined
-            label="Email Address"
-            type="email"
-            lazy-rules
-            :rules="[
-              (val) =>
-                (val && val.length > 0) || 'You know, to keep you updated',
-            ]"
-            v-model="guest.email"
+            :disable="Boolean(guest.name)"
+            label="First name"
+            v-model="guest.name"
+          />
+          <q-input
+            id="surname"
+            class="col"
+            rounded
+            outlined
+            :disable="Boolean(guest.surname)"
+            label="Last name"
+            v-model="guest.surname"
           />
         </div>
-      </div>
-      <div class="row">
-        <div class="col notes blur-background">
-          Most importantly: are you able to be in Valencia on and around the
-          15th of April, 2023?
+        <div class="row">
+          <div class="col">
+            <q-input
+              id="email"
+              rounded
+              outlined
+              label="Email Address"
+              type="email"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'You know, to keep you updated',
+              ]"
+              v-model="guest.email"
+            />
+          </div>
         </div>
-      </div>
-      <div class="row justify-evenly q-gutter-sm">
-        <q-btn
-          unelevated
-          :color="rsvp === 'yes' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('yes')"
-        >
-          100% - Yes <img class="icon" :src="heart" />
-        </q-btn>
-        <q-btn
-          unelevated
-          :color="rsvp === 'maybe' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('maybe')"
-        >
-          Not sure yet <img class="icon" :src="heartbeat" />
-        </q-btn>
-        <q-btn
-          unelevated
-          :color="rsvp === 'no' ? 'primary' : 'dark'"
-          rounded
-          :onclick="() => onSetRSVP('no')"
-        >
-          I can't <img class="icon" :src="heartbreak" />
-        </q-btn>
-      </div>
-      <div class="row">
-        <q-btn class="col custom-button" label="Confirm" type="submit" />
-      </div>
-    </q-form>
+        <div class="row">
+          <div class="col notes blur-background">
+            Most importantly: are you able to be in Valencia on and around the
+            15th of April, 2023?
+          </div>
+        </div>
+        <div class="row justify-evenly q-gutter-sm">
+          <q-btn
+            unelevated
+            :color="rsvp === 'yes' ? 'primary' : 'dark'"
+            rounded
+            :onclick="() => onSetRSVP('yes')"
+          >
+            100% - Yes <img class="icon" :src="heart" />
+          </q-btn>
+          <q-btn
+            unelevated
+            :color="rsvp === 'maybe' ? 'primary' : 'dark'"
+            rounded
+            :onclick="() => onSetRSVP('maybe')"
+          >
+            Not sure yet <img class="icon" :src="heartbeat" />
+          </q-btn>
+          <q-btn
+            unelevated
+            :color="rsvp === 'no' ? 'primary' : 'dark'"
+            rounded
+            :onclick="() => onSetRSVP('no')"
+          >
+            I can't <img class="icon" :src="heartbreak" />
+          </q-btn>
+        </div>
+        <div class="row">
+          <q-btn class="col custom-button" label="Confirm" type="submit" />
+        </div>
+      </q-form>
+    </div>
   </div>
   <img class="sprite" :src="spritePeople" />
 </template>
