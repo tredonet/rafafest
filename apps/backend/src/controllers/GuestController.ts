@@ -52,8 +52,8 @@ export class GuestController extends AbstractController<Guest> {
 		guest.email = req.body.email || "";
 		guest.code = Math.random().toString(36).substring(2);
 		guest.attendenceDates = {
-			from: "2023/04/14",
-			to: "2023/04/17"
+			from: "13/04/2023",
+			to: "17/04/202"
 		};
 		guest.attending = undefined;
 		guest.activities = [];

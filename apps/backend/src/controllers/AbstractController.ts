@@ -40,8 +40,8 @@ export abstract class AbstractController<E,	S extends AbstractService<E> = Abstr
 	}
 
 	protected async getEntity(req: Request): Promise<ResponseBody<E>> {
-		const results = await this.service.findById(req.params.id);
-		return results;
+		const result = await this.service.findById(req.params.id);
+		return result;
 	}
 
 	protected async updateEntity(req: Request): Promise<ResponseBody<E>> {
