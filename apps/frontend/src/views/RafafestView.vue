@@ -19,7 +19,7 @@ onBeforeMount(() => {
       <div class="title">RAFAFEST - Rapha turns 30</div>
     </div>
     <div class="row justify-center">
-      <div class="subtitle">15th of April, 2023</div>
+      <div class="subtitle">14th - 16th of April, 2023</div>
     </div>
     <div class="row justify-center">
       <div class="content-narrow blur-background">

@@ -60,7 +60,7 @@ onBeforeMount(() => {
           "Don't Look Back In Anger" - Oasis
         </p>
       </div>
-      <div class="col-6 self-end">
+      <div class="col-6 self-end greeting">
         <p class="notes supertitle">
           What a major bummer. But no worries, still love you!
         </p>
@@ -72,6 +72,9 @@ onBeforeMount(() => {
   <img :src="sprite" class="sprite-crying" />
 </template>
 <style>
+.greeting {
+  margin: 5vh 0;
+}
 .lyrics {
   float: right;
   font-size: 1rem;
@@ -84,7 +87,8 @@ onBeforeMount(() => {
   float: right;
 }
 .signature {
-  width: 50%;
+  width: 40%;
+  float: right;
   font-size: 1.5rem;
   float: right;
   font-family: "Patrick";

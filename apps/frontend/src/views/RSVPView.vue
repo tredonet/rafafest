@@ -13,9 +13,10 @@ const $q = useQuasar();
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
-
+const lastNameLocked = ref(false);
 onBeforeMount(() => {
   if (!guest?.value) return router.push("/error");
+  lastNameLocked.value = Boolean(guest.value.surname);
 });
 
 const rsvp = ref(guest?.value?.attending || "yes");
@@ -29,6 +30,7 @@ const onSubmit = async () => {
     const { code, name, surname, email } = guest.value;
     const attending = rsvp.value;
     await guestStore.rsvp({ code, name, surname, email, attending });
+    if (rsvp.value === "no") router.push("/cry");
   } catch {
     $q.notify({
       position: "center",
@@ -43,6 +45,9 @@ const onSubmit = async () => {
   <div class="page">
     <div class="row justify-center">
       <div class="content title blur-background">Let's get you signed up</div>
+    </div>
+    <div class="row justify-center">
+      <div class="subtitle">Latest by 1st of February, 2023</div>
     </div>
     <div class="row justify-center row-margin">
       <div class="content-narrow notes blur-background">
@@ -77,7 +82,7 @@ const onSubmit = async () => {
             class="col"
             rounded
             outlined
-            :disable="Boolean(guest.surname)"
+            :disable="lastNameLocked"
             label="Last name"
             v-model="guest.surname"
           />
