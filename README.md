@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v1.0.4
+- Added: Minimal guestlist
 - Fixed: Scroll issue
 - Fixed/Updated: Various things in the backend
 - Updated: Text on invite page

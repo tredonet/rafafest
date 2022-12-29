@@ -13,6 +13,9 @@ export class GuestController extends AbstractController<Guest> {
 		app.route(this.endPoint + "/find").get(
 			requestWrapper(this.getGuest.bind(this))
 		);
+		app.route(this.endPoint + "/list").get(
+			requestWrapper(this.list.bind(this))
+		);
 		app.route(this.endPoint + "/rsvp").post(
 			requestWrapper(this.rsvp.bind(this))
 		);
@@ -31,13 +34,26 @@ export class GuestController extends AbstractController<Guest> {
 		return guest;
 	}
 
+	async list(): Promise<ResponseBody<Partial<Guest>[]>> {
+		const guests = await this.service.find({});
+		const list = guests.map((guest) => ({
+			name: guest.name,
+			surname: guest.surname,
+			circle: guest.circle,
+		}));
+		return list;
+	}
+
 	async rsvp(req: Request): Promise<ResponseBody<null>> {
 		const { code, name, email, attending } = req.body;
 		if (!code || !name || !email || !attending)
 			throw new Error("fields_missing");
 		const guest = await this.service.findOne({ code });
 		if (!guest || guest.name !== name) throw new Error("not_found");
-		const updatedGuest = await this.service.updateOne(guest.id.toString(), req.body);
+		const updatedGuest = await this.service.updateOne(
+			guest.id.toString(),
+			req.body
+		);
 		if (!updatedGuest) throw new Error("error_updating");
 		return null;
 	}
@@ -53,7 +69,7 @@ export class GuestController extends AbstractController<Guest> {
 		guest.code = Math.random().toString(36).substring(2);
 		guest.attendenceDates = {
 			from: "13/04/2023",
-			to: "17/04/202"
+			to: "17/04/202",
 		};
 		guest.attending = undefined;
 		guest.activities = [];

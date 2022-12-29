@@ -3,6 +3,12 @@ import type { Guest } from "@rafafest/core";
 
 const API_URL = "/api/guest";
 
+export type GuestListGuest = {
+  name: string;
+  surname: string;
+  circle: string;
+};
+
 export type rsvpData =
   | Guest
   | {
@@ -18,6 +24,11 @@ async function get(code: string): Promise<Guest> {
   return response.data;
 }
 
+async function list(): Promise<GuestListGuest[]> {
+  const response = await axios.get<GuestListGuest[]>(`${API_URL}/list`);
+  return response.data;
+}
+
 async function rsvp(body: rsvpData): Promise<void> {
   const response = await axios.post(`${API_URL}/rsvp`, body);
   return response.data;
@@ -25,5 +36,6 @@ async function rsvp(body: rsvpData): Promise<void> {
 
 export const guest = {
   get,
+  list,
   rsvp,
 };

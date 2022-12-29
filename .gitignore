@@ -1,5 +1,6 @@
 # Logs
 data
+guest.ts
 apps/backend/public
 **/dist
 **/bin

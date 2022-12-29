@@ -7,7 +7,7 @@ import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
 import { QForm, QInput, QDialog, QDate, useQuasar } from "quasar";
 import { computed, ref } from "vue";
-import { RSVPView } from ".";
+import { RSVPView, GuestListView } from ".";
 import { useRouter } from "vue-router";
 
 const $q = useQuasar();
@@ -23,6 +23,7 @@ const datesString = computed(
     }`
 );
 const showDatePicker = ref(false);
+const showGuestList = ref(false);
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
   if (guest?.value) await guestStore.rsvp(guest.value);
@@ -274,6 +275,14 @@ const onSubmit = async () => {
       </div>
     </div>
   </div>
+  <q-btn
+    fab
+    icon="group"
+    color="dark"
+    class="fab"
+    @click="() => (showGuestList = true)"
+  />
+  <q-dialog v-model="showGuestList"> <GuestListView/> </q-dialog>
   <img
     class="sprite-standing-smiling"
     :src="spriteStanding"
@@ -281,6 +290,11 @@ const onSubmit = async () => {
   />
 </template>
 <style>
+.fab {
+  position: absolute;
+  left: calc(100vw - 100px);
+  bottom: 100px;
+}
 .sprite-standing-smiling {
   bottom: 0;
   left: 0;
@@ -294,6 +308,12 @@ const onSubmit = async () => {
 }
 
 @media (max-width: 680px) {
+  .fab {
+    position: absolute;
+    left: calc(100vw - 60px);
+    bottom: 120px;
+    z-index: 1;
+  }
   .sprite-standing-smiling {
     display: none;
   }

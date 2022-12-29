@@ -4,3 +4,4 @@ export { default as RafafestView } from "./RafafestView.vue";
 export { default as SplashView } from "./SplashView.vue";
 export { default as CryView } from "./CryView.vue";
 export { default as RSVPView } from "./RSVPView.vue";
+export { default as GuestListView } from "./GuestListView.vue";
