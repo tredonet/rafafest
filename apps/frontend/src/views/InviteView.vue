@@ -24,6 +24,7 @@ const datesString = computed(
 );
 const showDatePicker = ref(false);
 const showGuestList = ref(false);
+const changesSaved = ref(false);
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
   if (guest?.value) await guestStore.rsvp(guest.value);
@@ -38,12 +39,7 @@ const changeAvailability = async (option: "yes" | "no" | "maybe") => {
 const onSubmit = async () => {
   try {
     if (guest?.value) await guestStore.rsvp(guest.value);
-    $q.notify({
-      position: "top",
-      message: "Success",
-      color: "primary",
-      timeout: 1000,
-    });
+    changesSaved.value = true;
   } catch {
     $q.notify({
       position: "top",
@@ -62,7 +58,7 @@ const onSubmit = async () => {
     <div v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'">
       <div class="row justify-center" v-if="guest.attending === 'yes'">
         <div class="title-small blur-background">
-          Awesome - looking forward to see you, {{ guest.name }}
+          Awesome - looking forward to seeing you, {{ guest.name }}
         </div>
       </div>
       <div class="row justify-center" v-if="guest.attending === 'maybe'">
@@ -282,12 +278,28 @@ const onSubmit = async () => {
     class="fab"
     @click="() => (showGuestList = true)"
   />
-  <q-dialog v-model="showGuestList"> <GuestListView/> </q-dialog>
+  <q-dialog v-model="showGuestList"> <GuestListView /> </q-dialog>
   <img
     class="sprite-standing-smiling"
     :src="spriteStanding"
     v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'"
   />
+  <q-dialog v-model="changesSaved">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">Saved</div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        Cool beans, you will hear from me soon when there are more updates on
+        this page.
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="OK" color="primary" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 <style>
 .fab {

@@ -32,7 +32,7 @@ const router = createRouter({
     },
     {
       path: "/error",
-      name: "error",
+      name: "rafafest",
       component: SplashView,
     },
     {

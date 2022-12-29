@@ -1,3 +1,3 @@
 <template>
-  <div>Error</div>
+  <div>RAFAFEST</div>
 </template>

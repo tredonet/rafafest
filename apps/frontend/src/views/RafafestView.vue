@@ -34,7 +34,7 @@ onBeforeMount(() => {
           unforgetable experience for you, wether you’re on my Instagram Close
           Friends List or on my ‘damnit, I should call them again some time
           List’!
-          <br />
+          <br /><br />
           So, what’s the deal with this Birthday-Party-Coachella Thing?
           Celebrate, enjoy, cry, laugh, eat, drink, party, and relax. Invited
           are lovely humans from over 10 countries, that have been a part of my

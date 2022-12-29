@@ -54,7 +54,8 @@ const onSubmit = async () => {
         You know the drill, fill in the blanks, get an annoying
         e-mail-newsletter that you will always be too lazy to unsubscribe to
         again. Just kidding, I only wanna read your name on my guest list and
-        get a big fat smile on my face because I’m looking forward seeing you.
+        get a big fat smile on my face because I’m looking forward to seeing
+        you.
       </div>
     </div>
     <div class="row justify-center row-margin">

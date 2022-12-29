@@ -15,7 +15,10 @@ function cap(string: string | undefined) {
 }
 </script>
 <template>
-  <q-card>
+  <q-card style="margin: 0 1vw">
+    <q-toolbar class="bg-primary text-white shadow-2">
+      <q-toolbar-title>Guest List</q-toolbar-title>
+    </q-toolbar>
     <q-list bordered separator>
       <q-item clickable v-ripple v-for="guest in list" v-bind:key="guest.name">
         <q-item-section>
@@ -26,4 +29,3 @@ function cap(string: string | undefined) {
     </q-list>
   </q-card>
 </template>
-p
