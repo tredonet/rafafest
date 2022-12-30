@@ -34,13 +34,19 @@ export class GuestController extends AbstractController<Guest> {
 		return guest;
 	}
 
-	async list(): Promise<ResponseBody<Partial<Guest>[]>> {
+	async list(req: Request): Promise<ResponseBody<Partial<Guest>[]>> {
 		const guests = await this.service.find({});
-		const list = guests.map((guest) => ({
-			name: guest.name,
-			surname: guest.surname,
-			circle: guest.circle,
-		}));
+		const { info } = req.query;
+		console.log(info);
+		const list = guests.map((guest) => {
+			const res: Record<string, any> = {
+				name: guest.name,
+				surname: guest.surname,
+				circle: guest.circle,
+			};
+			if (info) res.attending = guest.attending;
+			return res;
+		});
 		return list;
 	}
 
