@@ -37,7 +37,6 @@ export class GuestController extends AbstractController<Guest> {
 	async list(req: Request): Promise<ResponseBody<Partial<Guest>[]>> {
 		const guests = await this.service.find({});
 		const { info } = req.query;
-		console.log(info);
 		const list = guests.map((guest) => {
 			const res: Record<string, any> = {
 				name: guest.name,
@@ -47,6 +46,7 @@ export class GuestController extends AbstractController<Guest> {
 			if (info) res.attending = guest.attending;
 			return res;
 		});
+		if (info === "filter") return list.filter((guest) => guest.attending);
 		return list;
 	}
 
