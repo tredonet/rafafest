@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.0.5
+- Added bigger guest list
+
 ## v1.0.4
 - Added: Minimal guestlist
 - Fixed: Scroll issue

@@ -7,6 +7,7 @@ export type GuestListGuest = {
   name: string;
   surname: string;
   circle: string;
+  attending: "yes" | "no" | "maybe" | null;
 };
 
 export type rsvpData =
@@ -25,7 +26,7 @@ async function get(code: string): Promise<Guest> {
 }
 
 async function list(): Promise<GuestListGuest[]> {
-  const response = await axios.get<GuestListGuest[]>(`${API_URL}/list`);
+  const response = await axios.get<GuestListGuest[]>(`${API_URL}/list?info=true`);
   return response.data;
 }
 

@@ -272,11 +272,19 @@ const onSubmit = async () => {
     </div>
   </div>
   <q-btn
+`    rounded
+    icon-right="wb_sunny"
+    color="dark"
+    class="fab big"
+    label="Who's coming?"
+    @click="() => $router.push('/guestlist')"
+  />
+  <q-btn
     fab
     icon="group"
     color="dark"
-    class="fab"
-    @click="() => (showGuestList = true)"
+    class="fab small"
+    @click="() => $router.push('/guestlist')"
   />
   <q-dialog v-model="showGuestList"> <GuestListView /> </q-dialog>
   <img
@@ -307,6 +315,9 @@ const onSubmit = async () => {
   left: calc(100vw - 100px);
   bottom: 100px;
 }
+.fab.big {
+  left: calc(100vw - 250px);
+}
 .sprite-standing-smiling {
   bottom: 0;
   left: 0;
@@ -326,7 +337,15 @@ const onSubmit = async () => {
     bottom: 120px;
     z-index: 1;
   }
+  .fab.big {
+    display: none;
+  }
   .sprite-standing-smiling {
+    display: none;
+  }
+}
+@media (min-width: 680px) {
+  .fab.small {
     display: none;
   }
 }

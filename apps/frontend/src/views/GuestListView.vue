@@ -1,31 +1,108 @@
 <script lang="ts" setup>
 import api from "@/api";
+import yes from "@/assets/icons/check-circle.svg";
+import no from "@/assets/icons/times-circle.svg";
+import maybe from "@/assets/icons/question-circle.svg";
+import rsvp from "@/assets/icons/clock.svg";
 import type { GuestListGuest } from "@/api/guest";
-import { QCard, QItem, QItemLabel, QItemSection, QList } from "quasar";
-import { onBeforeMount, ref } from "vue";
+import { QItem, QItemLabel, QItemSection, QList, QToggle } from "quasar";
+import { computed, onBeforeMount, ref } from "vue";
 
-const list = ref<GuestListGuest[]>([]);
+const guestData = ref<GuestListGuest[]>([]);
 onBeforeMount(async () => {
-  list.value = await api.guest.list();
-  list.value.sort((a, b) => (a.circle < b.circle ? 1 : -1));
+  guestData.value = await api.guest.list();
+  guestData.value.sort((a, b) => (a.circle < b.circle ? 1 : -1));
+  // list.value = list.value.filter((guest) => guest.attending);
 });
+
+const filter = ref(false);
+const guestList = computed(() => {
+  return filter.value
+    ? guestData.value.filter(
+        (guest) => guest.attending && guest.attending !== "no"
+      )
+    : guestData.value;
+});
+
 function cap(string: string | undefined) {
   if (!string) return;
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function icon(attending: "yes" | "no" | "maybe" | null) {
+  if (!attending) return rsvp;
+  const icons = {
+    yes,
+    no,
+    maybe,
+  };
+  return icons[attending];
+}
 </script>
 <template>
-  <q-card style="margin: 0 1vw">
-    <q-toolbar class="bg-primary text-white shadow-2">
-      <q-toolbar-title>Guest List</q-toolbar-title>
-    </q-toolbar>
-    <q-list bordered separator>
-      <q-item clickable v-ripple v-for="guest in list" v-bind:key="guest.name">
-        <q-item-section>
-          <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
-          <q-item-label caption>{{ cap(guest.circle) }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-  </q-card>
+  <div class="page">
+    <div class="content-wide">
+      <div class="row justify-left" style="margin: 0 5%">
+        <div class="title">
+          Here’s a list of confirmed and unconfirmed peeps
+        </div>
+      </div>
+    </div>
+    <div class="row justify-center">
+      <div class="content-wide">
+        <div class="row notes q-gutter-x-lg">
+          <q-toggle v-model="filter" icon="filter_alt" size="lg" />
+          Filter
+        </div>
+        <q-list class="row justify-evenly q-gutter-sm">
+          <q-item
+            v-for="guest in guestList"
+            v-bind:key="guest.name"
+            class="list-item"
+          >
+            <q-item-section>
+              <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
+              <q-item-label caption style="display: inline; font-size: 1rem">{{
+                cap(guest.circle)
+              }}</q-item-label>
+              <img
+                :class="`attending-icon ${guest.attending}`"
+                :src="icon(guest.attending)"
+              />
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
+    </div>
+  </div>
 </template>
+<style>
+.list-item {
+  display: block;
+  color: var(--vt-c-black-mute);
+  width: 20rem;
+  text-align: left;
+  text-decoration: none;
+  border: 5px solid var(--vt-c-black-mute);
+  border-radius: 15px;
+  white-space: nowrap;
+}
+.attending-icon {
+  position: absolute;
+  right: 0;
+}
+
+.attending-icon.yes {
+  filter: invert(46%) sepia(71%) saturate(414%) hue-rotate(83deg)
+    brightness(101%) contrast(46%);
+}
+
+.attending-icon.no {
+  filter: invert(24%) sepia(82%) saturate(7434%) hue-rotate(339deg)
+    brightness(92%) contrast(63%);
+}
+
+.attending-icon.maybe {
+  filter: invert(97%) sepia(36%) saturate(5682%) hue-rotate(314deg)
+    brightness(108%) contrast(59%);
+}
+</style>

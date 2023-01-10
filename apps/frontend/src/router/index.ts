@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
   CryView,
+  GuestListView,
   HomeView,
   InviteView,
   RafafestView,
@@ -29,6 +30,11 @@ const router = createRouter({
       path: "/rafafest",
       name: "rafafest",
       component: RafafestView,
+    },
+    {
+      path: "/guestlist",
+      name: "guestlist",
+      component: GuestListView,
     },
     {
       path: "/error",
