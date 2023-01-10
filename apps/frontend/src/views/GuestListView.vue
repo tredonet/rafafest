@@ -7,12 +7,15 @@ import rsvp from "@/assets/icons/clock.svg";
 import type { GuestListGuest } from "@/api/guest";
 import { QItem, QItemLabel, QItemSection, QList, QToggle } from "quasar";
 import { computed, onBeforeMount, ref } from "vue";
+import { useGuestStore } from "@/stores";
+import { storeToRefs } from "pinia";
 
 const guestData = ref<GuestListGuest[]>([]);
+const guestStore = useGuestStore();
+const { guest } = storeToRefs(guestStore);
 onBeforeMount(async () => {
-  guestData.value = await api.guest.list();
+  guestData.value = await api.guest.list(guest?.value?.code || "");
   guestData.value.sort((a, b) => (a.circle < b.circle ? 1 : -1));
-  // list.value = list.value.filter((guest) => guest.attending);
 });
 
 const filter = ref(false);

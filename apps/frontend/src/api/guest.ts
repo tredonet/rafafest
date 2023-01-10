@@ -25,8 +25,16 @@ async function get(code: string): Promise<Guest> {
   return response.data;
 }
 
-async function list(): Promise<GuestListGuest[]> {
-  const response = await axios.get<GuestListGuest[]>(`${API_URL}/list?info=true`);
+async function list(code: string): Promise<GuestListGuest[]> {
+  const config = {
+    headers: {
+      code,
+    },
+  };
+  const response = await axios.get<GuestListGuest[]>(
+    `${API_URL}/list?info=true`,
+    config
+  );
   return response.data;
 }
 

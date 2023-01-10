@@ -1,7 +1,8 @@
 # CHANGELOG
 
 ## v1.0.5
-- Added bigger guest list
+- Added: Invite code based authentication on guestlist
+- Added: bigger guest list
 
 ## v1.0.4
 - Added: Minimal guestlist

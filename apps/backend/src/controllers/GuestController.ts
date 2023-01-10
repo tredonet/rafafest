@@ -35,18 +35,20 @@ export class GuestController extends AbstractController<Guest> {
 	}
 
 	async list(req: Request): Promise<ResponseBody<Partial<Guest>[]>> {
+		const codeHeader = req.headers["code"];
+		if (!codeHeader) throw new Error("forbidden");
+		const guest = await this.service.findOne({ code: codeHeader });
+		if (!guest) throw new Error("forbidden");
 		const guests = await this.service.find({});
-		const { info } = req.query;
 		const list = guests.map((guest) => {
 			const res: Record<string, any> = {
 				name: guest.name,
 				surname: guest.surname,
 				circle: guest.circle,
+				attending: guest.attending,
 			};
-			if (info) res.attending = guest.attending;
 			return res;
 		});
-		if (info === "filter") return list.filter((guest) => guest.attending);
 		return list;
 	}
 
