@@ -272,7 +272,7 @@ const onSubmit = async () => {
     </div>
   </div>
   <q-btn
-`    rounded
+    rounded
     icon-right="wb_sunny"
     color="dark"
     class="fab big"
