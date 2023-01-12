@@ -9,15 +9,16 @@ import {
 import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm";
 
 //Where did Raphael really got to know the guest
-type Cirlce =
+export type Cirlce =
 	| "wolfach"
-	| "childhood"
-	| "hometown"
-	| "university"
-	| "vlc"
+	| "freiburg"
+	| "utrecht"
+	| "budabest"
+	| "valencia"
 	| "bolt"
+	| "nagua"
 	| "gigtor"
-	| "hungary";
+	| "alongtheway";
 
 type Diet =
 	| "vegetarian"

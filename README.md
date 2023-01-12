@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v1.0.5
+- Updated: Data Model to current list of circles
 - Added: Invite code based authentication on guestlist
 - Added: bigger guest list
 

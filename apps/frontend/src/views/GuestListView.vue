@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import api from "@/api";
+import { Circle } from "@rafafest/core";
 import yes from "@/assets/icons/check-circle.svg";
 import no from "@/assets/icons/times-circle.svg";
 import maybe from "@/assets/icons/question-circle.svg";
@@ -40,6 +41,20 @@ function icon(attending: "yes" | "no" | "maybe" | null) {
   };
   return icons[attending];
 }
+function circleColour(circle: Circle): string {
+  const colours = {
+    wolfach: "#005198",
+    freiburg: "#CE2638",
+    utrecht: "#CC0000",
+    budapest: "#436F4D",
+    valencia: "#FCDD09",
+    bolt: "#34D186",
+    nagua: "#002D62",
+    gigtor: "#77D848",
+    alongtheway: "#7C62FF",
+  };
+  return colours[circle];
+}
 </script>
 <template>
   <div class="page">
@@ -62,6 +77,10 @@ function icon(attending: "yes" | "no" | "maybe" | null) {
             v-bind:key="guest.name"
             class="list-item"
           >
+            <div
+              class="sepa"
+              :style="`--circle: ${circleColour(guest.circle)};`"
+            />
             <q-item-section>
               <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
               <q-item-label caption style="display: inline; font-size: 1rem">{{
@@ -79,15 +98,23 @@ function icon(attending: "yes" | "no" | "maybe" | null) {
   </div>
 </template>
 <style>
+.sepa {
+  margin: auto 10px auto -10px;
+  height: 90%;
+  width: 2px;
+  border-radius: 99px;
+  background-color: var(--circle);
+}
 .list-item {
   display: block;
   color: var(--vt-c-black-mute);
   width: 20rem;
   text-align: left;
   text-decoration: none;
-  border: 5px solid var(--vt-c-black-mute);
-  border-radius: 15px;
+  border: 3px solid var(--vt-c-black-mute);
+  border-radius: 10px;
   white-space: nowrap;
+  font-family: "Patrick";
 }
 .attending-icon {
   position: absolute;
