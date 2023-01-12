@@ -13,7 +13,7 @@ export type Circle =
 	| "wolfach"
 	| "freiburg"
 	| "utrecht"
-	| "budabest"
+	| "budapest"
 	| "valencia"
 	| "bolt"
 	| "nagua"
@@ -87,7 +87,7 @@ export class Guest {
 
 	@IsString()
 	@Column()
-	circle: Cirlce;
+	circle: Circle;
 
 	@IsNumber()
 	@Column()

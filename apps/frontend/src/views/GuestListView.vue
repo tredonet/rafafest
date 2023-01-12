@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import api from "@/api";
-import { Circle } from "@rafafest/core";
+import type { Circle } from "@rafafest/core";
 import yes from "@/assets/icons/check-circle.svg";
 import no from "@/assets/icons/times-circle.svg";
 import maybe from "@/assets/icons/question-circle.svg";

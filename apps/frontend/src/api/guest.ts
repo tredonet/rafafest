@@ -1,12 +1,12 @@
 import axios from "axios";
-import type { Guest } from "@rafafest/core";
+import type { Circle, Guest } from "@rafafest/core";
 
 const API_URL = "/api/guest";
 
 export type GuestListGuest = {
   name: string;
   surname: string;
-  circle: string;
+  circle: Circle;
   attending: "yes" | "no" | "maybe" | null;
 };
 
