@@ -9,7 +9,7 @@ import {
 import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm";
 
 //Where did Raphael really got to know the guest
-export type Cirlce =
+export type Circle =
 	| "wolfach"
 	| "freiburg"
 	| "utrecht"
