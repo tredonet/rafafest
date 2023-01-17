@@ -1,12 +1,14 @@
 import api from "@/api";
 import type { rsvpData } from "@/api/guest";
-import type { Guest } from "@rafafest/core";
+import type { Friend, Guest } from "@rafafest/core";
 import { defineStore } from "pinia";
 
 const LOCAL_STORAGE_KEY = "guest";
 
 interface GuestStoreState {
-  guest?: Guest;
+  guest?: Guest & {
+    friendsData: Friend[];
+  };
 }
 
 export const useGuestStore = defineStore("guest", {
@@ -18,7 +20,24 @@ export const useGuestStore = defineStore("guest", {
   actions: {
     fetch: async function (code: string) {
       try {
-        this.guest = await api.guest.get(code);
+        const guest = await api.guest.get(code);
+        const friendsData = await Promise.all(
+          Array(guest.invites)
+            .fill(0)
+            .map(async (_, index) => {
+              return guest.friends[index]
+                ? await fetchPlusOne(
+                    guest.code,
+                    guest.friends[index].toString()
+                  )
+                : {
+                    name: undefined,
+                    email: undefined,
+                    mainGuest: false,
+                  };
+            })
+        );
+        this.guest = { ...guest, friendsData };
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
       } catch {
         this.guest = undefined;
@@ -28,8 +47,7 @@ export const useGuestStore = defineStore("guest", {
     rsvp: async function (data: rsvpData) {
       try {
         await api.guest.rsvp(data);
-        this.guest = await api.guest.get(data.code);
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
+        await this.fetch(data.code);
       } catch {
         this.guest = undefined;
         localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -37,3 +55,15 @@ export const useGuestStore = defineStore("guest", {
     },
   },
 });
+
+const fetchPlusOne = async (code: string, id: string): Promise<Friend> => {
+  try {
+    return await api.guest.getFriend(code, id);
+  } catch {
+    return {
+      name: "error",
+      email: "error",
+      mainGuest: true,
+    };
+  }
+};

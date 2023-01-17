@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Circle, Guest } from "@rafafest/core";
+import type { Circle, Friend, Guest } from "@rafafest/core";
 
 const API_URL = "/api/guest";
 
@@ -31,10 +31,7 @@ async function list(code: string): Promise<GuestListGuest[]> {
       code,
     },
   };
-  const response = await axios.get<GuestListGuest[]>(
-    `${API_URL}/list?info=true`,
-    config
-  );
+  const response = await axios.get<GuestListGuest[]>(`${API_URL}/list`, config);
   return response.data;
 }
 
@@ -43,8 +40,22 @@ async function rsvp(body: rsvpData): Promise<void> {
   return response.data;
 }
 
+async function getFriend(code: string, id: string): Promise<Friend> {
+  const config = {
+    headers: {
+      code,
+    },
+  };
+  const response = await axios.get<Friend>(
+    `${API_URL}/getfriend/${id}`,
+    config
+  );
+  return response.data;
+}
+
 export const guest = {
   get,
   list,
   rsvp,
+  getFriend,
 };

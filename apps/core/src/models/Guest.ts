@@ -7,26 +7,7 @@ import {
 	IsString,
 } from "class-validator";
 import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm";
-
-//Where did Raphael really got to know the guest
-export type Circle =
-	| "wolfach"
-	| "freiburg"
-	| "utrecht"
-	| "budapest"
-	| "valencia"
-	| "bolt"
-	| "nagua"
-	| "gigtor"
-	| "alongtheway";
-
-type Diet =
-	| "vegetarian"
-	| "vegan"
-	| "lactose-free"
-	| "gluten-free"
-	| "soy-free"
-	| "nut-free";
+import { Circle, Diet } from "../types";
 
 @Entity()
 export class Guest {

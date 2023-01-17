@@ -10,7 +10,6 @@ const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
 onBeforeMount(async () => {
   await guestStore.fetch(code);
-  console.log(guest?.value);
   if (guest?.value) return router.push("/home");
   return router.push("/error");
 });

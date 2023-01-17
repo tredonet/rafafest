@@ -5,8 +5,25 @@ import heartbeat from "@/assets/icons/heartbeat.svg";
 import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
-import { QForm, QInput, QDialog, QDate, useQuasar } from "quasar";
+import {
+  QForm,
+  QInput,
+  QDialog,
+  QDate,
+  useQuasar,
+  QBtn,
+  QCard,
+  QCardActions,
+  QCardSection,
+  QField,
+  QIcon,
+} from "quasar";
 import { computed, ref } from "vue";
+import {
+  ActivitiesSection,
+  DietSection,
+  FriendSection,
+} from "@/features/InviteForm";
 import { RSVPView, GuestListView } from ".";
 import { useRouter } from "vue-router";
 
@@ -14,8 +31,7 @@ const $q = useQuasar();
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
-const plusOne = ref(false);
-const activities = ref(["dinner1", "dinner2", "party", "brunch"]);
+
 const datesString = computed(
   () =>
     `${guest?.value?.attendenceDates.from ?? ""} - ${
@@ -72,7 +88,7 @@ const onSubmit = async () => {
           @submit="onSubmit"
         >
           <div class="row label">Your details</div>
-          <div class="row">
+          <div class="row q-gutter-x-md">
             <q-input
               id="name"
               class="col"
@@ -137,104 +153,10 @@ const onSubmit = async () => {
               </q-dialog>
             </div>
           </div>
-          <div class="row label">Activities</div>
-          <div class="row">
-            <div class="col-6">
-              <q-checkbox
-                v-model="activities"
-                disable
-                val="dinner1"
-                label="Dinner - Friday, 14th"
-                style="width: 100%"
-                color="primary"
-              />
-              <q-checkbox
-                v-model="activities"
-                disable
-                val="party"
-                label="Party/Concert - Saturday, 15th"
-                style="width: 100%"
-                color="primary"
-              />
-            </div>
-            <div class="col-6">
-              <q-checkbox
-                v-model="activities"
-                disable
-                val="dinner2"
-                label="Dinner - Saturday, 15th"
-                style="width: 100%"
-                color="primary"
-              />
-              <q-checkbox
-                v-model="activities"
-                disable
-                val="brunch"
-                label="Birthday Brunch - Sunday, 16th"
-                style="width: 100%"
-                color="primary"
-              />
-              <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
-            </div>
-          </div>
+          <ActivitiesSection />
+          <DietSection />
 
-          <div class="row label">Diets</div>
-          <div class="row">
-            <div class="col-4">
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="vegetarian"
-                label="Vegetarian"
-                color="primary"
-                style="width: 100%"
-              />
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="nut-free"
-                label="Nut-free"
-                style="width: 100%"
-                color="primary"
-              />
-            </div>
-            <div class="col-4">
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="vegan"
-                label="Vegan"
-                style="width: 100%"
-                color="primary"
-              />
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="soy-free"
-                label="Soy-free"
-                style="width: 100%"
-                color="primary"
-              />
-            </div>
-            <div class="col-4">
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="gluten-free"
-                label="Gluten-free"
-                style="width: 100%"
-                color="primary"
-              />
-              <q-checkbox
-                v-model="guest.dietryPreference"
-                val="lactose-free"
-                label="Lactose-free"
-                style="width: 100%"
-                color="primary"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <q-toggle v-model="plusOne" disable icon="group" />
-            Bringing someome?
-            <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
-          </div>
-
+          <FriendSection />
           <div class="row">
             <q-btn class="col custom-button" label="Save" type="submit" />
           </div>

@@ -1,4 +1,4 @@
-import { Guest } from "@rafafest/core";
+import { Friend, Guest } from "@rafafest/core";
 import { Application, Request } from "express";
 import { GuestService } from "../services";
 import { requestWrapper, ResponseBody } from "../utils";
@@ -18,6 +18,9 @@ export class GuestController extends AbstractController<Guest> {
 		);
 		app.route(this.endPoint + "/rsvp").post(
 			requestWrapper(this.rsvp.bind(this))
+		);
+		app.route(this.endPoint + "/getfriend/:id").get(
+			requestWrapper(this.getFriend.bind(this))
 		);
 		app.route(this.endPoint + "/invite").post(
 			this.auth,
@@ -90,5 +93,19 @@ export class GuestController extends AbstractController<Guest> {
 		guest.yearsShared = yearsShared;
 		const entity = await this.service.create(guest);
 		return { status: 201, data: entity };
+	}
+
+	async getFriend(req: Request): Promise<ResponseBody<Friend>> {
+		const { code } = req.headers;
+		const { id } = req.params;
+		const guest = await this.service.findOne({ code });
+		if (!guest.friends.map((fr) => fr.toString()).includes(id))
+			throw new Error("friend not found");
+		const friend = await this.service.findById(id);
+		return {
+			name: friend.name,
+			email: friend.email,
+			mainGuest: Boolean(friend.invites),
+		};
 	}
 }
