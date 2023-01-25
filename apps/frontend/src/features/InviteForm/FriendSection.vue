@@ -14,13 +14,19 @@ import {
   useQuasar,
 } from "quasar";
 import { ref } from "vue";
+import { EditFriend } from "@/features";
 
 const guestStore = useGuestStore();
 const $q = useQuasar();
 const { guest } = storeToRefs(guestStore);
 const showHelp = ref(false);
 const canBringSomeone = ref(Boolean(guest?.value?.friends.length));
-const onFriendEdit = (friend: any) => null;
+const showFriendEdit = ref(false);
+const friendEditId = ref();
+const onFriendEdit = (friend: any) => {
+  friendEditId.value = friend.id;
+  showFriendEdit.value = true;
+};
 const onFriendDelete = async (friend: any) => {
   $q.dialog({
     title: "Confirm",
@@ -108,5 +114,9 @@ const onFriendDelete = async (friend: any) => {
         <q-btn flat label="OK" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="showFriendEdit">
+    <EditFriend :id="friendEditId" />
   </q-dialog>
 </template>

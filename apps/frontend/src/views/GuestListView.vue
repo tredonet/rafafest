@@ -52,6 +52,7 @@ function circleColour(circle: Circle): string {
     nagua: "#002D62",
     gigtor: "#77D848",
     alongtheway: "#7C62FF",
+    "+1": ""
   };
   return colours[circle];
 }

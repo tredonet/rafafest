@@ -62,10 +62,16 @@ async function deleteFriend(code: string, id: string): Promise<void> {
   await axios.post<null>(`${API_URL}/deletefriend/`, { id }, config);
 }
 
+async function getFriendData(id: string): Promise<Guest> {
+  const response = await axios.get<Guest>(`${API_URL}/getfrienddata/${id}`);
+  return response.data;
+}
+
 export const guest = {
   get,
   list,
   updateInvite,
   getFriend,
   deleteFriend,
+  getFriendData,
 };

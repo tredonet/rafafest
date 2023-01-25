@@ -31,7 +31,6 @@ const $q = useQuasar();
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
-
 const datesString = computed(
   () =>
     `${guest?.value?.attendenceDates.from ?? ""} - ${

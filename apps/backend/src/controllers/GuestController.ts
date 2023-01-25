@@ -22,6 +22,9 @@ export class GuestController extends AbstractController<Guest> {
 		app.route(this.endPoint + "/getfriend/:id").get(
 			requestWrapper(this.getFriend.bind(this))
 		);
+		app.route(this.endPoint + "/getfrienddata/:id").get(
+			requestWrapper(this.getFriendData.bind(this))
+		);
 		app.route(this.endPoint + "/deletefriend").post(
 			requestWrapper(this.deleteFriend.bind(this))
 		);
@@ -146,6 +149,11 @@ export class GuestController extends AbstractController<Guest> {
 			mainGuest: Boolean(friend.invites),
 		};
 	}
+	async getFriendData(req: Request): Promise<ResponseBody<Guest>> {
+		const { id } = req.params;
+		return await this.service.findById(id);
+	}
+
 	async deleteFriend(req: Request): Promise<ResponseBody<null>> {
 		const { code } = req.headers;
 		const { id } = req.body;
