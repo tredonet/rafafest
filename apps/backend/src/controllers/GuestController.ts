@@ -1,12 +1,19 @@
+import nodemailer from "nodemailer";
 import { Friend, Guest } from "@rafafest/core";
 import { Application, Request } from "express";
 import { GuestService } from "../services";
 import { requestWrapper, ResponseBody } from "../utils";
 import { AbstractController } from "./AbstractController";
+import { Emailer } from "utils/Emailer";
 
 export class GuestController extends AbstractController<Guest> {
-	constructor(guestService: GuestService, jwtSecret: string) {
-		super(Guest, guestService, jwtSecret);
+	private emailer: Emailer;
+	constructor(
+		guestService: GuestService,
+		private readonly config: Record<string, any>
+	) {
+		super(Guest, guestService, config.jwtSecret);
+		this.emailer = new Emailer(config);
 	}
 
 	registerRoutes(app: Application) {
@@ -16,14 +23,14 @@ export class GuestController extends AbstractController<Guest> {
 		app.route(this.endPoint + "/list").get(
 			requestWrapper(this.list.bind(this))
 		);
-		app.route(this.endPoint + "/rsvp").post(
+		app.route(this.endPoint + "/update").post(
 			requestWrapper(this.updateInvite.bind(this))
 		);
-		app.route(this.endPoint + "/getfriend/:id").get(
-			requestWrapper(this.getFriend.bind(this))
+		app.route(this.endPoint + "/getfriends").get(
+			requestWrapper(this.getFriends.bind(this))
 		);
-		app.route(this.endPoint + "/getfrienddata/:id").get(
-			requestWrapper(this.getFriendData.bind(this))
+		app.route(this.endPoint + "/updatefriend").post(
+			requestWrapper(this.updateFriend.bind(this))
 		);
 		app.route(this.endPoint + "/deletefriend").post(
 			requestWrapper(this.deleteFriend.bind(this))
@@ -61,10 +68,8 @@ export class GuestController extends AbstractController<Guest> {
 		return list;
 	}
 
-	private sendInviteEmail = (guest: Guest) =>
-		console.log(`email send to ${guest.email}`);
-	private inviteFriend = async (guest: Guest, friendData: any) => {
-		const { email, name } = friendData;
+	private inviteFriend = async (guest: Guest, friend: Friend) => {
+		const { email, name } = friend;
 		const guestExists = await this.service.findOne({ email });
 		if (guestExists) throw new Error("guest_already_exists");
 		const { id, ...guestData } = guest;
@@ -80,7 +85,7 @@ export class GuestController extends AbstractController<Guest> {
 			yearsShared: 0,
 			circle: "+1",
 		});
-		if (email) this.sendInviteEmail(newGuest);
+		if (email) this.emailer.sendInvite(newGuest.name, newGuest.email);
 		return newGuest.id.toString();
 	};
 	async updateInvite(req: Request): Promise<ResponseBody<Guest>> {
@@ -89,24 +94,45 @@ export class GuestController extends AbstractController<Guest> {
 			throw new Error("fields_missing");
 		const guest = await this.service.findOne({ code });
 		if (!guest || guest.name !== name) throw new Error("not_found");
-		const { friendsData } = req.body;
-		delete req.body.friendsData;
-		const newFriendsData = friendsData.filter(
-			(friendData) => !friendData.id && friendData.name
+		const { newFriends } = req.body;
+		delete req.body.newFriends;
+		const newFriendsData = newFriends.filter(
+			(friendData) => friendData.name
 		);
 		if (newFriendsData.length > guest.invites - guest.friends.length)
 			throw new Error("no_invites_left");
-		const newFriends = await Promise.all(
-			newFriendsData.map((friendData) =>
-				this.inviteFriend(guest, friendData)
+		const friends = await Promise.all(
+			newFriendsData.map((friend: Friend) =>
+				this.inviteFriend(guest, friend)
 			)
 		);
 		const entity = {
 			...guest,
 			...req.body,
-			friends: [...guest.friends, ...newFriends],
+			friends: [...guest.friends, ...friends],
 		};
 		return await this.service.updateOne(guest.id.toString(), entity);
+	}
+
+	async getFriends(req: Request): Promise<ResponseBody<Guest[]>> {
+		const codeHeader = req.headers["code"];
+		if (!codeHeader) throw new Error("forbidden");
+		const guest = await this.service.findOne({ code: codeHeader });
+		if (!guest) throw new Error("forbidden");
+		return await Promise.all(
+			guest.friends.map((id) => this.service.findById(id))
+		);
+	}
+
+	async updateFriend(req: Request): Promise<ResponseBody<null>> {
+		const codeHeader = req.headers["code"];
+		if (!codeHeader) throw new Error("forbidden");
+		const guest = await this.service.findOne({ code: codeHeader });
+		if (!guest) throw new Error("forbidden");
+		const { id, code, ...friend } = req.body;
+		if (!guest.friends.includes(id)) throw new Error("forbidden");
+		await this.service.updateOne(id, friend);
+		return { status: 201, data: null };
 	}
 
 	async invite(req: Request): Promise<ResponseBody<Guest>> {
@@ -133,25 +159,6 @@ export class GuestController extends AbstractController<Guest> {
 		guest.yearsShared = yearsShared;
 		const entity = await this.service.create(guest);
 		return { status: 201, data: entity };
-	}
-
-	async getFriend(req: Request): Promise<ResponseBody<Friend>> {
-		const { code } = req.headers;
-		const { id } = req.params;
-		const guest = await this.service.findOne({ code });
-		if (!guest.friends.map((fr) => fr.toString()).includes(id))
-			throw new Error("friend not found");
-		const friend = await this.service.findById(id);
-		return {
-			id: friend.id,
-			name: friend.name,
-			email: friend.email,
-			mainGuest: Boolean(friend.invites),
-		};
-	}
-	async getFriendData(req: Request): Promise<ResponseBody<Guest>> {
-		const { id } = req.params;
-		return await this.service.findById(id);
 	}
 
 	async deleteFriend(req: Request): Promise<ResponseBody<null>> {

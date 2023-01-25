@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import api from "@/api";
-import { guest } from "@/api/guest";
+import { useGuestStore } from "@/stores";
 import type { Guest } from "@rafafest/core";
 import {
   QForm,
@@ -11,20 +10,21 @@ import {
   QDate,
   QCheckbox,
   QBtn,
+  QCard,
+  QCardActions,
+  QCardSection,
+  useQuasar,
 } from "quasar";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref } from "vue";
 type Props = {
-  id: string;
+  friend: Guest;
 };
 
-const props = withDefaults(defineProps<Props>(), { id: "empty" });
+const $q = useQuasar();
+const guestStore = useGuestStore();
+const props = defineProps<Props>();
 const activities = ref(["dinner1", "dinner2", "party", "brunch"]);
-const friend = ref();
-onBeforeMount(async () => {
-  try {
-    friend.value = await api.guest.getFriendData(props.id);
-  } catch {}
-});
+const friend = ref(props.friend);
 const showDatePicker = ref(false);
 const datesString = computed(
   () =>
@@ -32,16 +32,24 @@ const datesString = computed(
       friend?.value?.attendenceDates.to ?? ""
     }`
 );
-const onSubmit = () => null;
+const onSubmit = async () => {
+  try {
+    console.log('HIER');
+    await guestStore.updateFriend(friend.value);
+  } catch {
+    $q.notify({
+      position: "top",
+      message: `Updating ${friend.value.name}'s invite Failed :(`,
+      color: "red",
+      timeout: 1000,
+    });
+  }
+};
 </script>
 <template>
   <q-card class="q-pa-md">
     <q-card-section>
-      <q-form
-        class="blur-background q-col-gutter-y-md"
-        @submit="onSubmit"
-        v-if="friend"
-      >
+      <q-form class="blur-background q-col-gutter-y-md" v-if="friend">
         <div class="row label">{{ friend.name }}'s details</div>
         <div class="row q-gutter-x-md">
           <q-input
@@ -49,7 +57,6 @@ const onSubmit = () => null;
             class="col"
             rounded
             outlined
-            :disable="Boolean(friend.name)"
             label="First name"
             v-model="friend.name"
           />
@@ -58,7 +65,6 @@ const onSubmit = () => null;
             class="col"
             rounded
             outlined
-            :disable="Boolean(friend.surname)"
             label="Last name"
             v-model="friend.surname"
           />
@@ -186,7 +192,13 @@ const onSubmit = () => null;
     </q-card-section>
 
     <q-card-actions vertical>
-      <q-btn class="col custom-button" label="Save" type="submit" />
+      <q-btn
+        class="col custom-button"
+        label="Save"
+        type="submit"
+        @click="onSubmit"
+        v-close-popup
+      />
     </q-card-actions>
   </q-card>
 </template>

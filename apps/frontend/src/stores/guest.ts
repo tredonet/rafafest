@@ -1,15 +1,14 @@
 import api from "@/api";
-import type { rsvpData } from "@/api/guest";
-import type { Friend, Guest as _Guest } from "@rafafest/core";
+import type { Friend, Guest } from "@rafafest/core";
 import { defineStore } from "pinia";
 
 const LOCAL_STORAGE_KEY = "guest";
-type Guest = _Guest & {
-  friendsData: Friend[];
-};
 
 interface GuestStoreState {
-  guest?: Guest;
+  guest?: Guest & {
+    friendsData: Guest[];
+    newFriends: Friend[];
+  };
 }
 
 export const useGuestStore = defineStore("guest", {
@@ -22,23 +21,11 @@ export const useGuestStore = defineStore("guest", {
     fetch: async function (code: string) {
       try {
         const guest = await api.guest.get(code);
-        const friendsData = await Promise.all(
-          Array(guest.invites)
-            .fill(0)
-            .map(async (_, index) => {
-              return guest.friends[index]
-                ? await fetchPlusOne(
-                    guest.code,
-                    guest.friends[index].toString()
-                  )
-                : {
-                    name: undefined,
-                    email: undefined,
-                    mainGuest: false,
-                  };
-            })
-        );
-        this.guest = { ...guest, friendsData };
+        const friendsData = await api.guest.getFriends(code);
+        const newFriends = Array<Friend>(
+          guest.invites - guest.friends.length
+        ).fill({ name: undefined, email: undefined });
+        this.guest = { ...guest, friendsData, newFriends };
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
       } catch {
         this.guest = undefined;
@@ -55,6 +42,15 @@ export const useGuestStore = defineStore("guest", {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
       }
     },
+    updateFriend: async function (friend: Guest) {
+      try {
+        if (!this.guest) return;
+        await api.guest.updateFriend(this.guest.code, friend);
+        await this.fetch(this.guest.code);
+      } catch {
+        /*no op */
+      }
+    },
     deleteFriend: async function (id: string) {
       try {
         if (!this.guest) return;
@@ -66,15 +62,3 @@ export const useGuestStore = defineStore("guest", {
     },
   },
 });
-
-const fetchPlusOne = async (code: string, id: string): Promise<Friend> => {
-  try {
-    return await api.guest.getFriend(code, id);
-  } catch {
-    return {
-      name: "error",
-      email: "error",
-      mainGuest: true,
-    };
-  }
-};

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import api from "@/api";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
 import {
@@ -15,6 +14,7 @@ import {
 } from "quasar";
 import { ref } from "vue";
 import { EditFriend } from "@/features";
+import type { Guest } from "@rafafest/core";
 
 const guestStore = useGuestStore();
 const $q = useQuasar();
@@ -22,9 +22,10 @@ const { guest } = storeToRefs(guestStore);
 const showHelp = ref(false);
 const canBringSomeone = ref(Boolean(guest?.value?.friends.length));
 const showFriendEdit = ref(false);
-const friendEditId = ref();
-const onFriendEdit = (friend: any) => {
-  friendEditId.value = friend.id;
+const friendEdit = ref();
+const friendInput = ref(guest?.value?.newFriends);
+const onFriendEdit = (friend: Guest) => {
+  friendEdit.value = friend;
   showFriendEdit.value = true;
 };
 const onFriendDelete = async (friend: any) => {
@@ -54,48 +55,66 @@ const onFriendDelete = async (friend: any) => {
       @click="() => (showHelp = true)"
     />
   </div>
+  <template v-if="guest">
+    <template v-for="friend in guest?.friendsData" v-bind:key="friend">
+      <q-form class="row q-gutter-x-md" v-if="canBringSomeone">
+        <q-input
+          id="name"
+          class="col"
+          rounded
+          outlined
+          disable
+          label="First name"
+          type="text"
+          v-model="friend.name"
+        />
+        <q-input
+          id="email"
+          rounded
+          outlined
+          label="Email Address"
+          disable
+          type="email"
+          v-if="friend.email"
+          v-model="friend.email"
+        />
+        <q-btn
+          v-if="!friend.email"
+          flat
+          round
+          icon="edit"
+          @click="() => onFriendEdit(friend)"
+        />
+        <q-btn
+          v-if="friend.name && !friend.invites"
+          flat
+          round
+          icon="delete"
+          @click="() => onFriendDelete(friend)"
+        />
+      </q-form>
+    </template>
 
-  <template v-for="friend in guest?.friendsData" v-bind:key="friend.name">
-    <q-form
-      class="row q-gutter-x-md"
-      v-if="canBringSomeone || guest?.friends.length"
-    >
-      <q-input
-        id="name"
-        class="col"
-        rounded
-        outlined
-        :disable="Boolean(friend.id)"
-        label="First name"
-        type="text"
-        v-model="friend.name"
-      />
-      <q-input
-        id="email"
-        rounded
-        outlined
-        label="Email Address"
-        :disable="Boolean(friend.id)"
-        type="email"
-        v-model="friend.email"
-      />
-      <q-btn
-        v-if="friend.name && !friend.email"
-        flat
-        round
-        icon="edit"
-        @click="() => onFriendEdit(friend)"
-      />
-      <q-btn
-        v-if="friend.name"
-        flat
-        round
-        icon="delete"
-        @click="() => onFriendDelete(friend)"
-      />
-    </q-form>
+    <template v-for="(newFriend, i) in guest.newFriends" v-bind:key="i">
+      <q-form class="row q-gutter-x-md" v-if="canBringSomeone" :key="i">
+        <q-input
+          class="col"
+          rounded
+          outlined
+          label="First name"
+          type="text"
+          v-model="guest.newFriends[i].name"
+        />
+        <q-input
+          rounded
+          outlined
+          label="Email Address"
+          type="email"
+          v-model="guest.newFriends[i].email"
+        />
+      </q-form>
+    </template>
   </template>
-
   <q-dialog v-model="showHelp">
     <q-card>
       <q-card-section>
@@ -117,6 +136,6 @@ const onFriendDelete = async (friend: any) => {
   </q-dialog>
 
   <q-dialog v-model="showFriendEdit">
-    <EditFriend :id="friendEditId" />
+    <EditFriend :friend="friendEdit" />
   </q-dialog>
 </template>

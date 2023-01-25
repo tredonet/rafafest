@@ -16,7 +16,8 @@ export class Server {
 	private guestController: GuestController;
 	private authController: AuthController;
 
-	constructor({ jwtSecret, mongoConnectionString }) {
+	constructor(config) {
+		const {jwtSecret, mongoConnectionString} = config;
 		this.server = express();
 		this.logger = new Logger();
 
@@ -28,7 +29,7 @@ export class Server {
 		const userService = new UserService(this.database);
 		const authService = new AuthService(userService, jwtSecret);
 		this.authController = new AuthController(authService, jwtSecret);
-		this.guestController = new GuestController(guestService, jwtSecret);
+		this.guestController = new GuestController(guestService, config);
 	}
 
 	start() {

@@ -21,3 +21,8 @@ services:
             - 8081:8081
         environment:
             ME_CONFIG_MONGODB_SERVER: mongo
+    mailhog:
+        image: mailhog/mailhog:v1.0.0
+        ports:
+          - 25:1025
+          - 8025:8025
