@@ -8,5 +8,5 @@ export type Circle =
 	| "bolt"
 	| "nagua"
 	| "gigtor"
-	| "alongtheway";
-    
+	| "alongtheway"
+	| "+1";

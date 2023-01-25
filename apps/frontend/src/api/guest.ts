@@ -35,7 +35,7 @@ async function list(code: string): Promise<GuestListGuest[]> {
   return response.data;
 }
 
-async function rsvp(body: rsvpData): Promise<void> {
+async function updateInvite(body: rsvpData): Promise<void> {
   const response = await axios.post(`${API_URL}/rsvp`, body);
   return response.data;
 }
@@ -53,9 +53,19 @@ async function getFriend(code: string, id: string): Promise<Friend> {
   return response.data;
 }
 
+async function deleteFriend(code: string, id: string): Promise<void> {
+  const config = {
+    headers: {
+      code,
+    },
+  };
+  await axios.post<null>(`${API_URL}/deletefriend/`, { id }, config);
+}
+
 export const guest = {
   get,
   list,
-  rsvp,
+  updateInvite,
   getFriend,
+  deleteFriend,
 };

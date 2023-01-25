@@ -1,14 +1,15 @@
 import api from "@/api";
 import type { rsvpData } from "@/api/guest";
-import type { Friend, Guest } from "@rafafest/core";
+import type { Friend, Guest as _Guest } from "@rafafest/core";
 import { defineStore } from "pinia";
 
 const LOCAL_STORAGE_KEY = "guest";
+type Guest = _Guest & {
+  friendsData: Friend[];
+};
 
 interface GuestStoreState {
-  guest?: Guest & {
-    friendsData: Friend[];
-  };
+  guest?: Guest;
 }
 
 export const useGuestStore = defineStore("guest", {
@@ -44,13 +45,23 @@ export const useGuestStore = defineStore("guest", {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
       }
     },
-    rsvp: async function (data: rsvpData) {
+    updateInvite: async function () {
       try {
-        await api.guest.rsvp(data);
-        await this.fetch(data.code);
+        if (!this.guest) return;
+        await api.guest.updateInvite(this.guest);
+        await this.fetch(this.guest.code);
       } catch {
         this.guest = undefined;
         localStorage.removeItem(LOCAL_STORAGE_KEY);
+      }
+    },
+    deleteFriend: async function (id: string) {
+      try {
+        if (!this.guest) return;
+        await api.guest.deleteFriend(this.guest.code, id);
+        await this.fetch(this.guest.code);
+      } catch {
+        /* no op*/
       }
     },
   },

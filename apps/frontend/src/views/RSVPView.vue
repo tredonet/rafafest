@@ -27,9 +27,8 @@ const onSetRSVP = (option: "yes" | "no" | "maybe") => {
 const onSubmit = async () => {
   try {
     if (!guest?.value) throw new Error("No invite info found");
-    const { code, name, surname, email } = guest.value;
-    const attending = rsvp.value;
-    await guestStore.rsvp({ code, name, surname, email, attending });
+    guest.value.attending = rsvp.value;
+    await guestStore.updateInvite();
     if (rsvp.value === "no") router.push("/cry");
   } catch {
     $q.notify({

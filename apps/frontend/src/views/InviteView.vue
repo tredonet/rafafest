@@ -43,7 +43,7 @@ const showGuestList = ref(false);
 const changesSaved = ref(false);
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
-  if (guest?.value) await guestStore.rsvp(guest.value);
+  await guestStore.updateInvite();
   $q.notify({
     position: "top",
     message: "Success",
@@ -54,7 +54,7 @@ const changeAvailability = async (option: "yes" | "no" | "maybe") => {
 };
 const onSubmit = async () => {
   try {
-    if (guest?.value) await guestStore.rsvp(guest.value);
+    await guestStore.updateInvite();
     changesSaved.value = true;
   } catch {
     $q.notify({
