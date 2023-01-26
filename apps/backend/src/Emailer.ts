@@ -23,7 +23,7 @@ export class Emailer {
 		this.transporter = nodemailer.createTransport(transporterConfig);
 	}
 	async sendInvite(friend: string, email: string, code: string, guest: string) {
-		const template = readFileSync(resolve(__dirname, "../../public/templates/email.html"), "utf-8");
+		const template = readFileSync(resolve(__dirname, "../public/templates/email.html"), "utf-8");
 		const html = mustache.render(template, {friend, code, guest})
 		await this.transporter.sendMail({
 			from: '"RAFAFEST" <hello@rafafest.com>', // sender address
