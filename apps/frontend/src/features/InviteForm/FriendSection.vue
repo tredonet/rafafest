@@ -23,7 +23,6 @@ const showHelp = ref(false);
 const canBringSomeone = ref(Boolean(guest?.value?.friends.length));
 const showFriendEdit = ref(false);
 const friendEdit = ref();
-const friendInput = ref(guest?.value?.newFriends);
 const onFriendEdit = (friend: Guest) => {
   friendEdit.value = friend;
   showFriendEdit.value = true;
@@ -126,7 +125,8 @@ const onFriendDelete = async (friend: any) => {
         added to the guest list. If you provide an email address, they will
         recieve an invite in their mailbox with a link. They can view their
         invite just like you can. If you want to manage your +1's invite, leave
-        the email field blank and you will be able to edit their invite.
+        the email field blank and you will be able to edit their invite. PS: Let
+        your +1 know, that their invite might end up in their spam folder.
       </q-card-section>
 
       <q-card-actions align="right">

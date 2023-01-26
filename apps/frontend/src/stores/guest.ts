@@ -22,9 +22,10 @@ export const useGuestStore = defineStore("guest", {
       try {
         const guest = await api.guest.get(code);
         const friendsData = await api.guest.getFriends(code);
-        const newFriends = Array<Friend>(
-          guest.invites - guest.friends.length
-        ).fill({ name: undefined, email: undefined });
+        const newFriends: Friend[] = [];
+        for (let i = 0; i < guest.invites - guest.friends.length; i++) {
+          newFriends.push({ name: undefined, email: undefined });
+        }
         this.guest = { ...guest, friendsData, newFriends };
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
       } catch {

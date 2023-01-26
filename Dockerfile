@@ -5,6 +5,8 @@ RUN npm i
 RUN npm run build
 RUN cd apps/frontend && npm run build-only
 RUN cp -r apps/frontend/dist apps/backend/public
+RUN mkdir apps/backend/public/templates
+RUN cp apps/backend/src/utils/email.html apps/backend/public/templates
 RUN npm i -g pkg
 RUN cd apps/backend && pkg .
 

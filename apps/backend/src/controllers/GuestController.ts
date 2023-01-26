@@ -4,7 +4,7 @@ import { Application, Request } from "express";
 import { GuestService } from "../services";
 import { requestWrapper, ResponseBody } from "../utils";
 import { AbstractController } from "./AbstractController";
-import { Emailer } from "utils/Emailer";
+import { Emailer } from "../Emailer";
 
 export class GuestController extends AbstractController<Guest> {
 	private emailer: Emailer;
@@ -85,7 +85,13 @@ export class GuestController extends AbstractController<Guest> {
 			yearsShared: 0,
 			circle: "+1",
 		});
-		if (email) this.emailer.sendInvite(newGuest.name, newGuest.email);
+		if (email)
+			this.emailer.sendInvite(
+				newGuest.name,
+				newGuest.email,
+				newGuest.code,
+				guest.name
+			);
 		return newGuest.id.toString();
 	};
 	async updateInvite(req: Request): Promise<ResponseBody<Guest>> {
