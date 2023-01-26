@@ -8,6 +8,7 @@ const router = useRouter();
 const code = router.currentRoute.value.params.code.toString();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
+
 onBeforeMount(async () => {
   await guestStore.fetch(code);
   if (guest?.value) return router.push("/home");
@@ -15,5 +16,5 @@ onBeforeMount(async () => {
 });
 </script>
 <template>
-  <div>{{ JSON.stringify(guest) }}}</div>
+  <div>Redirect</div>
 </template>

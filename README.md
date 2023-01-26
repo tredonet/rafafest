@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v1.0.5
+- Proper error handling in backend and graceful error handeling in frontend
 - Implemted +1 feature with mailer
 - Updated: Data Model to current list of circles
 - Added: Invite code based authentication on guestlist

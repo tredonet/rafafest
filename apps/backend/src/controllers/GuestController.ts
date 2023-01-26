@@ -5,6 +5,12 @@ import { GuestService } from "../services";
 import { requestWrapper, ResponseBody } from "../utils";
 import { AbstractController } from "./AbstractController";
 import { Emailer } from "../Emailer";
+import {
+	BadRequestError,
+	NotAuthenticatedError,
+	NotAuthorizedError,
+	NotFoundError,
+} from "../errors";
 
 export class GuestController extends AbstractController<Guest> {
 	private emailer: Emailer;
@@ -44,17 +50,17 @@ export class GuestController extends AbstractController<Guest> {
 
 	async getGuest(req: Request): Promise<ResponseBody<Guest>> {
 		const { code } = req.query;
-		if (!code) throw new Error("params_missing");
+		if (!code) throw new BadRequestError("params_missing");
 		const guest = await this.service.findOne({ code });
-		if (!guest) throw new Error("not_found");
+		if (!guest) throw new NotFoundError();
 		return guest;
 	}
 
 	async list(req: Request): Promise<ResponseBody<Partial<Guest>[]>> {
 		const codeHeader = req.headers["code"];
-		if (!codeHeader) throw new Error("forbidden");
+		if (!codeHeader) throw new NotAuthenticatedError();
 		const guest = await this.service.findOne({ code: codeHeader });
-		if (!guest) throw new Error("forbidden");
+		if (!guest) throw new NotAuthenticatedError();
 		const guests = await this.service.find({});
 		const list = guests.map((guest) => {
 			const res: Record<string, any> = {
@@ -71,7 +77,7 @@ export class GuestController extends AbstractController<Guest> {
 	private inviteFriend = async (guest: Guest, friend: Friend) => {
 		const { email, name } = friend;
 		const guestExists = await this.service.findOne({ email });
-		if (guestExists) throw new Error("guest_already_exists");
+		if (guestExists) throw new NotAuthorizedError("guest_already_exists");
 		const { id, ...guestData } = guest;
 		const newGuest = await this.service.create({
 			...guestData,
@@ -97,16 +103,16 @@ export class GuestController extends AbstractController<Guest> {
 	async updateInvite(req: Request): Promise<ResponseBody<Guest>> {
 		const { code, name, email, attending } = req.body;
 		if (!code || !name || !email || !attending)
-			throw new Error("fields_missing");
+			throw new BadRequestError("fields_missing");
 		const guest = await this.service.findOne({ code });
-		if (!guest || guest.name !== name) throw new Error("not_found");
+		if (!guest || guest.name !== name) throw new NotFoundError();
 		const { newFriends } = req.body;
 		delete req.body.newFriends;
 		const newFriendsData = newFriends.filter(
 			(friendData) => friendData.name
 		);
 		if (newFriendsData.length > guest.invites - guest.friends.length)
-			throw new Error("no_invites_left");
+			throw new NotAuthorizedError("no_invites_left");
 		const friends = await Promise.all(
 			newFriendsData.map((friend: Friend) =>
 				this.inviteFriend(guest, friend)
@@ -122,9 +128,9 @@ export class GuestController extends AbstractController<Guest> {
 
 	async getFriends(req: Request): Promise<ResponseBody<Guest[]>> {
 		const codeHeader = req.headers["code"];
-		if (!codeHeader) throw new Error("forbidden");
+		if (!codeHeader) throw new NotAuthenticatedError();
 		const guest = await this.service.findOne({ code: codeHeader });
-		if (!guest) throw new Error("forbidden");
+		if (!guest) throw new NotAuthenticatedError();
 		return await Promise.all(
 			guest.friends.map((id) => this.service.findById(id))
 		);
@@ -132,19 +138,21 @@ export class GuestController extends AbstractController<Guest> {
 
 	async updateFriend(req: Request): Promise<ResponseBody<null>> {
 		const codeHeader = req.headers["code"];
-		if (!codeHeader) throw new Error("forbidden");
+		if (!codeHeader) throw new NotAuthenticatedError();
 		const guest = await this.service.findOne({ code: codeHeader });
-		if (!guest) throw new Error("forbidden");
-		const { id, code, ...friend } = req.body;
-		if (!guest.friends.includes(id)) throw new Error("forbidden");
-		await this.service.updateOne(id, friend);
+		if (!guest) throw new NotAuthenticatedError();
+		const { id, code, ...values } = req.body;
+		if (!guest.friends.includes(id)) throw new NotAuthorizedError();
+		const friend = await this.service.findById(id);
+		if (friend.email) throw new NotAuthorizedError();
+		await this.service.updateOne(id, values);
 		return { status: 201, data: null };
 	}
 
 	async invite(req: Request): Promise<ResponseBody<Guest>> {
 		const { name, circle, yearOfAcquaintance, yearsShared } = req.body;
 		if (!name || !circle || !yearOfAcquaintance || !yearsShared)
-			throw new Error("fields missing");
+			throw new BadRequestError("fields_missing");
 		const guest = new Guest();
 		guest.name = name;
 		guest.surname = req.body.surname || "";
@@ -172,10 +180,10 @@ export class GuestController extends AbstractController<Guest> {
 		const { id } = req.body;
 		const guest = await this.service.findOne({ code });
 		if (!guest.friends.map((fr) => fr.toString()).includes(id))
-			throw new Error("friend_not_found");
+			throw new NotFoundError();
 		const friend = await this.service.findById(id);
-		if (!friend) throw new Error("friend_not_found");
-		if (friend.invites !== 0) throw new Error("can't delete invited guest");
+		if (!friend) throw new NotFoundError();
+		if (friend.invites !== 0) throw new NotAuthorizedError();
 		await this.service.deleteOne(id);
 		await this.service.updateOne(guest.id.toString(), {
 			friends: guest.friends.filter((friend) => friend != id),

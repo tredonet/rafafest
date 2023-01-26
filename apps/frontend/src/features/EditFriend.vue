@@ -34,7 +34,6 @@ const datesString = computed(
 );
 const onSubmit = async () => {
   try {
-    console.log('HIER');
     await guestStore.updateFriend(friend.value);
   } catch {
     $q.notify({

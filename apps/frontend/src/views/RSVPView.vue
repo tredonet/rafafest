@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia";
 import { QForm, QInput, QBtn, useQuasar } from "quasar";
 import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
+import { AxiosError } from "axios";
 
 const $q = useQuasar();
 const router = useRouter();
@@ -30,12 +31,13 @@ const onSubmit = async () => {
     guest.value.attending = rsvp.value;
     await guestStore.updateInvite();
     if (rsvp.value === "no") router.push("/cry");
-  } catch {
+  } catch (e) {
+    const msg = e instanceof AxiosError ? `[${e.response?.data}]` : "";
     $q.notify({
       position: "center",
-      message: "RSVP Failed :(",
+      message: `We screwed someting up :( ${msg}`,
       color: "red",
-      timeout: 1000,
+      timeout: 3000,
     });
   }
 };

@@ -26,6 +26,7 @@ import {
 } from "@/features/InviteForm";
 import { RSVPView, GuestListView } from ".";
 import { useRouter } from "vue-router";
+import { AxiosError } from "axios";
 
 const $q = useQuasar();
 const router = useRouter();
@@ -42,25 +43,36 @@ const showGuestList = ref(false);
 const changesSaved = ref(false);
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
-  await guestStore.updateInvite();
-  $q.notify({
-    position: "top",
-    message: "Success",
-    color: "primary",
-    timeout: 1000,
-  });
-  if (option === "no") router.push("/cry");
+  try {
+    await guestStore.updateInvite();
+    $q.notify({
+      position: "top",
+      message: "Success",
+      color: "primary",
+      timeout: 1000,
+    });
+    if (option === "no") router.push("/cry");
+  } catch (e) {
+    const msg = e instanceof AxiosError ? `[${e.response?.data}]` : "";
+    $q.notify({
+      position: "top",
+      message: `We screwed someting up :( ${msg}`,
+      color: "red",
+      timeout: 3000,
+    });
+  }
 };
 const onSubmit = async () => {
   try {
     await guestStore.updateInvite();
     changesSaved.value = true;
-  } catch {
+  } catch (e) {
+    const msg = e instanceof AxiosError ? `[${e.response?.data}]` : "";
     $q.notify({
       position: "top",
-      message: "Updating Failed :(",
+      message: `We screwed someting up :( ${msg}`,
       color: "red",
-      timeout: 1000,
+      timeout: 3000,
     });
   }
 };

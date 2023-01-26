@@ -15,6 +15,7 @@ import {
 import { ref } from "vue";
 import { EditFriend } from "@/features";
 import type { Guest } from "@rafafest/core";
+import { AxiosError } from "axios";
 
 const guestStore = useGuestStore();
 const $q = useQuasar();
@@ -27,14 +28,24 @@ const onFriendEdit = (friend: Guest) => {
   friendEdit.value = friend;
   showFriendEdit.value = true;
 };
-const onFriendDelete = async (friend: any) => {
+const onFriendDelete = (friend: any) => {
   $q.dialog({
     title: "Confirm",
     message: `Are you sure you want to uninvite ${friend.name}?`,
     cancel: true,
     persistent: true,
-  }).onOk(() => {
-    guestStore.deleteFriend(friend.id);
+  }).onOk(async () => {
+    try {
+      await guestStore.deleteFriend(friend.id);
+    } catch (e) {
+      const msg = e instanceof AxiosError ? `[${e.response?.data}]` : "";
+      $q.notify({
+        position: "top",
+        message: `We couldnlt delete ${friend.name} ${msg}`,
+        color: "red",
+        timeout: 3000,
+      });
+    }
   });
 };
 </script>
