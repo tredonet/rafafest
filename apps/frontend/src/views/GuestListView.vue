@@ -20,13 +20,9 @@ onBeforeMount(async () => {
 });
 
 const filter = ref(false);
-const guestList = computed(() => {
-  return filter.value
-    ? guestData.value.filter(
-        (guest) => guest.attending && guest.attending !== "no"
-      )
-    : guestData.value;
-});
+const filteredGuestData = computed(() =>
+  guestData.value.filter((guest) => guest.attending && guest.attending !== "no")
+);
 
 function cap(string: string | undefined) {
   if (!string) return;
@@ -52,7 +48,7 @@ function circleColour(circle: Circle): string {
     nagua: "#002D62",
     gigtor: "#77D848",
     alongtheway: "#7C62FF",
-    "+1": ""
+    "+1": "",
   };
   return colours[circle];
 }
@@ -74,7 +70,7 @@ function circleColour(circle: Circle): string {
         </div>
         <q-list class="row justify-evenly q-gutter-sm">
           <q-item
-            v-for="guest in guestList"
+            v-for="guest in filter ? filteredGuestData : guestData"
             v-bind:key="guest.name"
             class="list-item"
           >

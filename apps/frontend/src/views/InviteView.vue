@@ -2,6 +2,7 @@
 import spriteStanding from "@/assets/img/rafa-standing-2.svg";
 import heartbreak from "@/assets/icons/heart-break.svg";
 import heartbeat from "@/assets/icons/heartbeat.svg";
+import link from "@/assets/img/link.png";
 import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
@@ -39,7 +40,7 @@ const datesString = computed(
     }`
 );
 const showDatePicker = ref(false);
-const showGuestList = ref(false);
+const showWhatsappDialog = ref(false);
 const changesSaved = ref(false);
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
@@ -93,6 +94,7 @@ const onSubmit = async () => {
           I really hope to see you, {{ guest.name }}!
         </div>
       </div>
+
       <div class="row justify-center" v-if="guest">
         <q-form
           class="content-narrow blur-background q-col-gutter-y-md"
@@ -172,33 +174,38 @@ const onSubmit = async () => {
             <q-btn class="col custom-button" label="Save" type="submit" />
           </div>
           <div class="row label">Change your availability</div>
-          <div class="row justify-left q-gutter-sm">
-            <q-btn
-              unelevated
-              :class="guest.attending === 'yes' && 'hidden'"
-              :color="guest.attending === 'yes' ? 'primary' : 'dark'"
-              rounded
-              :onclick="() => changeAvailability('yes')"
-            >
-              100% - Yes <img class="icon" :src="heart" />
-            </q-btn>
-            <q-btn
-              unelevated
-              :class="guest.attending === 'maybe' && 'hidden'"
-              :color="guest.attending === 'maybe' ? 'primary' : 'dark'"
-              rounded
-              :onclick="() => changeAvailability('maybe')"
-            >
-              Not sure yet <img class="icon" :src="heartbeat" />
-            </q-btn>
-            <q-btn
-              unelevated
-              color="dark"
-              rounded
-              :onclick="() => changeAvailability('no')"
-            >
-              I can't <img class="icon" :src="heartbreak" />
-            </q-btn>
+          <div class="row justify-between q-gutter-sm">
+            <div class="q-gutter-x-sm">
+              <q-btn
+                unelevated
+                :class="guest.attending === 'yes' && 'hidden'"
+                :color="guest.attending === 'yes' ? 'primary' : 'dark'"
+                rounded
+                :onclick="() => changeAvailability('yes')"
+              >
+                100% - Yes <img class="icon" :src="heart" />
+              </q-btn>
+              <q-btn
+                unelevated
+                :class="guest.attending === 'maybe' && 'hidden'"
+                :color="guest.attending === 'maybe' ? 'primary' : 'dark'"
+                rounded
+                :onclick="() => changeAvailability('maybe')"
+              >
+                Not sure yet <img class="icon" :src="heartbeat" />
+              </q-btn>
+              <q-btn
+                unelevated
+                color="dark"
+                rounded
+                :onclick="() => changeAvailability('no')"
+              >
+                I can't <img class="icon" :src="heartbreak" />
+              </q-btn>
+            </div>
+            <div class="whatsapp" @click="() => (showWhatsappDialog = true)">
+              Join Whatsapp group
+            </div>
           </div>
         </q-form>
       </div>
@@ -208,7 +215,7 @@ const onSubmit = async () => {
     rounded
     icon-right="wb_sunny"
     color="dark"
-    class="fab big"
+    class="fabutton big"
     label="Who's coming?"
     @click="() => $router.push('/guestlist')"
   />
@@ -216,10 +223,9 @@ const onSubmit = async () => {
     fab
     icon="group"
     color="dark"
-    class="fab small"
+    class="fabutton small"
     @click="() => $router.push('/guestlist')"
   />
-  <q-dialog v-model="showGuestList"> <GuestListView /> </q-dialog>
   <img
     class="sprite-standing-smiling"
     :src="spriteStanding"
@@ -241,15 +247,55 @@ const onSubmit = async () => {
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="showWhatsappDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">Join the WhatsApp group!</div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none row justify-center"
+        >No spam. Promise.
+      </q-card-section>
+
+      <q-card-section class="q-pt-none row justify-center">
+        <img :src="link" />
+      </q-card-section>
+      <q-card-section class="q-pt-none row justify-center">
+        PS: if you're on your phone, click
+        <a
+          class="whatsapp-link"
+          href="https://chat.whatsapp.com/IEWXzuKzF1GFmLXWoeA780"
+        >
+          here </a
+        >.
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="OK" color="primary" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 <style>
-.fab {
+.fabutton {
   position: absolute;
   left: calc(100vw - 100px);
   bottom: 100px;
 }
-.fab.big {
+.fabutton.big {
   left: calc(100vw - 250px);
+}
+.whatsapp {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-weight: 700;
+
+}
+.whatsapp-link {
+  text-decoration: none;
+  margin-left: 3px;
+  color: var(--color-primary);
+  font-weight: 700;
 }
 .sprite-standing-smiling {
   bottom: 0;
@@ -264,13 +310,13 @@ const onSubmit = async () => {
 }
 
 @media (max-width: 680px) {
-  .fab {
+  .fabutton {
     position: absolute;
     left: calc(100vw - 60px);
     bottom: 120px;
     z-index: 1;
   }
-  .fab.big {
+  .fabutton.big {
     display: none;
   }
   .sprite-standing-smiling {
@@ -278,7 +324,7 @@ const onSubmit = async () => {
   }
 }
 @media (min-width: 680px) {
-  .fab.small {
+  .fabutton.small {
     display: none;
   }
 }

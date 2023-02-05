@@ -48,7 +48,7 @@ const onSubmit = async () => {
       <div class="content title blur-background">Let's get you signed up</div>
     </div>
     <div class="row justify-center">
-      <div class="subtitle">Latest by 1st of February, 2023</div>
+      <div class="subtitle">Latest by 10th of February, 2023</div>
     </div>
     <div class="row justify-center row-margin">
       <div class="content-narrow notes blur-background">
