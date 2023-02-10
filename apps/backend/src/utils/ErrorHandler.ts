@@ -11,6 +11,7 @@ export function ErrorHandler(logger: Logger) {
 	) => {
 		if (error instanceof HTTPError)
 			return res.status(error.code).send(error.message);
+		console.log(error);
 		return res.status(500).send("internal_server_error");
 	};
 }
