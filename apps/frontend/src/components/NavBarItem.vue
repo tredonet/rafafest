@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 });
 
-const path = computed(() => "/" + props.to.toLowerCase().replace(" ", "-"));
+const path = computed(() => "/" + props.to.toLowerCase().replace(/ /g, "-"));
 
 const itemClass = computed(() => {
   const router = useRouter();

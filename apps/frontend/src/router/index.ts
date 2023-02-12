@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
   CryView,
+  FAQView,
   GuestListView,
   HomeView,
   InviteView,
   RafafestView,
   SplashView,
+  // TipsView,
 } from "@/views";
 import { InviteChecker } from "@/features";
 
@@ -35,6 +37,16 @@ const router = createRouter({
       path: "/guestlist",
       name: "guestlist",
       component: GuestListView,
+    },
+    // {
+    //   path: "/vlc-tips",
+    //   name: "vlctips",
+    //   component: TipsView,
+    // },
+    {
+      path: "/good-to-know",
+      name: "goodtoknow",
+      component: FAQView,
     },
     {
       path: "/error",

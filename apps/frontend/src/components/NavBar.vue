@@ -31,7 +31,6 @@ const route = useRoute();
     />
     <NavBarItem
       to="Good to Know"
-      disabled
       :class="!open && route.fullPath !== '/good-to-know' && 'collapsed'"
       :onclick="() => setOpen(!open)"
     />
@@ -46,7 +45,7 @@ const route = useRoute();
 .navbar {
   font-family: "Patrick", Helvetica, Arial;
   font-size: x-large;
-  margin: 1rem 5vw;
+  margin: 1rem;
   display: flex;
   justify-content: center;
   gap: 1vw;

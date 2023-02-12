@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
+        target: "https://rafafest.com",
         changeOrigin: true,
         secure: false,
         ws: false,

@@ -51,11 +51,12 @@
 
 .text {
   font-family: "ManropeSemi";
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
+
 .text-large {
   font-family: "ManropeSemi";
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .notes {
@@ -79,6 +80,23 @@
   text-decoration: none;
   font-size: 1.5rem;
   font-family: "Patrick";
+}
+
+.button {
+  color: var(--color-dark);
+  background-color: transparent;
+  border: 0.25rem solid var(--color-dark);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: "Patrick";
+}
+
+.button:hover{
+  cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 
 .blur-background {
