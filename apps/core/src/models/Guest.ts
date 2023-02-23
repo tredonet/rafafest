@@ -7,8 +7,7 @@ import {
 	IsString,
 } from "class-validator";
 import { Entity, ObjectIdColumn, ObjectID, Column } from "typeorm";
-import { Activity } from "types/Activity";
-import { Circle, Diet } from "../types";
+import { Circle, Diet, Activity } from "../types";
 
 @Entity()
 export class Guest {
