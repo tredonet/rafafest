@@ -19,7 +19,6 @@ const route = useRoute();
     />
     <NavBarItem
       to="VLC Tips"
-      disabled
       :class="!open && route.fullPath !== '/vlc-tips' && 'collapsed'"
       :onclick="() => setOpen(!open)"
     />

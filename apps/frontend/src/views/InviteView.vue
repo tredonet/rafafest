@@ -19,13 +19,13 @@ import {
   QField,
   QIcon,
 } from "quasar";
-import { computed, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import {
   ActivitiesSection,
   DietSection,
   FriendSection,
 } from "@/features/InviteForm";
-import { RSVPView, GuestListView } from ".";
+import { RSVPView } from ".";
 import { useRouter } from "vue-router";
 import { AxiosError } from "axios";
 
@@ -33,6 +33,10 @@ const $q = useQuasar();
 const router = useRouter();
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
+onBeforeMount(() => {
+  if (guest?.value) guestStore.fetch(guest.value.code);
+});
+
 const datesString = computed(
   () =>
     `${guest?.value?.attendenceDates.from ?? ""} - ${
@@ -42,6 +46,7 @@ const datesString = computed(
 const showDatePicker = ref(false);
 const showWhatsappDialog = ref(false);
 const changesSaved = ref(false);
+
 const changeAvailability = async (option: "yes" | "no" | "maybe") => {
   if (guest?.value?.attending) guest.value.attending = option;
   try {
@@ -289,7 +294,6 @@ const onSubmit = async () => {
   text-decoration: none;
   color: var(--color-primary);
   font-weight: 700;
-
 }
 .whatsapp-link {
   text-decoration: none;

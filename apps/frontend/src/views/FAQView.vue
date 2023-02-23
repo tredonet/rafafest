@@ -5,6 +5,7 @@ import spriteGlasses from "@/assets/img/rafa-glasses.svg";
 import metrovalencia from "@/assets/img/metrovalencia.png";
 import spriteTea from "@/assets/img/rafa-tea.svg";
 import spritePhone from "@/assets/img/rafa-phone.svg";
+import weather from "@/assets/img/weather.svg";
 </script>
 <template>
   <div class="page">
@@ -12,33 +13,7 @@ import spritePhone from "@/assets/img/rafa-phone.svg";
       Here are a few "thanks for sharing that"
     </div>
     <div class="card-container">
-      <FAQCard
-        title="Finances and Expenses"
-        :sprite="spriteLaptop"
-        :sprite-left="true"
-      >
-        Valencia is known for its delicious paella and other traditional Spanish
-        dishes and we want to make sure you get to experience the best of what
-        the city has to offer.
-        <br />
-        <br />
-        For the weekend, we're planning on two dinners (Friday and Saturday),
-        one birthday-brunch (Sunday) and a gathering in the park (bring what you
-        like).
-        <br />
-        <br />
-        We're still finalizing the details, but we're estimating that meals will
-        cost around 100€ per person for the entire weekend.
-        <br />
-        <br />
-        When it comes to drinks, it's highly dependent on you! Drinking a cup of
-        water? Or going to treat yourself with that nice bottle of Spanish Rioja
-        that perfectly matches the Tapas in front of you?
-        <br />
-        <br />Jokes aside, if you are planning with 150€ for Friday and Saturday
-        evening, as well as the birthday brunch, you should be on the safe side!
-      </FAQCard>
-      <FAQCard title="Where to stay?" :sprite="spriteGlasses">
+      <FAQCard title="Where to stay?" :sprite="spriteTea">
         Ruzafa is known for its trendy bars and restaurants, as well as its
         colorful street art and bohemian vibe. It's the perfect spot for those
         looking to experience Valencia's vibrant nightlife and cultural
@@ -56,33 +31,17 @@ import spritePhone from "@/assets/img/rafa-phone.svg";
           <li>Airbnb (depends, the usual)</li>
         </ul>
       </FAQCard>
-      <FAQCard title="What to bring?" :sprite="spriteTea" :sprite-left="true">
-        <ul class="notes" style="font-size: 0.8rem; margin: 0.5rem auto">
-          <li>
-            Comfortable shoes: Valencia is a city to be explored on foot, so
-            make sure to bring a pair of comfortable shoes that you can walk in
-            all day.
-          </li>
-          <li>
-            Light clothing: April in Valencia can be quite warm, so pack light
-            clothing that can be layered.
-          </li>
-          <li>
-            A small backpack or shoulder bag: You'll likely be out and about all
-            day, so bring a small backpack or shoulder bag to carry your
-            essentials like a camera, phone, and wallet.
-          </li>
-          <li>
-            A rain jacket or umbrella: April can be a rainy month in Valencia,
-            so bring a rain jacket or umbrella just in case.
-          </li>
-          <li>
-            A small Spanish phrasebook: Even though English is widely spoken in
-            Valencia, having a small Spanish phrasebook will come in handy when
-            you're out and about.
-          </li>
-          <li>Whatever else you might need for a perfect weekend!</li>
-        </ul>
+      <FAQCard
+        title="What to bring?"
+        :sprite="spriteGlasses"
+        :sprite-left="true"
+      >
+        Explore Valencia in style! Pack comfy shoes to walk all day, light
+        layers for warmth, a small backpack for your camera and cash, and a
+        raincoat or umbrella in case of rain. No te olvides de traer un pequeño
+        libro de frases en español for those unexpected conversations. And last
+        but not least, bring whatever else you need for a perfect weekend!
+        <img :src="weather" style="float: right; margin: 2rem 0" />
       </FAQCard>
       <FAQCard
         title="How to get around"
@@ -122,6 +81,31 @@ import spritePhone from "@/assets/img/rafa-phone.svg";
             Valenbisi
           </button>
         </div>
+      </FAQCard>
+      <FAQCard
+        title="Finances and Expenses"
+        :sprite="spriteLaptop"
+        :sprite-left="true"
+      >
+        Valencia is known for its delicious paella and other traditional Spanish
+        dishes and we want to make sure you get to experience the best of what
+        the city has to offer. For that we're organising the weekend with a
+        focus on food and are planning the following:
+        <ul class="notes" style="font-size: 0.8rem; margin: 0.5rem auto">
+          <li>Two dinners (Friday and Saturday)</li>
+          <li>One birthday-brunch (Sunday)</li>
+          <li>A gathering in the park (bring what you like)</li>
+        </ul>
+        We’re still finalizing the details, but as we are making group
+        reservations we aim for a fixed price for the dinner at around €25 per
+        night.
+        <br />
+        When it comes to drinks, it’s highly dependent on you! Drinking a cup of
+        water or treating yourself with that nice bottle of Spanish Rioja that
+        perfectly matches the Tapas on the table? You decide! <br />
+        Jokes aside, the [blank] of drinks is free to fill in yourself.
+        <br />
+        PS Info on the party TBA.
       </FAQCard>
     </div>
   </div>

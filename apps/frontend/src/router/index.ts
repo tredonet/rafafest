@@ -7,7 +7,7 @@ import {
   InviteView,
   RafafestView,
   SplashView,
-  // TipsView,
+  TipsView,
 } from "@/views";
 import { InviteChecker } from "@/features";
 
@@ -38,11 +38,11 @@ const router = createRouter({
       name: "guestlist",
       component: GuestListView,
     },
-    // {
-    //   path: "/vlc-tips",
-    //   name: "vlctips",
-    //   component: TipsView,
-    // },
+    {
+      path: "/vlc-tips",
+      name: "vlctips",
+      component: TipsView,
+    },
     {
       path: "/good-to-know",
       name: "goodtoknow",
