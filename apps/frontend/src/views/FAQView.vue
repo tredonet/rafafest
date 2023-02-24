@@ -97,13 +97,12 @@ import weather from "@/assets/img/weather.svg";
           <li>A gathering in the park (bring what you like)</li>
         </ul>
         We’re still finalizing the details, but as we are making group
-        reservations we aim for a fixed price for the dinner at around €25 per
-        night.
+        reservations in restaurants we aim for a fixed price at around €25 per
+        person.
         <br />
         When it comes to drinks, it’s highly dependent on you! Drinking a cup of
         water or treating yourself with that nice bottle of Spanish Rioja that
         perfectly matches the Tapas on the table? You decide! <br />
-        Jokes aside, the [blank] of drinks is free to fill in yourself.
         <br />
         PS Info on the party TBA.
       </FAQCard>
