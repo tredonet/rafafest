@@ -1,6 +1,6 @@
 import { Database } from "Database";
 import { Application } from "express";
-import { requestWrapper } from "utils";
+import { requestWrapper } from "../utils";
 
 export class SystemController {
 	private endpoint = "/api/ping/";
