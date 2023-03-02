@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import history from "connect-history-api-fallback";
-import { GuestController, AuthController } from "./controllers";
+import { GuestController, AuthController, SystemController } from "./controllers";
 import { Database } from "./Database";
 import { Guest } from "@rafafest/core";
 import { GuestService } from "./services";
@@ -15,6 +15,7 @@ export class Server {
 	private database: Database;
 	private guestController: GuestController;
 	private authController: AuthController;
+	private systemController: SystemController;
 
 	constructor(config) {
 		const {jwtSecret, mongoConnectionString} = config;
@@ -30,12 +31,14 @@ export class Server {
 		const authService = new AuthService(userService, jwtSecret);
 		this.authController = new AuthController(authService, jwtSecret);
 		this.guestController = new GuestController(guestService, config);
+		this.systemController = new SystemController(this.database);
 	}
 
 	start() {
 		this.database.connect();
 		this.guestController.registerRoutes(this.server);
 		this.authController.registerRoutes(this.server);
+		this.systemController.registerRoutes(this.server);
 		this.server.use(ErrorHandler(this.logger));
 		this.server.use(history());
 		this.server.use(express.static(resolve(__dirname, "../public")));

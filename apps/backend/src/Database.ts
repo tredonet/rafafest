@@ -25,6 +25,10 @@ export class Database {
         this.database.initialize();
     }
 
+    isConnected(){
+        return this.database.isInitialized;
+    }
+
     getRepository<E>(type: new (...args: any[]) => E): MongoRepository<E> {
         return this.database.getMongoRepository(type)
     }
