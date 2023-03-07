@@ -34,6 +34,15 @@ async function list(code: string): Promise<GuestListGuest[]> {
   return response.data;
 }
 
+async function listAll(bearer_token: string): Promise<Guest[]> {
+  const response = await axios.get<Guest[]>(API_URL, {
+    headers: {
+      Authorization: `Bearer: ${bearer_token}`,
+    },
+  });
+  return response.data;
+}
+
 async function updateInvite(guest: StoreGuest): Promise<void> {
   delete guest.friendsData;
   const response = await axios.post(`${API_URL}/update`, guest);
@@ -64,6 +73,7 @@ async function deleteFriend(code: string, id: string): Promise<void> {
 export const guest = {
   get,
   list,
+  listAll,
   updateInvite,
   getFriends,
   updateFriend,

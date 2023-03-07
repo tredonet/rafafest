@@ -10,6 +10,7 @@ import {
   TipsView,
 } from "@/views";
 import { InviteChecker } from "@/features";
+import { LoginView, ManagerView } from "@/manager";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,16 @@ const router = createRouter({
       path: "/cry",
       name: "cry",
       component: CryView,
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
+    {
+      path: "/manager",
+      name: "manager",
+      component: ManagerView,
     },
     {
       path: "/:code",

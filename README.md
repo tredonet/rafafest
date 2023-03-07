@@ -1,7 +1,12 @@
 # CHANGELOG
 
+## v1.0.7
+- Added: Manager view
+
 ## v1.0.6
+- Added: System ping endpoint
 - Added: Good To Know page
+- Added: VLC Tips
 
 ## v1.0.5
 - Proper error handling in backend and graceful error handeling in frontend
