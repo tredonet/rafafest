@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 import api from "@/api";
-import type { Circle } from "@rafafest/core";
-import yes from "@/assets/icons/check-circle.svg";
-import no from "@/assets/icons/times-circle.svg";
-import maybe from "@/assets/icons/question-circle.svg";
-import rsvp from "@/assets/icons/clock.svg";
 import type { GuestListGuest } from "@/api/guest";
 import { QItem, QItemLabel, QItemSection, QList, QToggle } from "quasar";
 import { computed, onBeforeMount, ref } from "vue";
 import { useGuestStore } from "@/stores";
+import { circleColour, attendanceIcon, capitalize } from "../utils";
 import { storeToRefs } from "pinia";
 
 const guestData = ref<GuestListGuest[]>([]);
@@ -24,34 +20,6 @@ const filteredGuestData = computed(() =>
   guestData.value.filter((guest) => guest.attending && guest.attending !== "no")
 );
 
-function cap(string: string | undefined) {
-  if (!string) return;
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-function icon(attending: "yes" | "no" | "maybe" | null) {
-  if (!attending) return rsvp;
-  const icons = {
-    yes,
-    no,
-    maybe,
-  };
-  return icons[attending];
-}
-function circleColour(circle: Circle): string {
-  const colours = {
-    wolfach: "#005198",
-    freiburg: "#CE2638",
-    utrecht: "#CC0000",
-    budapest: "#436F4D",
-    valencia: "#FCDD09",
-    bolt: "#34D186",
-    nagua: "#002D62",
-    gigtor: "#77D848",
-    alongtheway: "#7C62FF",
-    "+1": "",
-  };
-  return colours[circle];
-}
 </script>
 <template>
   <div class="page">
@@ -81,11 +49,11 @@ function circleColour(circle: Circle): string {
             <q-item-section>
               <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
               <q-item-label caption style="display: inline; font-size: 1rem">{{
-                cap(guest.circle)
+                capitalize(guest.circle)
               }}</q-item-label>
               <img
                 :class="`attending-icon ${guest.attending}`"
-                :src="icon(guest.attending)"
+                :src="attendanceIcon(guest.attending)"
               />
             </q-item-section>
           </q-item>
