@@ -1,4 +1,4 @@
-import { BadRequestError } from "errors";
+import { BadRequestError } from "../errors";
 import { Application, Request, RequestHandler } from "express";
 import { ObjectID } from "typeorm";
 import { auth as _auth } from "../middlewares";
