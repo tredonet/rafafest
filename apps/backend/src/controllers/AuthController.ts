@@ -1,3 +1,4 @@
+import { BadRequestError } from "errors";
 import { Application, Request, RequestHandler } from "express";
 import { ObjectID } from "typeorm";
 import { auth as _auth } from "../middlewares";
@@ -46,9 +47,9 @@ export class AuthController {
 		const { username, password, newPassword, newPasswordConfirm } =
 			req.body;
 		if (!username || !password || !newPassword || !newPasswordConfirm)
-			throw new Error("fields missing");
+			throw new BadRequestError("fields missing");
 		if (newPassword !== newPasswordConfirm)
-			throw new Error("password don't match");
+			throw new BadRequestError("password don't match");
 		await this.authService.changePassword(username, password, newPassword);
 		return { status: 201, data: null };
 	}
