@@ -97,43 +97,53 @@ const onSubmit = async () => {
           </div>
         </div>
         <div class="row label">Activities</div>
-        <div class="row">
+        <div class="row" v-if="friend">
           <div class="col-6">
             <q-checkbox
-              v-model="activities"
-              disable
-              val="dinner1"
-              label="Dinner - Friday, 14th"
+              v-model="friend.activities"
+              val="Beach"
+              label="Beach - Friday, 14th"
               style="width: 100%"
               color="primary"
             />
             <q-checkbox
-              v-model="activities"
-              disable
-              val="party"
-              label="Party/Concert - Saturday, 15th"
+              v-model="friend.activities"
+              val="Park"
+              label="Park Picnic - Saturday, 15th"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="friend.activities"
+              val="Party"
+              label="Party - Saturday, 15th"
               style="width: 100%"
               color="primary"
             />
           </div>
+      
           <div class="col-6">
             <q-checkbox
-              v-model="activities"
-              disable
-              val="dinner2"
+              v-model="friend.activities"
+              val="PubCrawl"
+              label="Pub Crawl - Friday, 14th"
+              style="width: 100%"
+              color="primary"
+            />
+            <q-checkbox
+              v-model="friend.activities"
+              val="Dinner"
               label="Dinner - Saturday, 15th"
               style="width: 100%"
               color="primary"
             />
             <q-checkbox
-              v-model="activities"
-              disable
-              val="brunch"
+              v-model="friend.activities"
+              val="Brunch"
               label="Birthday Brunch - Sunday, 16th"
               style="width: 100%"
               color="primary"
             />
-            <div class="coming-soon" style="opacity: 0.6">Coming soon!</div>
           </div>
         </div>
         <div class="row label">Diets</div>
