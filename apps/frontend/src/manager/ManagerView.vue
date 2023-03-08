@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import api from "@/api";
-import { guest } from "@/api/guest";
 import { GuestListWidget } from "@/components";
 import { useAuthStore } from "@/stores";
 import type { Activity, Guest } from "@rafafest/core";
@@ -14,10 +13,9 @@ const router = useRouter();
 const data = ref<Guest[]>([]);
 const activities: Activity[] = [
   "Beach",
-  "DinnerOne",
   "PubCrawl",
   "Park",
-  "DinnerTwo",
+  "Dinner",
   "Party",
   "Brunch",
 ];

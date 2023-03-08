@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const showList = ref(false);
 const showDietryOptions = computed(() =>
-  ["DinnerOne", "DinnerTwo", "Brunch"].includes(props.activityFilter)
+  ["Dinner", "Brunch"].includes(props.activityFilter)
 );
 
 const attendees = computed(() =>

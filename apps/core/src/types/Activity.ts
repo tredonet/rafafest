@@ -1,8 +1,7 @@
 export type Activity =
 	| "Beach"
-	| "DinnerOne"
 	| "PubCrawl"
 	| "Park"
-	| "DinnerTwo"
+	| "Dinner"
 	| "Party"
 	| "Brunch";
