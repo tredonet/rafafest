@@ -8,6 +8,7 @@ import {
   RafafestView,
   SplashView,
   TipsView,
+  TimetableView
 } from "@/views";
 import { InviteChecker } from "@/features";
 import { LoginView, ManagerView } from "@/manager";
@@ -48,6 +49,11 @@ const router = createRouter({
       path: "/good-to-know",
       name: "goodtoknow",
       component: FAQView,
+    },
+    {
+      path: "/timetable",
+      name: "timetable",
+      component: TimetableView,
     },
     {
       path: "/error",

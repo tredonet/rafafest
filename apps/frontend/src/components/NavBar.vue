@@ -24,7 +24,6 @@ const route = useRoute();
     />
     <NavBarItem
       to="Timetable"
-      disabled
       :class="!open && route.fullPath !== '/timetable' && 'collapsed'"
       :onclick="() => setOpen(!open)"
     />
