@@ -9,10 +9,6 @@ const { guest } = storeToRefs(guestStore);
 </script>
 
 <template>
-  <div class="view">
-    <NavBar class="navbar" v-if="guest" />
-    <div class="wrapper">
-      <RouterView />
-    </div>
-  </div>
+  <NavBar v-if="guest" />
+  <RouterView />
 </template>

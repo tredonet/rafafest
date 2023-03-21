@@ -44,7 +44,7 @@ const dietryList = computed(() => {
   <q-card class="faq-card guestlist-card">
     <q-card-section>
       <div class="text-h5">{{ activityFilter }}</div>
-      <div class="text-subtitle2">
+      <div class="text-subtitle">
         {{ attendees.length }}/{{ guestList.length }}
       </div>
     </q-card-section>

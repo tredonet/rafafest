@@ -19,46 +19,39 @@ const filter = ref(false);
 const filteredGuestData = computed(() =>
   guestData.value.filter((guest) => guest.attending && guest.attending !== "no")
 );
-
 </script>
 <template>
-  <div class="page">
-    <div class="content-wide">
-      <div class="row justify-left" style="margin: 0 5%">
-        <div class="title">
-          Here’s a list of confirmed and unconfirmed peeps
-        </div>
+  <div class="title align-left">
+    Here’s a list of confirmed and unconfirmed peeps
+  </div>
+  <div class="row justify-center">
+    <div style="margin: 0 2rem">
+      <div class="row text notes q-gutter-x-lg">
+        <q-toggle v-model="filter" icon="filter_alt" size="lg" />
+        Filter
       </div>
-    </div>
-    <div class="row justify-center">
-      <div class="content-wide">
-        <div class="row notes q-gutter-x-lg">
-          <q-toggle v-model="filter" icon="filter_alt" size="lg" />
-          Filter
-        </div>
-        <q-list class="row justify-evenly q-gutter-sm">
-          <q-item
-            v-for="guest in filter ? filteredGuestData : guestData"
-            v-bind:key="guest.name"
-            class="list-item"
-          >
-            <div
-              class="sepa"
-              :style="`--circle: ${circleColour(guest.circle)};`"
+      <q-list class="row justify-evenly q-gutter-sm">
+        <q-item
+          v-for="guest in filter ? filteredGuestData : guestData"
+          v-bind:key="guest.name"
+          class="list-item"
+        >
+          <div
+            class="sepa"
+            :style="`--circle: ${circleColour(guest.circle)};`"
+          />
+          <q-item-section>
+            <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
+            <q-item-label caption style="display: inline; font-size: 1rem">{{
+              capitalize(guest.circle)
+            }}</q-item-label>
+            <img
+              :class="`attending-icon ${guest.attending}`"
+              :src="attendanceIcon(guest.attending)"
             />
-            <q-item-section>
-              <q-item-label>{{ guest.name }} {{ guest.surname }}</q-item-label>
-              <q-item-label caption style="display: inline; font-size: 1rem">{{
-                capitalize(guest.circle)
-              }}</q-item-label>
-              <img
-                :class="`attending-icon ${guest.attending}`"
-                :src="attendanceIcon(guest.attending)"
-              />
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </div>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
   </div>
 </template>

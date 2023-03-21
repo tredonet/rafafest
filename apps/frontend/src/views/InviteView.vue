@@ -84,136 +84,132 @@ const onSubmit = async () => {
 };
 </script>
 <template>
-  <div class="page">
-    <RSVPView
-      v-if="guest?.attending !== 'yes' && guest?.attending !== 'maybe'"
-    />
-    <div v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'">
-      <div class="row justify-center" v-if="guest.attending === 'yes'">
-        <div class="title-small blur-background">
-          Awesome - looking forward to seeing you, {{ guest.name }}
-        </div>
+  <RSVPView v-if="guest?.attending !== 'yes' && guest?.attending !== 'maybe'" />
+  <div v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'">
+    <div class="row justify-center" v-if="guest.attending === 'yes'">
+      <div class="title-small blur-background">
+        Awesome - looking forward to seeing you, {{ guest.name }}
       </div>
-      <div class="row justify-center" v-if="guest.attending === 'maybe'">
-        <div class="title-small blur-background">
-          I really hope to see you, {{ guest.name }}!
-        </div>
+    </div>
+    <div class="row justify-center" v-if="guest.attending === 'maybe'">
+      <div class="title-small blur-background">
+        I really hope to see you, {{ guest.name }}!
       </div>
+    </div>
 
-      <div class="row justify-center" v-if="guest">
-        <q-form
-          class="content-narrow blur-background q-col-gutter-y-md"
-          @submit="onSubmit"
-        >
-          <div class="row label">Your details</div>
-          <div class="row q-gutter-x-md">
+    <div class="row justify-center" v-if="guest">
+      <q-form
+        class="textbox blur-background q-col-gutter-y-md"
+        @submit="onSubmit"
+      >
+        <div class="row label">Your details</div>
+        <div class="row q-gutter-x-md">
+          <q-input
+            id="name"
+            class="col"
+            rounded
+            outlined
+            :disable="Boolean(guest.name)"
+            label="First name"
+            v-model="guest.name"
+          />
+          <q-input
+            id="surname"
+            class="col"
+            rounded
+            outlined
+            :disable="Boolean(guest.surname)"
+            label="Last name"
+            v-model="guest.surname"
+          />
+        </div>
+        <div class="row">
+          <div class="col">
             <q-input
-              id="name"
-              class="col"
+              id="email"
               rounded
               outlined
-              :disable="Boolean(guest.name)"
-              label="First name"
-              v-model="guest.name"
-            />
-            <q-input
-              id="surname"
-              class="col"
-              rounded
-              outlined
-              :disable="Boolean(guest.surname)"
-              label="Last name"
-              v-model="guest.surname"
+              label="Email Address"
+              type="email"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val && val.length > 0) || 'You know, to keep you updated',
+              ]"
+              v-model="guest.email"
             />
           </div>
-          <div class="row">
-            <div class="col">
-              <q-input
-                id="email"
-                rounded
-                outlined
-                label="Email Address"
-                type="email"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'You know, to keep you updated',
-                ]"
-                v-model="guest.email"
+        </div>
+        <div class="row">
+          <div class="col" @click="() => (showDatePicker = true)">
+            <q-field
+              rounded
+              outlined
+              label="Time in Valencia (if you already know)"
+              stack-label
+            >
+              <template v-slot:prepend>
+                <q-icon name="event" />
+              </template>
+              <template v-slot:control>
+                {{ datesString }}
+              </template>
+            </q-field>
+            <q-dialog v-model="showDatePicker">
+              <q-date
+                v-model="guest.attendenceDates"
+                range
+                mask="DD/MM/YYYY"
+                navigation-max-year-month="2023/04"
+                navigation-min-year-month="2023/04"
+                minimal
+                @range-end="() => (showDatePicker = false)"
               />
-            </div>
+            </q-dialog>
           </div>
-          <div class="row">
-            <div class="col" @click="() => (showDatePicker = true)">
-              <q-field
-                rounded
-                outlined
-                label="Time in Valencia (if you already know)"
-                stack-label
-              >
-                <template v-slot:prepend>
-                  <q-icon name="event" />
-                </template>
-                <template v-slot:control>
-                  {{ datesString }}
-                </template>
-              </q-field>
-              <q-dialog v-model="showDatePicker">
-                <q-date
-                  v-model="guest.attendenceDates"
-                  range
-                  mask="DD/MM/YYYY"
-                  navigation-max-year-month="2023/04"
-                  navigation-min-year-month="2023/04"
-                  minimal
-                  @range-end="() => (showDatePicker = false)"
-                />
-              </q-dialog>
-            </div>
-          </div>
-          <ActivitiesSection />
-          <DietSection />
+        </div>
+        <ActivitiesSection />
+        <DietSection />
 
-          <FriendSection />
-          <div class="row">
-            <q-btn class="col custom-button" label="Save" type="submit" />
+        <FriendSection />
+        <div class="row">
+          <q-btn class="col custom-button" label="Save" type="submit" />
+        </div>
+        <div class="row label">Change your availability</div>
+        <div class="row justify-between q-gutter-sm">
+          <div class="q-gutter-x-sm">
+            <q-btn
+              unelevated
+              :class="guest.attending === 'yes' && 'hidden'"
+              :color="guest.attending === 'yes' ? 'primary' : 'dark'"
+              rounded
+              :onclick="() => changeAvailability('yes')"
+            >
+              100% - Yes <img class="icon" :src="heart" />
+            </q-btn>
+            <q-btn
+              unelevated
+              :class="guest.attending === 'maybe' && 'hidden'"
+              :color="guest.attending === 'maybe' ? 'primary' : 'dark'"
+              rounded
+              :onclick="() => changeAvailability('maybe')"
+            >
+              Not sure yet <img class="icon" :src="heartbeat" />
+            </q-btn>
+            <q-btn
+              unelevated
+              color="dark"
+              rounded
+              :onclick="() => changeAvailability('no')"
+            >
+              I can't <img class="icon" :src="heartbreak" />
+            </q-btn>
           </div>
-          <div class="row label">Change your availability</div>
-          <div class="row justify-between q-gutter-sm">
-            <div class="q-gutter-x-sm">
-              <q-btn
-                unelevated
-                :class="guest.attending === 'yes' && 'hidden'"
-                :color="guest.attending === 'yes' ? 'primary' : 'dark'"
-                rounded
-                :onclick="() => changeAvailability('yes')"
-              >
-                100% - Yes <img class="icon" :src="heart" />
-              </q-btn>
-              <q-btn
-                unelevated
-                :class="guest.attending === 'maybe' && 'hidden'"
-                :color="guest.attending === 'maybe' ? 'primary' : 'dark'"
-                rounded
-                :onclick="() => changeAvailability('maybe')"
-              >
-                Not sure yet <img class="icon" :src="heartbeat" />
-              </q-btn>
-              <q-btn
-                unelevated
-                color="dark"
-                rounded
-                :onclick="() => changeAvailability('no')"
-              >
-                I can't <img class="icon" :src="heartbreak" />
-              </q-btn>
-            </div>
-            <div class="whatsapp" @click="() => (showWhatsappDialog = true)">
-              Join Whatsapp group
-            </div>
+          <div class="whatsapp" @click="() => (showWhatsappDialog = true)">
+            Join Whatsapp group
           </div>
-        </q-form>
-      </div>
+        </div>
+      </q-form>
     </div>
   </div>
   <q-btn
@@ -232,7 +228,7 @@ const onSubmit = async () => {
     @click="() => $router.push('/guestlist')"
   />
   <img
-    class="sprite-standing-smiling"
+    class="sprite-standing-smiling hide-mobile"
     :src="spriteStanding"
     v-if="guest?.attending === 'yes' || guest?.attending === 'maybe'"
   />
@@ -321,9 +317,6 @@ const onSubmit = async () => {
     z-index: 1;
   }
   .fabutton.big {
-    display: none;
-  }
-  .sprite-standing-smiling {
     display: none;
   }
 }

@@ -30,24 +30,24 @@ defineProps<{
         >
       </div>
     </div>
-    <div class="flex tags">
+    <!-- <div class="flex tags">
       <div class="tag" v-for="tag in tags" v-bind:key="tag">
         {{ tag }}
       </div>
-    </div>
+    </div> -->
   </q-card>
 </template>
 <style>
 .yolo-card {
   border: 2px solid var(--vt-c-black-soft);
   border-radius: 0.5rem !important;
-  width: 18rem;
+  width: clamp(10rem, 80vw, 18rem);
   padding: 0 0.5rem;
   box-shadow: 8px 8px 4px 2px rgba(0, 0, 0, 0.29) !important;
   -webkit-box-shadow: 8px 8px 4px 2px rgba(0, 0, 0, 0.29) !important;
 }
 .yolo-title {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
 }
 .yolo-card > * {
   margin: 0.5rem 0;

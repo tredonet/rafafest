@@ -34,7 +34,7 @@ onBeforeMount(async () => {
 </script>
 <template>
   <div class="row justify-center">
-    <div class="flex content q-gutter-xl presence-list justify-center">
+    <div class="flex textbox q-gutter-xl presence-list justify-center">
       <GuestListWidget
         v-for="activity in activities"
         :guestList="

@@ -41,12 +41,16 @@ const route = useRoute();
 </template>
 <style>
 .navbar {
+  background-color: white;
+  position: sticky;
+  top: 0;
   font-family: "Patrick", Helvetica, Arial;
   font-size: x-large;
-  margin: 1rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   gap: 1vw;
+  z-index: 1;
 }
 
 @media (max-width: 600px) {
