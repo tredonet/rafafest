@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useGuestStore } from "@/stores";
-import sprite from "@/assets/img/rafa-crying.svg";
+import sprite from "@/assets/doodles/rafa-crying.svg";
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
 import { useRouter } from "vue-router";

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import spritePeople from "@/assets/img/people.svg";
+import spritePeople from "@/assets/doodles/people.svg";
 import heartbreak from "@/assets/icons/heart-break.svg";
 import heartbeat from "@/assets/icons/heartbeat.svg";
 import heart from "@/assets/icons/heart.svg";

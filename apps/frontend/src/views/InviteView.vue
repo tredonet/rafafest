@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import spriteStanding from "@/assets/img/rafa-standing-2.svg";
+import spriteStanding from "@/assets/doodles/rafa-standing-2.svg";
 import heartbreak from "@/assets/icons/heart-break.svg";
 import heartbeat from "@/assets/icons/heartbeat.svg";
 import link from "@/assets/img/link.png";

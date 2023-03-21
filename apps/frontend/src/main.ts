@@ -8,7 +8,7 @@ import { Quasar, Notify, Dialog } from "quasar";
 // Import icon libraries
 import "@quasar/extras/material-icons/material-icons.css";
 import "quasar/src/css/index.sass";
-import "./assets/main.css";
+import "./assets/css/main.css";
 
 const app = createApp(App);
 

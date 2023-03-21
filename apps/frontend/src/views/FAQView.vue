@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { FAQCard } from "@/components";
-import spriteLaptop from "@/assets/img/rafa-laptop.svg";
-import spriteGlasses from "@/assets/img/rafa-glasses.svg";
-import metrovalencia from "@/assets/img/metrovalencia.png";
-import spriteTea from "@/assets/img/rafa-tea.svg";
-import spritePhone from "@/assets/img/rafa-phone.svg";
+import spriteLaptop from "@/assets/doodles/rafa-laptop.svg";
+import spriteGlasses from "@/assets/doodles/rafa-glasses.svg";
+import metrovalencia from "@/assets/doodles/metrovalencia.png";
+import spriteTea from "@/assets/doodles/rafa-tea.svg";
+import spritePhone from "@/assets/doodles/rafa-phone.svg";
 import weather from "@/assets/img/weather.svg";
 </script>
 <template>

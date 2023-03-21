@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import spriteStanding from "@/assets/img/rafa-standing.svg";
-import spriteSitting from "@/assets/img/rafa-sitting-2.svg";
+import spriteStanding from "@/assets/doodles/rafa-standing.svg";
+import spriteSitting from "@/assets/doodles/rafa-sitting-2.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";

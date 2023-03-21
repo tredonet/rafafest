@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { SpeechBubble } from "@/components";
 import doodle from "@/assets/img/doodle.png";
-import sprite from "@/assets/img/rafa-sitting.svg";
+import sprite from "@/assets/doodles/rafa-sitting.svg";
 import { onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useGuestStore } from "@/stores";

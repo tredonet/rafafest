@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SpeechBubble } from "@/components";
-import rafa from "@/assets/img/rafa-oops.svg";
+import rafa from "@/assets/doodles/rafa-oops.svg";
 </script>
 <template>
   <div class="page row justify-center items-center">

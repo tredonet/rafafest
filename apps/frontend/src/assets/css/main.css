@@ -2,15 +2,15 @@
 
 @font-face {
   font-family: "Patrick";
-  src: local("Patrick"), url(./fonts/PatrickHand-Regular.ttf) format("truetype");
+  src: local("Patrick"), url(../fonts/PatrickHand-Regular.ttf) format("truetype");
 }
 @font-face {
   font-family: "ManropeExtra";
-  src: local("Manrope"), url(./fonts/Manrope-ExtraBold.ttf) format("truetype");
+  src: local("Manrope"), url(../fonts/Manrope-ExtraBold.ttf) format("truetype");
 }
 @font-face {
   font-family: "ManropeSemi";
-  src: local("Manrope"), url(./fonts/Manrope-SemiBold.ttf) format("truetype");
+  src: local("Manrope"), url(../fonts/Manrope-SemiBold.ttf) format("truetype");
 }
 .view {
   z-index: 10;
