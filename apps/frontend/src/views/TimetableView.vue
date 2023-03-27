@@ -1,15 +1,27 @@
 <script setup lang="ts">
-import beach from "@/assets/img/beach.png";
-import centre from "@/assets/img/centre.png";
-import picnic from "@/assets/img/picnic.png";
-import dinner from "@/assets/img/dinner.png";
-import party from "@/assets/img/party.png";
-import market from "@/assets/img/market.png";
+import beach from "@/assets/img/beach.jpg";
+import dj from "@/assets/img/dj.jpg";
+import concert from "@/assets/img/concert.jpg";
+import centre from "@/assets/img/centre.jpg";
+import picnic from "@/assets/img/picnic.jpg";
+import dinner from "@/assets/img/dinner.jpg";
+import party from "@/assets/img/party.jpg";
+import market from "@/assets/img/market.jpg";
 import ballloons from "@/assets/img/balloons.svg";
 import { TimetableCard } from "@/components";
 </script>
 <template>
   <div class="flex justify-center q-gutter-xl">
+
+    <div class="timetable">
+      <div class="title-small">Thursday</div>
+      <TimetableCard
+        :image="concert"
+        title="Special Concert (?)"
+        time="21.00 - 02.00"
+        location="?"
+      />
+    </div>
     <div class="timetable">
       <div class="title-small">Friday</div>
       <TimetableCard
@@ -17,7 +29,12 @@ import { TimetableCard } from "@/components";
         title="Beach Party"
         time="12.00 - 18.00"
         location="Beach"
-        :tags="['beach things', 'drinks', 'snacks', 'games', 'sunscreen']"
+      />
+      <TimetableCard
+        :image="concert"
+        title="Special Concert + Dinner"
+        time="18.30 - 21.00"
+        location="Dandy Horse"
       />
 
       <TimetableCard
@@ -25,7 +42,6 @@ import { TimetableCard } from "@/components";
         title="Drinks in the centre"
         time="21.00 - the end"
         location="Centre"
-        :tags="['beach things', 'drinks', 'snacks', 'games', 'sunscreen']"
       />
     </div>
 
@@ -53,6 +69,13 @@ import { TimetableCard } from "@/components";
         location="City"
         :tags="['dinner', 'drinks', 'easy-going', 'menu']"
       />
+      <TimetableCard
+        :image="dj"
+        title="Birthday Party"
+        time="00.00 - the end"
+        location="City"
+        :tags="['dinner', 'drinks', 'easy-going', 'menu']"
+      />
     </div>
 
     <div class="timetable">
@@ -64,7 +87,7 @@ import { TimetableCard } from "@/components";
         :image="market"
         title="Birthday Brunch"
         time="13.00 - 18.00"
-        location="Mercat de blabla"
+        location="Mercat de idk"
       />
     </div>
   </div>

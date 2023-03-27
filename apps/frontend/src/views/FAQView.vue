@@ -109,14 +109,17 @@ import weather from "@/assets/img/weather.svg";
   gap: 1rem;
 }
 .card-container {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
+  width: 100%;
   max-width: 90rem;
 }
 .card-container .faq-card {
-  margin: 1.5rem auto;
-  float: left;
+  margin: 1.5rem 0;
+  align-self: flex-start;
 }
 .card-container .faq-card:nth-of-type(2n) {
-  float: right;
+  align-self: flex-end;
 }
 </style>

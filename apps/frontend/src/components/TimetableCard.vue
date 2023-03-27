@@ -30,11 +30,6 @@ defineProps<{
         >
       </div>
     </div>
-    <!-- <div class="flex tags">
-      <div class="tag" v-for="tag in tags" v-bind:key="tag">
-        {{ tag }}
-      </div>
-    </div> -->
   </q-card>
 </template>
 <style>
@@ -51,6 +46,10 @@ defineProps<{
 }
 .yolo-card > * {
   margin: 0.5rem 0;
+}
+.yolo-card > img {
+  max-height: 10rem;
+  object-fit: cover;
 }
 .tags {
   font-size: 0.5rem;

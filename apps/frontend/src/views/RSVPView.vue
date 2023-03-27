@@ -43,8 +43,10 @@ const onSubmit = async () => {
 };
 </script>
 <template>
-  <div class="title blur-background">Let's get you signed up</div>
-  <div class="subtitle">Latest by 10th of February, 2023</div>
+  <div class="title title-container blur-background">
+    Let's get you signed up
+    <div class="subtitle blur-background">Latest by 10th of February, 2023</div>
+  </div>
   <div class="row justify-center">
     <div class="textbox text notes blur-background">
       You know the drill, fill in the blanks, get an annoying e-mail-newsletter
@@ -150,6 +152,9 @@ const onSubmit = async () => {
 }
 @media (max-width: 680px) {
   .sprite {
+    position: fixed;
+    bottom: 0rem;
+    margin: 0 auto;
     width: 70vw;
     right: 15vw;
   }

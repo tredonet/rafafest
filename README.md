@@ -2,6 +2,7 @@
 
 ## v1.0.7
 - Added: Manager view
+- Updated: Responsiveness
 
 ## v1.0.6
 - Added: System ping endpoint

@@ -279,7 +279,7 @@ const onSubmit = async () => {
 </template>
 <style>
 .fabutton {
-  position: absolute;
+  position: fixed !important;
   left: calc(100vw - 100px);
   bottom: 100px;
 }
@@ -300,7 +300,7 @@ const onSubmit = async () => {
 .sprite-standing-smiling {
   bottom: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   height: 80vh;
 }
 .label {
@@ -311,10 +311,8 @@ const onSubmit = async () => {
 
 @media (max-width: 680px) {
   .fabutton {
-    position: absolute;
     left: calc(100vw - 60px);
     bottom: 120px;
-    z-index: 1;
   }
   .fabutton.big {
     display: none;

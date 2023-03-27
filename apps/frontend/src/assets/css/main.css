@@ -17,8 +17,12 @@
 .title {
   color: var(--vt-c-black);
   text-align: center;
-  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-size: clamp(1.8rem, 3.5vw, 4rem);
   font-family: "ManropeExtra";
+}
+
+.title-container{
+  margin: 0 1rem;
 }
 
 .title-small {
@@ -33,7 +37,6 @@
   margin: 0 2rem;
 }
 .subtitle {
-  margin-top: -2vh;
   margin-left: 30vw;
   font-size: clamp(1.5rem, 1.5vw, 2rem);
   font-family: "Patrick";

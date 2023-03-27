@@ -14,8 +14,10 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div class="title">RAFAFEST - Rapha turns 30</div>
-  <div class="subtitle">14th - 16th of April, 2023</div>
+  <div class="title">
+    RAFAFEST - Rapha turns 30
+    <div class="subtitle">14th - 16th of April, 2023</div>
+  </div>
   <div class="row justify-center blur-background">
     <p class="text textbox">
       Yep. I am turning 30 years old - at least according to my birth
@@ -52,6 +54,7 @@ onBeforeMount(() => {
 </template>
 <style>
 .sign-me-up {
+  width: 100%;
   margin-top: 5vh;
   margin-left: 60vw;
 }
