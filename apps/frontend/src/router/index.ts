@@ -50,11 +50,11 @@ const router = createRouter({
       name: "goodtoknow",
       component: FAQView,
     },
-    // {
-    //   path: "/timetable",
-    //   name: "timetable",
-    //   component: TimetableView,
-    // },
+    {
+      path: "/timetable",
+      name: "timetable",
+      component: TimetableView,
+    },
     {
       path: "/error",
       name: "noinvite",

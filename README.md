@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v1.0.7
+- Added: Timetable
 - Added: Manager view
 - Updated: Responsiveness
 

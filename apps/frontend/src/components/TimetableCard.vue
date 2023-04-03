@@ -9,13 +9,14 @@ defineProps<{
   locationLink?: string;
   description?: string;
   tags?: string[];
+  imageRatio: string;
 }>();
 </script>
 <template>
-  <q-card class="yolo-card">
-    <img :src="image" />
-    <div class="yolo-title">{{ title }}</div>
-    <div class="flex justify-between">
+  <q-card class="timetable-card">
+    <img :src="image" :style="{ aspectRatio: imageRatio }" />
+    <div class="timetable-title">{{ title }}</div>
+    <div class="flex justify-between timetable-subtitle">
       <div class="flex q-gutter-x-xs">
         <img :src="clock" />
         <div>{{ time }}</div>
@@ -23,9 +24,9 @@ defineProps<{
       <div class="flex q-gutter-x-xs">
         <img :src="marker" />
         <a
+          class="locationlink timetable-subtitle"
           :href="locationLink"
           target="_blank"
-          style="color: black; cursor: pointer"
           >{{ location }}</a
         >
       </div>
@@ -33,31 +34,33 @@ defineProps<{
   </q-card>
 </template>
 <style>
-.yolo-card {
+.locationlink {
+  color: black;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: normal;
+}
+.timetable-card {
   border: 2px solid var(--vt-c-black-soft);
   border-radius: 0.5rem !important;
-  width: clamp(10rem, 80vw, 18rem);
-  padding: 0 0.5rem;
+  width: clamp(10rem, 14vw, 30rem);
+  padding: 0 0.75rem;
   box-shadow: 8px 8px 4px 2px rgba(0, 0, 0, 0.29) !important;
   -webkit-box-shadow: 8px 8px 4px 2px rgba(0, 0, 0, 0.29) !important;
 }
-.yolo-title {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+.timetable-title {
+  font-size: clamp(0.8rem, 1vw, 1.25rem);
 }
-.yolo-card > * {
-  margin: 0.5rem 0;
+.timetable-subtitle {
+  font-size: clamp(0.5rem, 0.8vw, 1.25rem);
 }
-.yolo-card > img {
-  max-height: 10rem;
+.timetable-card > * {
+  margin: 0.25rem 0;
+}
+.timetable-card > img {
+  margin-top: 0.75rem;
+}
+.timetable-card > img {
   object-fit: cover;
-}
-.tags {
-  font-size: 0.5rem;
-  gap: 0.5rem;
-}
-.tag {
-  padding: 0.25rem 0.5rem;
-  border: 2px solid var(--vt-c-black-soft);
-  border-radius: 1rem;
 }
 </style>

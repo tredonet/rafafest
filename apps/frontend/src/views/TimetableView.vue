@@ -11,70 +11,73 @@ import ballloons from "@/assets/img/balloons.svg";
 import { TimetableCard } from "@/components";
 </script>
 <template>
-  <div class="flex justify-center q-gutter-xl">
-
-    <div class="timetable">
+  <div class="flex justify-center q-gutter-xl q-pb-lg">
+    <div class="timetable justify-between">
       <div class="title-small">Thursday</div>
       <TimetableCard
         :image="concert"
-        title="Special Concert (?)"
-        time="21.00 - 02.00"
-        location="?"
+        title="Concert by Dominik Faitsch & Weltbildhauer:innen"
+        time="19.30"
+        location="On Air"
+        image-ratio="4/3"
+        location-link="https://goo.gl/maps/kCgmK3CXmwMU8Agm7"
       />
     </div>
     <div class="timetable">
       <div class="title-small">Friday</div>
-      <TimetableCard
-        :image="beach"
-        title="Beach Party"
-        time="12.00 - 18.00"
-        location="Beach"
-      />
-      <TimetableCard
-        :image="concert"
-        title="Special Concert + Dinner"
-        time="18.30 - 21.00"
-        location="Dandy Horse"
-      />
-
-      <TimetableCard
-        :image="centre"
-        title="Drinks in the centre"
-        time="21.00 - the end"
-        location="Centre"
-      />
+      <div class="timetable justify-between">
+        <TimetableCard
+          :image="beach"
+          title="Beach Day"
+          time="From 12.00"
+          location="Beach"
+          image-ratio="1/1"
+          location-link="https://goo.gl/maps/WJJ1DjZwHzYcS2wM7"
+        />
+        <TimetableCard
+          :image="centre"
+          title="Pre Birthday Party"
+          time="23.00 - the end"
+          location="Radio City"
+          image-ratio="16/9"
+          location-link="https://goo.gl/maps/WKoq2F87yGSivXWE8"
+        />
+      </div>
     </div>
 
     <div class="timetable">
       <div class="title-small">Saturday</div>
       <TimetableCard
         :image="picnic"
-        title="Pincnic in the park"
-        time="14.00 - 18.00"
+        title="Picnic in the Park"
+        time="13.00 - 17.00"
         location="Turia"
-        :tags="['blanket', 'drinks', 'snacks', 'games', 'sunscreen']"
+        image-ratio="20/9"
       />
       <TimetableCard
         title="Birthday Dinner"
         :image="dinner"
-        time="20.00 - 00.00"
+        time="20.00 - 22.30"
         location="Amor Amargo"
-        :tags="['dinner', 'drinks', 'easy-going', 'menu', '45']"
+        image-ratio="20/9"
+        location-link="https://goo.gl/maps/oogStghDPMeptrrj6"
       />
 
       <TimetableCard
         :image="party"
-        title="Birthday Party"
-        time="00.00 - the end"
-        location="City"
-        :tags="['dinner', 'drinks', 'easy-going', 'menu']"
+        title="Raphael Turns 30"
+        time="23.00 - 01.00"
+        location="Mat32"
+        image-ratio="26/9"
+        location-link="https://goo.gl/maps/AcxsYcxykMJhp3iV8"
       />
       <TimetableCard
         :image="dj"
-        title="Birthday Party"
-        time="00.00 - the end"
-        location="City"
-        :tags="['dinner', 'drinks', 'easy-going', 'menu']"
+        title="Dance, Dance, Dance"
+        time="01.30 - the end"
+        location="ElectroPura"
+        image-ratio="30/9"
+        location-link="https://goo.gl/maps/DrcdXP3BfdvKUW3K7"
       />
     </div>
 
@@ -86,13 +89,19 @@ import { TimetableCard } from "@/components";
       <TimetableCard
         :image="market"
         title="Birthday Brunch"
-        time="13.00 - 18.00"
-        location="Mercat de idk"
+        time="From 11.30"
+        location="Mercat Imprenta"
+        image-ratio="1/1"
+        location-link="https://goo.gl/maps/NaqLGEqV9w6jaEsc7"
       />
     </div>
   </div>
 </template>
 <style>
+.timetable .timetable {
+  flex: 1;
+}
+
 .timetable {
   gap: 1rem;
   display: flex;
