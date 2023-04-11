@@ -85,19 +85,23 @@ import weather from "@/assets/img/weather.svg";
       city has to offer. For that we're organising the weekend with a focus on
       food and are planning the following:
       <ul class="text notes" style="font-size: 0.8rem; margin: 0.5rem auto">
-        <li>Two dinners (Friday and Saturday)</li>
-        <li>One birthday-brunch (Sunday)</li>
-        <li>A gathering in the park (bring what you like)</li>
+        <li>One dinner at a restaurant on Saturday</li>
+        <li>One birthday-brunch at a foodcourt on Sunday</li>
+        <li>A gathering on the beach on Friday (bring what you like)</li>
+        <li>A picnic in the park on Saturday (bring what you like)</li>
       </ul>
-      We’re still finalizing the details, but as we are making group
-      reservations in restaurants we aim for a fixed price at around €25 per
-      person.
+      We made a group reservation at the restaurant for a fixed price of €45 per
+      person, drinks included. <br />
       <br />
-      When it comes to drinks, it’s highly dependent on you! Drinking a cup of
-      water or treating yourself with that nice bottle of Spanish Rioja that
-      perfectly matches the Tapas on the table? You decide! <br />
+      When it comes to the rest of the activities, it’s highly dependent on you!
+      Drinking a cup of water or treating yourself with that nice bottle of
+      Spanish Rioja that perfectly matches the Tapas on the table? You decide!
       <br />
-      PS Info on the party TBA.
+      <br />
+      During the nightly hours, we will be enjoying regular nightlife without
+      any reservations whatsoever. You can expect a bottle of beer to cost
+      around €3 and a pint around €5. In case you don't feel like dancing,
+      you'll find that places without a dancefloor are usually cheaper.
     </FAQCard>
   </div>
 </template>
