@@ -2,6 +2,7 @@
 import { SpeechBubble } from "@/components";
 import doodle from "@/assets/img/doodle.png";
 import sprite from "@/assets/doodles/rafa-sitting.svg";
+import github from "@/assets/icons/github.svg";
 import { onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useGuestStore } from "@/stores";
@@ -37,6 +38,7 @@ onBeforeMount(() => {
       </router-link>
     </div>
   </div>
+  <a href="https://github.com/tredonet/rafafest" target="_blank"><img :src="github" class="github"/></a>
 </template>
 <style>
 .lets-go {
@@ -69,6 +71,15 @@ onBeforeMount(() => {
   cursor: pointer;
 }
 
+.github{
+  cursor: pointer;
+  position: fixed;
+  margin: 1rem auto;
+  bottom: 0;
+  left: calc(50% - 0.75rem);
+  width: 1.5rem;
+}
+
 @media (max-width: 680px) {
   .sprite-home-page {
     top: -25vh;
@@ -77,6 +88,9 @@ onBeforeMount(() => {
   }
   .lets-go {
     margin: 25vh auto 0 auto;
+  }
+  .github{
+    position: sticky;
   }
 }
 </style>
