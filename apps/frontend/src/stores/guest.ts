@@ -4,7 +4,7 @@ import type { Friend, Guest } from "@rafafest/core";
 import { AxiosError } from "axios";
 import { defineStore } from "pinia";
 
-const LOCAL_STORAGE_KEY = "guest";
+// const LOCAL_STORAGE_KEY = "guest";
 
 interface GuestStoreState {
   guest?: Guest & {
@@ -15,8 +15,10 @@ interface GuestStoreState {
 
 export const useGuestStore = defineStore("guest", {
   state: (): GuestStoreState => {
-    const localGuest = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const guest = localGuest ? JSON.parse(localGuest) : undefined;
+    // const localGuest = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // const guest = localGuest ? JSON.parse(localGuest) : undefined;
+    const guest = dummyGuest;
+    //@ts-ignore
     return { guest };
   },
   actions: {
@@ -32,11 +34,11 @@ export const useGuestStore = defineStore("guest", {
         }
         //@ts-ignore for dummy data
         this.guest = { ...guest, friendsData, newFriends };
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
+        // localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.guest));
       } catch (e) {
         if (e instanceof AxiosError && e.response?.data === "not_found") {
           this.guest = undefined;
-          localStorage.removeItem(LOCAL_STORAGE_KEY);
+          // localStorage.removeItem(LOCAL_STORAGE_KEY);
         } else {
           throw e;
         }
