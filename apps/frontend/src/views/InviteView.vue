@@ -2,7 +2,6 @@
 import spriteStanding from "@/assets/doodles/rafa-standing-2.svg";
 import heartbreak from "@/assets/icons/heart-break.svg";
 import heartbeat from "@/assets/icons/heartbeat.svg";
-import link from "@/assets/img/link.png";
 import heart from "@/assets/icons/heart.svg";
 import { useGuestStore } from "@/stores";
 import { storeToRefs } from "pinia";
@@ -259,16 +258,11 @@ const onSubmit = async () => {
       </q-card-section>
 
       <q-card-section class="q-pt-none row justify-center">
-        <img :src="link" />
+        <!-- <img :src="link" /> -->
       </q-card-section>
       <q-card-section class="q-pt-none row justify-center">
         PS: if you're on your phone, click
-        <a
-          class="whatsapp-link"
-          href="https://chat.whatsapp.com/IEWXzuKzF1GFmLXWoeA780"
-        >
-          here </a
-        >.
+        <a class="whatsapp-link" href="#"> here </a>.
       </q-card-section>
 
       <q-card-actions align="right">

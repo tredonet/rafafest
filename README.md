@@ -1,4 +1,15 @@
+# RAFAFEST
+
+RAFAFEST is hobby project made to help organize Raphael's 30th birthday.
+
+## FAQ
+### Was RAFAFEST a great success?
+Yes.
+
 # CHANGELOG
+
+## v1.0.8
+- Dummified RAFAFEST
 
 ## v1.0.7
 - Added: Timetable

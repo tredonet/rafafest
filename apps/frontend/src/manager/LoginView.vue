@@ -14,7 +14,8 @@ const { token } = storeToRefs(authStore);
 const onLogin = async () => {
   try {
     error.value = false;
-    const bearer_token = await api.auth.login(username.value, password.value);
+    // const bearer_token = await api.auth.login(username.value, password.value);
+    const bearer_token = 0;
     if (!bearer_token) throw new Error();
     token.value = bearer_token;
     router.push("/manager");

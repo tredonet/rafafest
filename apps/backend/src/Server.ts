@@ -35,9 +35,9 @@ export class Server {
 	}
 
 	start() {
-		this.database.connect();
-		this.guestController.registerRoutes(this.server);
-		this.authController.registerRoutes(this.server);
+		// this.database.connect();
+		// this.guestController.registerRoutes(this.server);
+		// this.authController.registerRoutes(this.server);
 		this.systemController.registerRoutes(this.server);
 		this.server.use(ErrorHandler(this.logger));
 		this.server.use(history());

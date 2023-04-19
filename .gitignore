@@ -1,6 +1,6 @@
 # Logs
 data
-guest.ts
+.cd/
 apps/backend/public
 **/dist
 **/bin

@@ -6,12 +6,15 @@ import { computed, onBeforeMount, ref } from "vue";
 import { useGuestStore } from "@/stores";
 import { circleColour, attendanceIcon, capitalize } from "../utils";
 import { storeToRefs } from "pinia";
+import { dummyGuestlist } from "@/dummydata/guestList";
 
 const guestData = ref<GuestListGuest[]>([]);
 const guestStore = useGuestStore();
 const { guest } = storeToRefs(guestStore);
 onBeforeMount(async () => {
-  guestData.value = await api.guest.list(guest?.value?.code || "");
+  // guestData.value = await api.guest.list(guest?.value?.code || "");
+  //@ts-ignore
+  guestData.value = dummyGuestlist;
   guestData.value.sort((a, b) => (a.circle < b.circle ? 1 : -1));
 });
 

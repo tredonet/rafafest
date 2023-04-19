@@ -1,0 +1,16 @@
+export const dummyGuest = {
+  name: "John",
+  surname: "Doe",
+  email: "johndoe@example.com",
+  code: "01234567890",
+  attendenceDates: { from: "13/04/2023", to: "17/04/202" },
+  activities: ["Beach", "PubCrawl", "Party", "Brunch", "Dinner", "Park"],
+  invites: 1,
+  friends: [],
+  dietryPreference: [],
+  active: true,
+  circle: "valencia",
+  yearOfAcquaintance: 2022,
+  yearsShared: 1,
+  attending: "yes",
+};
